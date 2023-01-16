@@ -7,8 +7,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vitopia/customs/ontapscale.dart';
 
-class StudentLogin extends StatelessWidget {
+class StudentLogin extends StatefulWidget {
   const StudentLogin({Key? key}) : super(key: key);
+
+  @override
+  State<StudentLogin> createState() => _StudentLoginState();
+}
+
+class _StudentLoginState extends State<StudentLogin> {
+  void initState() {
+    super.initState();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
+      SystemUiOverlay.top,
+    ]);
+  }
 
   @override
   Widget build(BuildContext context) {

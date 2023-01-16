@@ -1,20 +1,67 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-class SplashScreen extends StatelessWidget {
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
+
+class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen>
+    with TickerProviderStateMixin {
+  late final AnimationController _controller;
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
+      SystemUiOverlay.bottom,
+    ]);
+    _controller = AnimationController(vsync: this);
+    Timer(const Duration(seconds: 7),
+        () => Navigator.of(context).pushNamed('/login'));
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.of(context).pushNamed('/login');
-        },
-        label: Text('Login'),
-      ),
-      body: Center(
-        child: Text("SAMUEL PHILIP"),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 580.h,
+                child: Lottie.asset(
+                  'assets/images/logo-animation.json',
+                  controller: _controller,
+                  onLoaded: (composition) {
+                    // Configure the AnimationController with the duration of the
+                    // Lottie file and start the animation.
+                    _controller
+                      ..duration = composition.duration
+                      ..forward();
+                  },
+                ),
+              ),
+              CupertinoActivityIndicator(
+                color: Colors.grey,
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
