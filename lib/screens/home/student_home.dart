@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vitopia/customs/ontapscale.dart';
 import 'package:vitopia/screens/Intro/Components/featured_events_slider.dart';
+import 'package:vitopia/screens/components/mytickets.dart';
 
 import '../Intro/Components/feature_cards.dart';
 import 'components/fab.dart';
@@ -43,6 +44,7 @@ class _StudentHomeState extends State<StudentHome> {
     _scrollController.dispose();
   }
 
+  var data2 = 'RY - ASASASDADASDADQ21';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -213,6 +215,22 @@ class _StudentHomeState extends State<StudentHome> {
                         ),
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Text(
+                            "Registered Events",
+                            style: GoogleFonts.montserrat(
+                              color: const Color(0xff040507),
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    MyTickets(data2: data2),
                     SizedBox(
                       height: 550.h,
                     )

@@ -19,10 +19,10 @@ class _LayoutState extends State<Layout> {
   int _selectedPage = 0;
 
   final List<Widget> pages = [
-    const StudentHome(),
-    const EventsPage(),
-    const InformationPage(),
-    const ProfilePage(),
+    StudentHome(),
+    EventsPage(),
+    InformationPage(),
+    ProfilePage(),
   ];
 
   void _onItemTapped(int index) {

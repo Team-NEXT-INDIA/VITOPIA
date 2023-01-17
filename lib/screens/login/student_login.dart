@@ -15,13 +15,6 @@ class StudentLogin extends StatefulWidget {
 }
 
 class _StudentLoginState extends State<StudentLogin> {
-  void initState() {
-    super.initState();
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
-      SystemUiOverlay.top,
-    ]);
-  }
-
   @override
   Widget build(BuildContext context) {
     final scaffoldBg = Color(0xff101010);
@@ -54,16 +47,15 @@ class _StudentLoginState extends State<StudentLogin> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 100, top: 58),
-                          child: Text(
-                            "2023",
-                            style: GoogleFonts.montserrat(
-                              color: Color(0xffFAFAFA),
-                              fontSize: 10.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
+                            padding: const EdgeInsets.only(left: 100, top: 58),
+                            child: Text(
+                              "2023",
+                              style: GoogleFonts.montserrat(
+                                color: Color(0xffFAFAFA),
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ))
                       ]),
                     ),
                     Image.asset(
