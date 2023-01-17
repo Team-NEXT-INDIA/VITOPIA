@@ -72,8 +72,8 @@ class _LayoutState extends State<Layout> {
         label: 'Events',
       ),
       const BottomNavigationBarItem(
-        icon: Icon(FluentIcons.info_20_filled),
-        label: 'Attendance',
+        icon: Icon(FluentIcons.reward_24_filled),
+        label: 'Mentions',
       ),
       const BottomNavigationBarItem(
         icon: Icon(FluentIcons.person_20_filled),

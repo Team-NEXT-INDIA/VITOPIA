@@ -47,6 +47,7 @@ dependencies:
   barcode_widget: ^2.0.3
   carousel_slider: ^4.2.1
   flutter_animate: ^2.2.0
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_test:

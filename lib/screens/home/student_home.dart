@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -10,6 +11,8 @@ import 'package:vitopia/screens/components/mytickets.dart';
 
 import '../Intro/Components/feature_cards.dart';
 import 'components/fab.dart';
+import 'components/footer_promo.dart';
+import 'components/for_you_widget.dart';
 
 class StudentHome extends StatefulWidget {
   const StudentHome({Key? key}) : super(key: key);
@@ -80,7 +83,7 @@ class _StudentHomeState extends State<StudentHome> {
                       child: Column(
                         children: [
                           FadeIn(
-                            duration: Duration(milliseconds: 450),
+                            duration: const Duration(milliseconds: 450),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -183,12 +186,12 @@ class _StudentHomeState extends State<StudentHome> {
                               ),
                             ),
                           ),
-                          FadeIn(child: FeaturedEvents()),
+                          FadeIn(child: const FeaturedEvents()),
                         ],
                       ),
                     ),
                     FadeIn(
-                      duration: Duration(milliseconds: 390),
+                      duration: const Duration(milliseconds: 390),
                       child: SingleChildScrollView(
                         padding: EdgeInsets.only(left: 10.h),
                         physics: const BouncingScrollPhysics(),
@@ -232,8 +235,16 @@ class _StudentHomeState extends State<StudentHome> {
                     ),
                     MyTickets(data2: data2),
                     SizedBox(
-                      height: 550.h,
-                    )
+                      height: 20.h,
+                    ),
+                    ForYouBuild(),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    FooterPromo(),
+                    SizedBox(
+                      height: 50.h,
+                    ),
                   ],
                 ),
               ),

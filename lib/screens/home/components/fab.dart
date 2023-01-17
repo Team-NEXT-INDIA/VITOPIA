@@ -12,10 +12,14 @@ Widget buildFAB(context) => AnimatedContainer(
       curve: Curves.linear,
       width: 45.h,
       height: 45.h,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(13),
+          gradient:
+              LinearGradient(colors: [Color(0xff356C8A), Color(0xff5AA5B9)])),
       child: FloatingActionButton.small(
         elevation: 20,
         tooltip: 'Scan QR Code',
-        backgroundColor: Color(0xff040507),
+        backgroundColor: Colors.transparent,
         foregroundColor: Color(0xffD3D7D8),
         onPressed: () {
           Navigator.of(context).push(
@@ -42,10 +46,14 @@ Widget buildExtendedFAB(context) => AnimatedContainer(
       child: Container(
         height: 50.h,
         width: 150.w,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(13),
+            gradient:
+                LinearGradient(colors: [Color(0xff356C8A), Color(0xff5AA5B9)])),
         child: FloatingActionButton.extended(
           elevation: 20,
           icon: FadeIn(child: Icon(FluentIcons.qr_code_20_filled)),
-          backgroundColor: Color(0xFF040507),
+          backgroundColor: Colors.transparent,
           onPressed: () {
             Navigator.of(context).push(
               MyCustomAnimatedRoute(
