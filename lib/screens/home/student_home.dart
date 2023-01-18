@@ -9,6 +9,7 @@ import 'package:vitopia/customs/ontapscale.dart';
 import 'package:vitopia/screens/Intro/Components/featured_events_slider.dart';
 import 'package:vitopia/screens/components/mytickets.dart';
 
+import '../../customs/CameraScreen.dart';
 import '../Intro/Components/feature_cards.dart';
 import 'components/fab.dart';
 import 'components/footer_promo.dart';
@@ -114,7 +115,14 @@ class _StudentHomeState extends State<StudentHome> {
                                     Padding(
                                       padding: EdgeInsets.only(right: 5.h),
                                       child: InkWell(
-                                        onTap: () {},
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            CupertinoPageRoute(
+                                                builder: (context) =>
+                                                    cameraScreen()),
+                                          );
+                                        },
                                         borderRadius:
                                             BorderRadius.circular(50.r),
                                         child: CircleAvatar(
@@ -132,7 +140,10 @@ class _StudentHomeState extends State<StudentHome> {
                                     Padding(
                                       padding: EdgeInsets.only(right: 0.h),
                                       child: InkWell(
-                                        onTap: () {},
+                                        onTap: () {
+                                          Navigator.of(context)
+                                              .pushNamed('/profile');
+                                        },
                                         borderRadius:
                                             BorderRadius.circular(50.r),
                                         child: CircleAvatar(

@@ -48,7 +48,6 @@ class EventsPage extends StatelessWidget {
             SliverFillRemaining(
               child: SingleChildScrollView(
                 controller: _scrollController,
-                physics: const BouncingScrollPhysics(),
                 child: Column(
                   children: [
                     Padding(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vitopia/screens/Intro/splash_screen.dart';
 import 'package:vitopia/screens/login/student_login.dart';
+import 'package:vitopia/screens/profilePage/profile_page.dart';
 
 import 'helpers/layout.dart';
 
@@ -33,6 +34,9 @@ class MyApp extends StatelessWidget {
             case '/studenthome':
               return CupertinoPageRoute(
                   builder: (_) => Layout(), settings: settings);
+            case '/profile':
+              return CupertinoPageRoute(
+                  builder: (_) => ProfilePage(), settings: settings);
           }
         },
         debugShowCheckedModeBanner: false,
