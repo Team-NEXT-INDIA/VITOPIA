@@ -4,6 +4,9 @@
 .dart_tool/
 .packages
 build/
+windows
+macos
+web
 # If you're building an application, you may want to check-in your pubspec.lock
 pubspec.lock
 
@@ -25,3 +28,15 @@ doc/api/
 
 .flutter-plugins
 .flutter-plugins-dependencies
+*.cc
+macos/Flutter/GeneratedPluginRegistrant.swift
+.idea/libraries/Dart_Packages.xml
+.idea/libraries/Dart_SDK.xml
+.idea/libraries/Flutter_Plugins.xml
+linux/flutter/generated_plugin_registrant.cc
+linux/flutter/generated_plugin_registrant.h
+linux/flutter/generated_plugins.cmake
+macos/Flutter/GeneratedPluginRegistrant.swift
+windows/flutter/generated_plugin_registrant.cc
+windows/flutter/generated_plugin_registrant.h
+windows/flutter/generated_plugins.cmake

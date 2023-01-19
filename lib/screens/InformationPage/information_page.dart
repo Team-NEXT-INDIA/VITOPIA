@@ -170,7 +170,7 @@ class InformationPage extends StatelessWidget {
                                 name: 'Dr. Aswathy R K',
                                 subtitle: 'Co Convenor (SAS)',
                                 image:
-                                    'https://vitap.ac.in/wp-content/uploads/2022/10/Aaswathy-R-K-DM.jpg',
+                                    'https://i.im.ge/2023/01/19/sNxu8X.IMG-3659.jpg',
                               ),
                               MentionsCardBuild(
                                 name: 'Dr. Suresh Jagannadham',

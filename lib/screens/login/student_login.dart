@@ -47,7 +47,7 @@ class _StudentLoginState extends State<StudentLogin> {
                           ),
                         ),
                         Padding(
-                            padding: const EdgeInsets.only(left: 100, top: 58),
+                            padding:  EdgeInsets.only(left: 92.h, top: 44.h),
                             child: Text(
                               "2023",
                               style: GoogleFonts.montserrat(
