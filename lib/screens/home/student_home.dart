@@ -1,5 +1,3 @@
-import 'dart:math' as math;
-
 import 'package:animate_do/animate_do.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
@@ -25,18 +23,28 @@ class StudentHome extends StatefulWidget {
 }
 
 class _StudentHomeState extends State<StudentHome> {
-  ScrollController _scrollController = new ScrollController();
+  ScrollController _fabscrollController = new ScrollController();
+  ScrollController _ScrollController = new ScrollController();
+  bool _isScrolled = false;
   bool isFAB = false;
 
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(() {
-      if (_scrollController.offset > 50) {
+    _fabscrollController = ScrollController();
+    _ScrollController = ScrollController();
+    _fabscrollController.addListener(() {
+      if (_fabscrollController.offset > 50) {
+        setState(() {
+          _isScrolled = true;
+        });
         setState(() {
           isFAB = true;
         });
       } else {
+        setState(() {
+          _isScrolled = false;
+        });
         setState(() {
           isFAB = false;
         });
@@ -47,49 +55,61 @@ class _StudentHomeState extends State<StudentHome> {
   @override
   void dispose() {
     super.dispose();
-    _scrollController.dispose();
+    _fabscrollController.dispose();
   }
 
   var data2 = 'RY - ASASASDADASDADQ21';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        toolbarHeight: 01,
+//        backgroundColor: Colors.transparent,
+        backgroundColor: Color(0x44000000),
+        elevation: 0,
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton:
           isFAB ? buildFAB(context) : buildExtendedFAB(context),
-      backgroundColor: Colors.black,
       body: CustomScrollView(
         slivers: [
-          const SliverAppBar(
-            collapsedHeight: 2,
-            toolbarHeight: 0,
-            automaticallyImplyLeading: false,
-            expandedHeight: 0,
-            elevation: 0,
-            pinned: true,
-            floating: false,
-            stretch: true,
-            surfaceTintColor: Colors.black,
-            backgroundColor: Color(0xDF7635F5),
-          ),
+          // const SliverAppBar(
+          //   collapsedHeight: 2,
+          //   toolbarHeight: 0,
+          //   automaticallyImplyLeading: false,
+          //   expandedHeight: 0,
+          //   elevation: 0,
+          //   pinned: true,
+          //   floating: false,
+          //   stretch: true,
+          //
+          //   // backgroundColor: Color(0xFF7635F5),
+          //   backgroundColor: Colors.transparent,
+          // ),
           SliverFillRemaining(
             child: SingleChildScrollView(
-              controller: _scrollController,
+              controller: _fabscrollController,
               child: Stack(children: [
                 Align(
                   alignment: AlignmentDirectional(1, 1),
-                  child: Container(
-                    height: 570.h,
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Color(0xFF7635F5),
-                          Colors.black,
-                        ],
-                        stops: [0, 1],
-                        transform: GradientRotation(math.pi / -2),
-                        begin: AlignmentDirectional(3.3, 0),
-                        end: AlignmentDirectional(2, 1),
+                  child: AnimatedOpacity(
+                    opacity: _isScrolled ? 0 : 1,
+                    duration: Duration(milliseconds: 500),
+                    child: Container(
+                      height: 570.h,
+                      decoration: const BoxDecoration(
+                        gradient: RadialGradient(
+                          colors: [
+                            // Color.fromARGB(255, 118, 53, 245),
+                            Color(0xFF7635F5),
+                            Colors.black
+                          ],
+                          center: Alignment(-1.0, -1.0),
+                          radius: 1.0,
+                        ),
                       ),
                     ),
                   ),
@@ -97,7 +117,8 @@ class _StudentHomeState extends State<StudentHome> {
                 Align(
                   alignment: const AlignmentDirectional(-0.91, -0.38),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10.h),
+                    // padding: EdgeInsets.only(top: 20.h),
+                    padding: EdgeInsets.symmetric(vertical: 40.h),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [

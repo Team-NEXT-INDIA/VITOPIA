@@ -15,13 +15,13 @@ class ForYouBuild extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.only(left: 13.h, top: 8.h, bottom: 10.h),
           child: Row(
             children: [
               Text(
                 "For You",
                 style: GoogleFonts.montserrat(
-                  color: const Color(0xff040507),
+                  color: Colors.white,
                   fontSize: 20.sp,
                   fontWeight: FontWeight.w600,
                 ),
