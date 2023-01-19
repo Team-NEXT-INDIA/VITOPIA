@@ -184,12 +184,6 @@ class InformationPage extends StatelessWidget {
                                 image:
                                     'https://cdn.vectorstock.com/i/preview-1x/33/63/person-gray-photo-placeholder-woman-vector-22863363.jpg',
                               ),
-                              MentionsCardBuild(
-                                name: 'Prof. Sneha Mula',
-                                subtitle: 'Co Convenor (VSL)',
-                                image:
-                                    'https://vitap.ac.in/wp-content/uploads/2022/04/Sneha-VSLMCC.jpg',
-                              ),
                             ],
                           ),
                         ],
