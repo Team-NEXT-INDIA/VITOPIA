@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vitopia/screens/InformationPage/mentioncolor.dart';
 
 import 'Components/mentions_card.dart';
 
@@ -17,7 +18,7 @@ class InformationPage extends StatelessWidget {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: mscaffoldBackground,
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
@@ -26,7 +27,7 @@ class InformationPage extends StatelessWidget {
                 child: Text(
                   "Honourable Mentions",
                   style: GoogleFonts.montserrat(
-                    color: const Color(0xff202022),
+                    color: Color(0xffFFFFFF),
                     fontSize: 21.sp,
                     fontWeight: FontWeight.bold,
                   ),
@@ -39,7 +40,7 @@ class InformationPage extends StatelessWidget {
               floating: false,
               stretch: true,
               surfaceTintColor: Color(0xffF9F9F9),
-              backgroundColor: Colors.white,
+              backgroundColor: mscaffoldBackground,
             ),
             SliverFillRemaining(
               child: SingleChildScrollView(
@@ -63,7 +64,7 @@ class InformationPage extends StatelessWidget {
                           Text(
                             "VITAP",
                             style: GoogleFonts.montserrat(
-                              color: const Color(0xff040507),
+                              color: Color(0xffFFFFFF),
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
                             ),
@@ -119,7 +120,7 @@ class InformationPage extends StatelessWidget {
                           Text(
                             "Core Committee of VITOPIA© 2023",
                             style: GoogleFonts.montserrat(
-                              color: const Color(0xff040507),
+                              color: Color(0xffFFFFFF),
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
                             ),
@@ -152,7 +153,7 @@ class InformationPage extends StatelessWidget {
                                 name: 'Dr. Sayyed Faizan Ali ',
                                 subtitle: 'Co Convenor (SENSE)',
                                 image:
-                                    'https://vitap.ac.in/wp-content/uploads/2022/10/Mr.faizan-ali.jpg',
+                                    'https://i.im.ge/2023/01/19/sAlUpK.DSC-0017-JPG.jpg',
                               ),
                               MentionsCardBuild(
                                 name: 'Dr. Manikanta Ravindra Kumar V ',
@@ -184,12 +185,6 @@ class InformationPage extends StatelessWidget {
                                 image:
                                     'https://cdn.vectorstock.com/i/preview-1x/33/63/person-gray-photo-placeholder-woman-vector-22863363.jpg',
                               ),
-                              MentionsCardBuild(
-                                name: 'Prof. Sneha Mula',
-                                subtitle: 'Co Convenor (VSL)',
-                                image:
-                                    'https://vitap.ac.in/wp-content/uploads/2022/04/Sneha-VSLMCC.jpg',
-                              ),
                             ],
                           ),
                         ],
@@ -210,7 +205,7 @@ class InformationPage extends StatelessWidget {
                           Text(
                             "Student Welfare",
                             style: GoogleFonts.montserrat(
-                              color: const Color(0xff040507),
+                              color: Color(0xffFFFFFF),
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
                             ),
@@ -254,7 +249,7 @@ class InformationPage extends StatelessWidget {
                           Text(
                             "Sports",
                             style: GoogleFonts.montserrat(
-                              color: const Color(0xff040507),
+                              color:Color(0xffFFFFFF),
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
                             ),

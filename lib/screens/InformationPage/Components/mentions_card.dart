@@ -28,7 +28,7 @@ class MentionsCardBuild extends StatelessWidget {
         height: 240.h,
         width: 135.h,
         child: Card(
-          color: Color(0xffF5F5F5),
+          color: Color(0xff261F2D),
           elevation: 0,
           clipBehavior: Clip.antiAlias,
           shape:
@@ -85,7 +85,7 @@ class MentionsCardBuild extends StatelessWidget {
                     Text(
                       name,
                       style: GoogleFonts.montserrat(
-                        color: Color(0xff333333),
+                        color: Color(0xffFFFFFF),
                         fontSize: 13.sp,
                         fontWeight: FontWeight.bold,
                       ),
@@ -93,7 +93,7 @@ class MentionsCardBuild extends StatelessWidget {
                     Text(
                       subtitle,
                       style: GoogleFonts.montserrat(
-                        color: Color(0xff4A4D4E),
+                        color: Color(0xffFFFFFF),
                         fontSize: 9.sp,
                         fontWeight: FontWeight.w500,
                       ),
