@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,6 @@ import 'package:vitopia/customs/ontapscale.dart';
 import 'package:vitopia/screens/Intro/Components/featured_events_slider.dart';
 import 'package:vitopia/screens/components/mytickets.dart';
 
-import '../../customs/CameraScreen.dart';
 import '../Intro/Components/feature_cards.dart';
 import 'components/fab.dart';
 import 'components/footer_promo.dart';
@@ -55,7 +55,7 @@ class _StudentHomeState extends State<StudentHome> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton:
           isFAB ? buildFAB(context) : buildExtendedFAB(context),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       body: CustomScrollView(
         slivers: [
           const SliverAppBar(
@@ -67,201 +67,260 @@ class _StudentHomeState extends State<StudentHome> {
             pinned: true,
             floating: false,
             stretch: true,
-            surfaceTintColor: Color(0xffF9F9F9),
-            backgroundColor: Colors.white,
+            surfaceTintColor: Colors.black,
+            backgroundColor: Color(0xDF7635F5),
           ),
           SliverFillRemaining(
             child: SingleChildScrollView(
               controller: _scrollController,
-              physics: const BouncingScrollPhysics(),
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 10.h),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w),
-                      child: Column(
-                        children: [
-                          FadeIn(
-                            duration: const Duration(milliseconds: 450),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Welcome",
-                                      style: GoogleFonts.montserrat(
-                                        color: const Color(0xffB0B0B0),
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    Text(
-                                      "Samuel Philip",
-                                      style: GoogleFonts.montserrat(
-                                        color: const Color(0xff202022),
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(right: 5.h),
-                                      child: InkWell(
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            CupertinoPageRoute(
-                                                builder: (context) =>
-                                                    cameraScreen()),
-                                          );
-                                        },
-                                        borderRadius:
-                                            BorderRadius.circular(50.r),
-                                        child: CircleAvatar(
-                                          backgroundColor:
-                                              const Color(0x25E2E2E2),
-                                          radius: 25.r,
-                                          child: Icon(
-                                            FluentIcons.qr_code_20_regular,
-                                            size: 20.sp,
-                                            color: const Color(0xffD2D8DA),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(right: 0.h),
-                                      child: InkWell(
-                                        onTap: () {
-                                          Navigator.of(context)
-                                              .pushNamed('/profile');
-                                        },
-                                        borderRadius:
-                                            BorderRadius.circular(50.r),
-                                        child: CircleAvatar(
-                                          backgroundColor:
-                                              const Color(0x25E2E2E2),
-                                          radius: 25.r,
-                                          child: Icon(
-                                            FluentIcons.person_20_regular,
-                                            size: 20.sp,
-                                            color: const Color(0xffD2D8DA),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                          CustomTap(
-                            onTap: () {},
-                            child: Container(
-                              margin: EdgeInsets.only(top: 10.h),
-                              height: 42.h,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  color: const Color(0xffF7F7F7),
-                                  borderRadius: BorderRadius.circular(7)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+              child: Stack(children: [
+                Align(
+                  alignment: AlignmentDirectional(22, -9.52.h),
+                  child: Container(
+                    width: 393.2,
+                    height: 915.9,
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Color(0xFF7635F5),
+                          Colors.black,
+                        ],
+                        stops: [0, 1],
+                        // begin: AlignmentDirectional(5.0, 0),
+                        // end: AlignmentDirectional(3.4, 1),
+                        begin: AlignmentDirectional(5.0, 0),
+                        end: AlignmentDirectional(3.4, 1),
+                      ),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: const AlignmentDirectional(-0.91, -0.38),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.h),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
+                          child: Column(
+                            children: [
+                              FadeIn(
+                                duration: const Duration(milliseconds: 450),
                                 child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Icon(
-                                      FontAwesomeIcons.magnifyingGlass,
-                                      color: const Color(0xffD3D7D8),
-                                      size: 18.sp,
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Welcome",
+                                          style: GoogleFonts.montserrat(
+                                            color: const Color(0xffCECECE),
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        Text(
+                                          "Samuel Philip",
+                                          style: GoogleFonts.montserrat(
+                                            color: Colors.white,
+                                            fontSize: 20.sp,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        )
+                                      ],
                                     ),
-                                    SizedBox(
-                                      width: 10.w,
-                                    ),
-                                    Text(
-                                      "Search events by name",
-                                      style: GoogleFonts.montserrat(
-                                        color: const Color(0xffD3D7D8),
-                                        fontSize: 15.sp,
-                                        fontWeight: FontWeight.normal,
-                                      ),
+                                    Row(
+                                      children: [
+                                        // Padding(
+                                        //   padding: EdgeInsets.only(right: 5.h),
+                                        //   child: InkWell(
+                                        //     onTap: () {
+                                        //       Navigator.push(
+                                        //         context,
+                                        //         CupertinoPageRoute(
+                                        //             builder: (context) =>
+                                        //                 const cameraScreen()),
+                                        //       );
+                                        //     },
+                                        //     borderRadius:
+                                        //         BorderRadius.circular(50.r),
+                                        //     child: CircleAvatar(
+                                        //       backgroundColor:
+                                        //           const Color(0x25E2E2E2),
+                                        //       radius: 25.r,
+                                        //       child: Icon(
+                                        //         FluentIcons.qr_code_20_regular,
+                                        //         size: 20.sp,
+                                        //         color: const Color(0xffD2D8DA),
+                                        //       ),
+                                        //     ),
+                                        //   ),
+                                        // ),
+                                        Padding(
+                                          padding: EdgeInsets.only(right: 0.h),
+                                          child: InkWell(
+                                            onTap: () {
+                                              Navigator.of(context)
+                                                  .pushNamed('/profile');
+                                            },
+                                            borderRadius:
+                                                BorderRadius.circular(50.r),
+                                            child: CircleAvatar(
+                                              backgroundColor:
+                                                  const Color(0x25F5EFFF),
+                                              radius: 25.r,
+                                              child: Icon(
+                                                FluentIcons.person_32_filled,
+                                                size: 20.sp,
+                                                color: const Color(0xffFFFFFF),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     )
                                   ],
                                 ),
                               ),
-                            ),
+                              AnimatedTextField(),
+                              FadeIn(child: const FeaturedEvents()),
+                            ],
                           ),
-                          FadeIn(child: const FeaturedEvents()),
-                        ],
-                      ),
-                    ),
-                    FadeIn(
-                      duration: const Duration(milliseconds: 390),
-                      child: SingleChildScrollView(
-                        padding: EdgeInsets.only(left: 10.h),
-                        physics: const BouncingScrollPhysics(),
-                        clipBehavior: Clip.none,
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            const FeatureCards(
-                              image: 'assets/images/poster-1.jpg',
-                              title: 'Indian Ocean Band is Here!',
-                              subtitle: '🎸 Read to Rock ? ',
-                            ),
-                            const FeatureCards(
-                              image: 'assets/images/poster-2.jpg',
-                              title: 'International Cultural Fest',
-                              subtitle: '⭐️ Dash the dearing',
-                            ),
-                            const FeatureCards(
-                              image: 'assets/images/poster-3.jpeg',
-                              title: 'International Cultural Fest',
-                              subtitle: '⭐️ Dash the dearing',
-                            ),
-                          ],
                         ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Text(
-                            "Registered Events",
-                            style: GoogleFonts.montserrat(
-                              color: const Color(0xff040507),
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.w600,
+                        FadeIn(
+                          duration: const Duration(milliseconds: 390),
+                          child: SingleChildScrollView(
+                            padding: EdgeInsets.only(left: 10.h),
+                            physics: const BouncingScrollPhysics(),
+                            clipBehavior: Clip.none,
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                const FeatureCards(
+                                  image: 'assets/images/poster-1.jpg',
+                                  title: 'Indian Ocean Band is Here!',
+                                  subtitle: '🎸 Read to Rock ? ',
+                                ),
+                                const FeatureCards(
+                                  image: 'assets/images/poster-2.jpg',
+                                  title: 'International Cultural Fest',
+                                  subtitle: '⭐️ Dash the dearing',
+                                ),
+                                const FeatureCards(
+                                  image: 'assets/images/poster-3.jpeg',
+                                  title: 'International Cultural Fest',
+                                  subtitle: '⭐️ Dash the dearing',
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 13.h, top: 8.h, bottom: 10.h),
+                          child: Row(
+                            children: [
+                              Text(
+                                "Registered Events",
+                                style: GoogleFonts.montserrat(
+                                  color: const Color(0xffFFFFFF),
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        MyTickets(data2: data2),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        const ForYouBuild(),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        const FooterPromo(),
+                        SizedBox(
+                          height: 50.h,
+                        ),
+                      ],
                     ),
-                    MyTickets(data2: data2),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    ForYouBuild(),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    FooterPromo(),
-                    SizedBox(
-                      height: 50.h,
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+              ]),
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class AnimatedTextField extends StatelessWidget {
+  const AnimatedTextField({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomTap(
+      onTap: () {},
+      child: Container(
+        margin: EdgeInsets.only(top: 10.h),
+        height: 42.h,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            border: Border.all(width: 0.5, color: Color(0x23FFFFFF)),
+            color: const Color(0x37FFFFFF),
+            borderRadius: BorderRadius.circular(7)),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Icon(
+                FontAwesomeIcons.magnifyingGlass,
+                color: const Color(0xf37FFFFFF),
+                size: 18.sp,
+              ),
+              SizedBox(
+                width: 10.w,
+              ),
+              AnimatedTextKit(
+                pause: Duration(milliseconds: 200),
+                totalRepeatCount: 100,
+                repeatForever: true,
+                animatedTexts: [
+                  RotateAnimatedText(
+                    'Search Events by Name',
+                    textStyle: GoogleFonts.montserrat(
+                      color: const Color(0xffD3D7D8),
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                  RotateAnimatedText('Rock Music',
+                      textStyle: GoogleFonts.montserrat(
+                        color: const Color(0xffD3D7D8),
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.normal,
+                      )),
+                  RotateAnimatedText('Cricket Tournament',
+                      textStyle: GoogleFonts.montserrat(
+                        color: const Color(0xffD3D7D8),
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.normal,
+                      )),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

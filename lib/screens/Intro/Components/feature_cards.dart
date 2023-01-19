@@ -25,11 +25,6 @@ class FeatureCards extends StatelessWidget {
         onTap: () {},
         child: Container(
           decoration: BoxDecoration(
-            border: Border.all(
-              color: Color(0xfffefefe),
-              strokeAlign: StrokeAlign.outside,
-              width: 0.2.w,
-            ),
             boxShadow: [
               BoxShadow(
                 offset: Offset(0, 0),
@@ -82,7 +77,7 @@ class FeatureCards extends StatelessWidget {
                           end: Alignment(0.0, -1),
                           begin: Alignment(0.0, 0),
                           colors: <Color>[
-                            const Color(0xff000000),
+                            const Color(0xff090014),
                             Colors.black12.withOpacity(0.0)
                           ],
                         ),
