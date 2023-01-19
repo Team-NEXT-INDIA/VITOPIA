@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:animate_do/animate_do.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
@@ -75,10 +77,9 @@ class _StudentHomeState extends State<StudentHome> {
               controller: _scrollController,
               child: Stack(children: [
                 Align(
-                  alignment: AlignmentDirectional(22, -9.52.h),
+                  alignment: AlignmentDirectional(1, 1),
                   child: Container(
-                    width: 393.2,
-                    height: 915.9,
+                    height: 570.h,
                     decoration: const BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
@@ -86,10 +87,9 @@ class _StudentHomeState extends State<StudentHome> {
                           Colors.black,
                         ],
                         stops: [0, 1],
-                        // begin: AlignmentDirectional(5.0, 0),
-                        // end: AlignmentDirectional(3.4, 1),
-                        begin: AlignmentDirectional(5.0, 0),
-                        end: AlignmentDirectional(3.4, 1),
+                        transform: GradientRotation(math.pi / -2),
+                        begin: AlignmentDirectional(3.3, 0),
+                        end: AlignmentDirectional(2, 1),
                       ),
                     ),
                   ),

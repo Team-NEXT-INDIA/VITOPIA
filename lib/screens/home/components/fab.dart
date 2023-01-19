@@ -14,8 +14,17 @@ Widget buildFAB(context) => AnimatedContainer(
       height: 45.h,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(13),
-          gradient:
-              LinearGradient(colors: [Color(0xff356C8A), Color(0xff5AA5B9)])),
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(3, 1),
+              spreadRadius: -8,
+              blurRadius: 23,
+              color: Color.fromRGBO(223, 193, 255, 1),
+            )
+          ],
+          // gradient:
+          //     LinearGradient(colors: [Color(0xff356C8A), Color(0xff5AA5B9)])
+          color: Color(0xff7636F6)),
       child: FloatingActionButton.small(
         elevation: 20,
         tooltip: 'Scan QR Code',
@@ -47,9 +56,19 @@ Widget buildExtendedFAB(context) => AnimatedContainer(
         height: 50.h,
         width: 150.w,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(13),
-            gradient:
-                LinearGradient(colors: [Color(0xff356C8A), Color(0xff5AA5B9)])),
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(3, 1),
+              spreadRadius: -8,
+              blurRadius: 23,
+              color: Color.fromRGBO(223, 193, 255, 1),
+            )
+          ],
+          borderRadius: BorderRadius.circular(13),
+          // gradient:
+          //     LinearGradient(colors: [Color(0xff356C8A), Color(0xff5AA5B9)])
+          color: Color(0xff7636F6),
+        ),
         child: FloatingActionButton.extended(
           elevation: 20,
           icon: FadeIn(child: Icon(FluentIcons.qr_code_20_filled)),
