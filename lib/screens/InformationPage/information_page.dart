@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vitopia/screens/InformationPage/mentioncolor.dart';
 
 import 'Components/mentions_card.dart';
 
@@ -17,7 +18,7 @@ class InformationPage extends StatelessWidget {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: mscaffoldBackground,
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
@@ -26,7 +27,7 @@ class InformationPage extends StatelessWidget {
                 child: Text(
                   "Honourable Mentions",
                   style: GoogleFonts.montserrat(
-                    color: const Color(0xff202022),
+                    color: Color(0xffFFFFFF),
                     fontSize: 21.sp,
                     fontWeight: FontWeight.bold,
                   ),
@@ -39,7 +40,7 @@ class InformationPage extends StatelessWidget {
               floating: false,
               stretch: true,
               surfaceTintColor: Color(0xffF9F9F9),
-              backgroundColor: Colors.white,
+              backgroundColor: mscaffoldBackground,
             ),
             SliverFillRemaining(
               child: SingleChildScrollView(
@@ -63,7 +64,7 @@ class InformationPage extends StatelessWidget {
                           Text(
                             "VITAP",
                             style: GoogleFonts.montserrat(
-                              color: const Color(0xff040507),
+                              color: Color(0xffFFFFFF),
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
                             ),
@@ -119,7 +120,7 @@ class InformationPage extends StatelessWidget {
                           Text(
                             "Core Committee of VITOPIA© 2023",
                             style: GoogleFonts.montserrat(
-                              color: const Color(0xff040507),
+                              color: Color(0xffFFFFFF),
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
                             ),
@@ -204,7 +205,7 @@ class InformationPage extends StatelessWidget {
                           Text(
                             "Student Welfare",
                             style: GoogleFonts.montserrat(
-                              color: const Color(0xff040507),
+                              color: Color(0xffFFFFFF),
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
                             ),
@@ -248,7 +249,7 @@ class InformationPage extends StatelessWidget {
                           Text(
                             "Sports",
                             style: GoogleFonts.montserrat(
-                              color: const Color(0xff040507),
+                              color:Color(0xffFFFFFF),
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
                             ),
