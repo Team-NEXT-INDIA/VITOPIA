@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vitopia/screens/InformationPage/information_page.dart';
 import 'package:vitopia/screens/home/student_home.dart';
 
+import '../customs/colors.dart';
 import '../screens/events/events_page.dart';
 import '../screens/profilePage/profile_page.dart';
 
@@ -40,7 +41,7 @@ class _LayoutState extends State<Layout> {
         height: 60.h,
         child: BottomNavigationBar(
             elevation: 18,
-            backgroundColor: Colors.white,
+            backgroundColor: bottomNavigation,
             showSelectedLabels: true,
             enableFeedback: true,
             currentIndex: _selectedPage,
@@ -48,7 +49,7 @@ class _LayoutState extends State<Layout> {
               fontSize: 9.5.sp,
               fontWeight: FontWeight.w400,
             ),
-            selectedItemColor: Color(0xff040507),
+            selectedItemColor: Color(0xffDFC1FF),
             unselectedItemColor: Color(0xffCFD4D5),
             selectedFontSize: 10.sp,
             unselectedFontSize: 10.sp,

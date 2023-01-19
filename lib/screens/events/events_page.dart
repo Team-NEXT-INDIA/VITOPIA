@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../customs/colors.dart';
 import '../../customs/ontapscale.dart';
 import '../components/mytickets.dart';
 
@@ -16,12 +17,13 @@ class EventsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScrollController _scrollController = new ScrollController();
+
     return GestureDetector(
       onTap: () {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: scaffoldBackground,
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
@@ -30,7 +32,7 @@ class EventsPage extends StatelessWidget {
                 child: Text(
                   "Our Events",
                   style: GoogleFonts.montserrat(
-                    color: const Color(0xff202022),
+                    color: Colors.white,
                     fontSize: 21.sp,
                     fontWeight: FontWeight.bold,
                   ),
@@ -42,8 +44,8 @@ class EventsPage extends StatelessWidget {
               pinned: true,
               floating: false,
               stretch: true,
-              surfaceTintColor: Color(0xffF9F9F9),
-              backgroundColor: Colors.white,
+              surfaceTintColor: const Color(0xffF9F9F9),
+              backgroundColor: scaffoldBackground,
             ),
             SliverFillRemaining(
               child: SingleChildScrollView(
@@ -59,7 +61,7 @@ class EventsPage extends StatelessWidget {
                           height: 42.h,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                              color: const Color(0xffF7F7F7),
+                              color: const Color(0x21ffffff),
                               borderRadius: BorderRadius.circular(7.r)),
                           child: Padding(
                             padding: EdgeInsets.all(8.0.h),
@@ -67,7 +69,7 @@ class EventsPage extends StatelessWidget {
                               children: [
                                 Icon(
                                   FontAwesomeIcons.magnifyingGlass,
-                                  color: const Color(0xffD3D7D8),
+                                  color: const Color(0x37ffffff),
                                   size: 18.sp,
                                 ),
                                 SizedBox(
@@ -76,7 +78,7 @@ class EventsPage extends StatelessWidget {
                                 Text(
                                   "Search events by name",
                                   style: GoogleFonts.montserrat(
-                                    color: const Color(0xffD3D7D8),
+                                    color: const Color(0x37ffffff),
                                     fontSize: 15.sp,
                                     fontWeight: FontWeight.normal,
                                   ),
@@ -97,9 +99,9 @@ class EventsPage extends StatelessWidget {
                           Text(
                             "Registered Events",
                             style: GoogleFonts.montserrat(
-                              color: const Color(0xff040507),
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.w600,
+                              color: primaryText,
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                         ],
@@ -113,9 +115,9 @@ class EventsPage extends StatelessWidget {
                           Text(
                             "Explore",
                             style: GoogleFonts.montserrat(
-                              color: const Color(0xff040507),
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.w600,
+                              color: const Color(0xffFFFFFF),
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                         ],
@@ -128,7 +130,7 @@ class EventsPage extends StatelessWidget {
                             CustomTap(
                               onTap: () {},
                               child: Card(
-                                color: Color(0xffF5F5F5),
+                                color: cardBackground,
                                 elevation: 0,
                                 clipBehavior: Clip.antiAlias,
                                 shape: RoundedRectangleBorder(
@@ -138,13 +140,13 @@ class EventsPage extends StatelessWidget {
                                     Stack(
                                       children: [
                                         Ink.image(
-                                          image: AssetImage(
+                                          image: const AssetImage(
                                               'assets/images/poster-1.jpg'),
-                                          child: InkWell(),
+                                          child: const InkWell(),
                                           height: 240.h,
                                           fit: BoxFit.cover,
                                         ),
-                                        Positioned(
+                                        const Positioned(
                                             top: 10,
                                             right: 10,
                                             child: CircleAvatar(
@@ -172,7 +174,7 @@ class EventsPage extends StatelessWidget {
                                           Text(
                                             "Event Name",
                                             style: GoogleFonts.montserrat(
-                                              color: Color(0xff333333),
+                                              color: primaryText,
                                               fontSize: 15.sp,
                                               fontWeight: FontWeight.bold,
                                             ),
@@ -180,7 +182,7 @@ class EventsPage extends StatelessWidget {
                                           Text(
                                             "Sub title",
                                             style: GoogleFonts.montserrat(
-                                              color: Color(0xff4A4D4E),
+                                              color: secondaryText,
                                               fontSize: 9.sp,
                                               fontWeight: FontWeight.w500,
                                             ),
@@ -190,7 +192,7 @@ class EventsPage extends StatelessWidget {
                                             child: Text(
                                               "Lorem Ipsum You place the search terms at the end of the URL, so before you could add the size if you’d like",
                                               style: GoogleFonts.montserrat(
-                                                color: Color(0xff232323),
+                                                color: secondaryText,
                                                 fontSize: 13.sp,
                                                 fontWeight: FontWeight.normal,
                                               ),
@@ -205,7 +207,14 @@ class EventsPage extends StatelessWidget {
                                       children: [
                                         TextButton(
                                             onPressed: () {},
-                                            child: Text("View")),
+                                            child: Text(
+                                              "View",
+                                              style: GoogleFonts.montserrat(
+                                                color: lightPurple,
+                                                fontSize: 13.sp,
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                            )),
                                       ],
                                     )
                                   ],
@@ -216,7 +225,7 @@ class EventsPage extends StatelessWidget {
                             CustomTap(
                               onTap: () {},
                               child: Card(
-                                color: Color(0xffF5F5F5),
+                                color: cardBackground,
                                 elevation: 0,
                                 clipBehavior: Clip.antiAlias,
                                 shape: RoundedRectangleBorder(
@@ -226,13 +235,13 @@ class EventsPage extends StatelessWidget {
                                     Stack(
                                       children: [
                                         Ink.image(
-                                          image: AssetImage(
+                                          image: const AssetImage(
                                               'assets/images/poster-1.jpg'),
-                                          child: InkWell(),
+                                          child: const InkWell(),
                                           height: 240.h,
                                           fit: BoxFit.cover,
                                         ),
-                                        Positioned(
+                                        const Positioned(
                                             top: 10,
                                             right: 10,
                                             child: CircleAvatar(
@@ -260,7 +269,7 @@ class EventsPage extends StatelessWidget {
                                           Text(
                                             "Event Name",
                                             style: GoogleFonts.montserrat(
-                                              color: Color(0xff333333),
+                                              color: primaryText,
                                               fontSize: 15.sp,
                                               fontWeight: FontWeight.bold,
                                             ),
@@ -268,7 +277,7 @@ class EventsPage extends StatelessWidget {
                                           Text(
                                             "Sub title",
                                             style: GoogleFonts.montserrat(
-                                              color: Color(0xff4A4D4E),
+                                              color: secondaryText,
                                               fontSize: 9.sp,
                                               fontWeight: FontWeight.w500,
                                             ),
@@ -278,7 +287,7 @@ class EventsPage extends StatelessWidget {
                                             child: Text(
                                               "Lorem Ipsum You place the search terms at the end of the URL, so before you could add the size if you’d like",
                                               style: GoogleFonts.montserrat(
-                                                color: Color(0xff232323),
+                                                color: secondaryText,
                                                 fontSize: 13.sp,
                                                 fontWeight: FontWeight.normal,
                                               ),
@@ -293,7 +302,14 @@ class EventsPage extends StatelessWidget {
                                       children: [
                                         TextButton(
                                             onPressed: () {},
-                                            child: Text("View")),
+                                            child: Text(
+                                              "View",
+                                              style: GoogleFonts.montserrat(
+                                                color: lightPurple,
+                                                fontSize: 13.sp,
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                            )),
                                       ],
                                     )
                                   ],
@@ -304,7 +320,7 @@ class EventsPage extends StatelessWidget {
                             CustomTap(
                               onTap: () {},
                               child: Card(
-                                color: Color(0xffF5F5F5),
+                                color: cardBackground,
                                 elevation: 0,
                                 clipBehavior: Clip.antiAlias,
                                 shape: RoundedRectangleBorder(
@@ -314,13 +330,13 @@ class EventsPage extends StatelessWidget {
                                     Stack(
                                       children: [
                                         Ink.image(
-                                          image: AssetImage(
+                                          image: const AssetImage(
                                               'assets/images/poster-1.jpg'),
-                                          child: InkWell(),
+                                          child: const InkWell(),
                                           height: 240.h,
                                           fit: BoxFit.cover,
                                         ),
-                                        Positioned(
+                                        const Positioned(
                                             top: 10,
                                             right: 10,
                                             child: CircleAvatar(
@@ -348,7 +364,7 @@ class EventsPage extends StatelessWidget {
                                           Text(
                                             "Event Name",
                                             style: GoogleFonts.montserrat(
-                                              color: Color(0xff333333),
+                                              color: primaryText,
                                               fontSize: 15.sp,
                                               fontWeight: FontWeight.bold,
                                             ),
@@ -356,7 +372,7 @@ class EventsPage extends StatelessWidget {
                                           Text(
                                             "Sub title",
                                             style: GoogleFonts.montserrat(
-                                              color: Color(0xff4A4D4E),
+                                              color: secondaryText,
                                               fontSize: 9.sp,
                                               fontWeight: FontWeight.w500,
                                             ),
@@ -366,7 +382,7 @@ class EventsPage extends StatelessWidget {
                                             child: Text(
                                               "Lorem Ipsum You place the search terms at the end of the URL, so before you could add the size if you’d like",
                                               style: GoogleFonts.montserrat(
-                                                color: Color(0xff232323),
+                                                color: secondaryText,
                                                 fontSize: 13.sp,
                                                 fontWeight: FontWeight.normal,
                                               ),
@@ -381,7 +397,14 @@ class EventsPage extends StatelessWidget {
                                       children: [
                                         TextButton(
                                             onPressed: () {},
-                                            child: Text("View")),
+                                            child: Text(
+                                              "View",
+                                              style: GoogleFonts.montserrat(
+                                                color: lightPurple,
+                                                fontSize: 13.sp,
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                            )),
                                       ],
                                     )
                                   ],
@@ -392,7 +415,7 @@ class EventsPage extends StatelessWidget {
                             CustomTap(
                               onTap: () {},
                               child: Card(
-                                color: Color(0xffF5F5F5),
+                                color: cardBackground,
                                 elevation: 0,
                                 clipBehavior: Clip.antiAlias,
                                 shape: RoundedRectangleBorder(
@@ -402,13 +425,13 @@ class EventsPage extends StatelessWidget {
                                     Stack(
                                       children: [
                                         Ink.image(
-                                          image: AssetImage(
+                                          image: const AssetImage(
                                               'assets/images/poster-1.jpg'),
-                                          child: InkWell(),
+                                          child: const InkWell(),
                                           height: 240.h,
                                           fit: BoxFit.cover,
                                         ),
-                                        Positioned(
+                                        const Positioned(
                                             top: 10,
                                             right: 10,
                                             child: CircleAvatar(
@@ -436,7 +459,7 @@ class EventsPage extends StatelessWidget {
                                           Text(
                                             "Event Name",
                                             style: GoogleFonts.montserrat(
-                                              color: Color(0xff333333),
+                                              color: primaryText,
                                               fontSize: 15.sp,
                                               fontWeight: FontWeight.bold,
                                             ),
@@ -444,7 +467,7 @@ class EventsPage extends StatelessWidget {
                                           Text(
                                             "Sub title",
                                             style: GoogleFonts.montserrat(
-                                              color: Color(0xff4A4D4E),
+                                              color: secondaryText,
                                               fontSize: 9.sp,
                                               fontWeight: FontWeight.w500,
                                             ),
@@ -454,7 +477,7 @@ class EventsPage extends StatelessWidget {
                                             child: Text(
                                               "Lorem Ipsum You place the search terms at the end of the URL, so before you could add the size if you’d like",
                                               style: GoogleFonts.montserrat(
-                                                color: Color(0xff232323),
+                                                color: secondaryText,
                                                 fontSize: 13.sp,
                                                 fontWeight: FontWeight.normal,
                                               ),
@@ -469,14 +492,20 @@ class EventsPage extends StatelessWidget {
                                       children: [
                                         TextButton(
                                             onPressed: () {},
-                                            child: Text("View")),
+                                            child: Text(
+                                              "View",
+                                              style: GoogleFonts.montserrat(
+                                                color: lightPurple,
+                                                fontSize: 13.sp,
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                            )),
                                       ],
                                     )
                                   ],
                                 ),
                               ),
                             ),
-                            SizedBox(height: 10.h),
                           ],
                         ))
                   ],

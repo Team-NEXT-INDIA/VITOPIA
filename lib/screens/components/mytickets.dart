@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vitopia/customs/colors.dart';
 import 'package:vitopia/customs/ontapscale.dart';
 
 import '../../customs/ticket_widget.dart';
@@ -26,7 +27,7 @@ class MyTickets extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.only(right: 8.0.h),
               child: TicketWidget(
-                color: Color(0xff323232),
+                color: ticketsBackground,
                 width: 350.0.w,
                 height: 180.0.h,
                 isCornerRounded: true,
@@ -43,8 +44,8 @@ class MyTickets extends StatelessWidget {
                             height: 20.0.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30.0.r),
-                              border:
-                                  Border.all(width: 1.0.w, color: Colors.green),
+                              border: Border.all(
+                                  width: 1.0.w, color: Color(0x52ffffff)),
                             ),
                             child: Center(
                               child: Row(
@@ -52,7 +53,7 @@ class MyTickets extends StatelessWidget {
                                 children: [
                                   Icon(
                                     FluentIcons.building_24_regular,
-                                    color: Colors.green,
+                                    color: lightPurple,
                                     size: 15.sp,
                                   ),
                                   SizedBox(
@@ -63,7 +64,7 @@ class MyTickets extends StatelessWidget {
                                     style: GoogleFonts.montserrat(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 10.sp,
-                                        color: Colors.green),
+                                        color: lightPurple),
                                   ),
                                 ],
                               ),
@@ -73,9 +74,9 @@ class MyTickets extends StatelessWidget {
                             children: <Widget>[
                               CircleAvatar(
                                 radius: 08.r,
-                                backgroundColor: Color(0xffC7FFBE),
+                                backgroundColor: Color(0x52ffffff),
                                 child: CircleAvatar(
-                                  backgroundColor: CupertinoColors.activeGreen,
+                                  backgroundColor: lightPurple,
                                   radius: 06.r,
                                 ),
                               )
@@ -92,7 +93,7 @@ class MyTickets extends StatelessWidget {
                             Text(
                               'Beat the Heat',
                               style: GoogleFonts.montserrat(
-                                  color: Colors.white,
+                                  color: primaryText,
                                   fontSize: 14.0.sp,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -102,7 +103,7 @@ class MyTickets extends StatelessWidget {
                               maxLines: 2,
                               overflow: TextOverflow.clip,
                               style: GoogleFonts.montserrat(
-                                  color: Color(0xffE3E3E3),
+                                  color: secondaryText,
                                   fontSize: 9.0.sp,
                                   fontWeight: FontWeight.normal),
                             ),
@@ -121,7 +122,7 @@ class MyTickets extends StatelessWidget {
                                   style: GoogleFonts.montserrat(
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.w300,
-                                      color: Color(0x41FFFFFF)),
+                                      color: Color(0x39FFFFFF)),
                                   color: Color(0x39FFFFFF),
                                   barcode: Barcode.code128(),
                                   data: data2,
@@ -142,7 +143,7 @@ class MyTickets extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.only(right: 8.0.h),
               child: TicketWidget(
-                color: Color(0xff323232),
+                color: ticketsBackground,
                 width: 350.0.w,
                 height: 180.0.h,
                 isCornerRounded: true,
@@ -159,8 +160,8 @@ class MyTickets extends StatelessWidget {
                             height: 20.0.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30.0.r),
-                              border:
-                                  Border.all(width: 1.0.w, color: Colors.green),
+                              border: Border.all(
+                                  width: 1.0.w, color: Color(0x52ffffff)),
                             ),
                             child: Center(
                               child: Row(
@@ -168,7 +169,7 @@ class MyTickets extends StatelessWidget {
                                 children: [
                                   Icon(
                                     FluentIcons.building_24_regular,
-                                    color: Colors.green,
+                                    color: lightPurple,
                                     size: 15.sp,
                                   ),
                                   SizedBox(
@@ -179,7 +180,7 @@ class MyTickets extends StatelessWidget {
                                     style: GoogleFonts.montserrat(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 10.sp,
-                                        color: Colors.green),
+                                        color: lightPurple),
                                   ),
                                 ],
                               ),
@@ -189,9 +190,9 @@ class MyTickets extends StatelessWidget {
                             children: <Widget>[
                               CircleAvatar(
                                 radius: 08.r,
-                                backgroundColor: Color(0xffC7FFBE),
+                                backgroundColor: Color(0x52ffffff),
                                 child: CircleAvatar(
-                                  backgroundColor: CupertinoColors.activeGreen,
+                                  backgroundColor: lightPurple,
                                   radius: 06.r,
                                 ),
                               )
@@ -208,7 +209,7 @@ class MyTickets extends StatelessWidget {
                             Text(
                               'Beat the Heat',
                               style: GoogleFonts.montserrat(
-                                  color: Colors.white,
+                                  color: primaryText,
                                   fontSize: 14.0.sp,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -218,7 +219,7 @@ class MyTickets extends StatelessWidget {
                               maxLines: 2,
                               overflow: TextOverflow.clip,
                               style: GoogleFonts.montserrat(
-                                  color: Color(0xffE3E3E3),
+                                  color: secondaryText,
                                   fontSize: 9.0.sp,
                                   fontWeight: FontWeight.normal),
                             ),
@@ -237,7 +238,7 @@ class MyTickets extends StatelessWidget {
                                   style: GoogleFonts.montserrat(
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.w300,
-                                      color: Color(0x41FFFFFF)),
+                                      color: Color(0x39FFFFFF)),
                                   color: Color(0x39FFFFFF),
                                   barcode: Barcode.code128(),
                                   data: data2,
@@ -258,7 +259,7 @@ class MyTickets extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.only(right: 8.0.h),
               child: TicketWidget(
-                color: Color(0xff323232),
+                color: ticketsBackground,
                 width: 350.0.w,
                 height: 180.0.h,
                 isCornerRounded: true,
@@ -275,8 +276,8 @@ class MyTickets extends StatelessWidget {
                             height: 20.0.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30.0.r),
-                              border:
-                                  Border.all(width: 1.0.w, color: Colors.green),
+                              border: Border.all(
+                                  width: 1.0.w, color: Color(0x52ffffff)),
                             ),
                             child: Center(
                               child: Row(
@@ -284,7 +285,7 @@ class MyTickets extends StatelessWidget {
                                 children: [
                                   Icon(
                                     FluentIcons.building_24_regular,
-                                    color: Colors.green,
+                                    color: lightPurple,
                                     size: 15.sp,
                                   ),
                                   SizedBox(
@@ -295,7 +296,7 @@ class MyTickets extends StatelessWidget {
                                     style: GoogleFonts.montserrat(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 10.sp,
-                                        color: Colors.green),
+                                        color: lightPurple),
                                   ),
                                 ],
                               ),
@@ -305,9 +306,9 @@ class MyTickets extends StatelessWidget {
                             children: <Widget>[
                               CircleAvatar(
                                 radius: 08.r,
-                                backgroundColor: Color(0xffC7FFBE),
+                                backgroundColor: Color(0x52ffffff),
                                 child: CircleAvatar(
-                                  backgroundColor: CupertinoColors.activeGreen,
+                                  backgroundColor: lightPurple,
                                   radius: 06.r,
                                 ),
                               )
@@ -324,7 +325,7 @@ class MyTickets extends StatelessWidget {
                             Text(
                               'Beat the Heat',
                               style: GoogleFonts.montserrat(
-                                  color: Colors.white,
+                                  color: primaryText,
                                   fontSize: 14.0.sp,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -334,7 +335,7 @@ class MyTickets extends StatelessWidget {
                               maxLines: 2,
                               overflow: TextOverflow.clip,
                               style: GoogleFonts.montserrat(
-                                  color: Color(0xffE3E3E3),
+                                  color: secondaryText,
                                   fontSize: 9.0.sp,
                                   fontWeight: FontWeight.normal),
                             ),
@@ -353,7 +354,7 @@ class MyTickets extends StatelessWidget {
                                   style: GoogleFonts.montserrat(
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.w300,
-                                      color: Color(0x41FFFFFF)),
+                                      color: Color(0x39FFFFFF)),
                                   color: Color(0x39FFFFFF),
                                   barcode: Barcode.code128(),
                                   data: data2,
@@ -374,7 +375,7 @@ class MyTickets extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.only(right: 8.0.h),
               child: TicketWidget(
-                color: Color(0xff323232),
+                color: ticketsBackground,
                 width: 350.0.w,
                 height: 180.0.h,
                 isCornerRounded: true,
@@ -391,8 +392,8 @@ class MyTickets extends StatelessWidget {
                             height: 20.0.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30.0.r),
-                              border:
-                                  Border.all(width: 1.0.w, color: Colors.green),
+                              border: Border.all(
+                                  width: 1.0.w, color: Color(0x52ffffff)),
                             ),
                             child: Center(
                               child: Row(
@@ -400,7 +401,7 @@ class MyTickets extends StatelessWidget {
                                 children: [
                                   Icon(
                                     FluentIcons.building_24_regular,
-                                    color: Colors.green,
+                                    color: lightPurple,
                                     size: 15.sp,
                                   ),
                                   SizedBox(
@@ -411,7 +412,7 @@ class MyTickets extends StatelessWidget {
                                     style: GoogleFonts.montserrat(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 10.sp,
-                                        color: Colors.green),
+                                        color: lightPurple),
                                   ),
                                 ],
                               ),
@@ -421,9 +422,9 @@ class MyTickets extends StatelessWidget {
                             children: <Widget>[
                               CircleAvatar(
                                 radius: 08.r,
-                                backgroundColor: Color(0xffC7FFBE),
+                                backgroundColor: Color(0x52ffffff),
                                 child: CircleAvatar(
-                                  backgroundColor: CupertinoColors.activeGreen,
+                                  backgroundColor: lightPurple,
                                   radius: 06.r,
                                 ),
                               )
@@ -440,7 +441,7 @@ class MyTickets extends StatelessWidget {
                             Text(
                               'Beat the Heat',
                               style: GoogleFonts.montserrat(
-                                  color: Colors.white,
+                                  color: primaryText,
                                   fontSize: 14.0.sp,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -450,7 +451,7 @@ class MyTickets extends StatelessWidget {
                               maxLines: 2,
                               overflow: TextOverflow.clip,
                               style: GoogleFonts.montserrat(
-                                  color: Color(0xffE3E3E3),
+                                  color: secondaryText,
                                   fontSize: 9.0.sp,
                                   fontWeight: FontWeight.normal),
                             ),
@@ -469,7 +470,7 @@ class MyTickets extends StatelessWidget {
                                   style: GoogleFonts.montserrat(
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.w300,
-                                      color: Color(0x41FFFFFF)),
+                                      color: Color(0x39FFFFFF)),
                                   color: Color(0x39FFFFFF),
                                   barcode: Barcode.code128(),
                                   data: data2,
