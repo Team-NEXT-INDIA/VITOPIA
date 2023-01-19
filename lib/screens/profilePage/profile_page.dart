@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vitopia/customs/colors.dart';
 
 import 'components/profile_menu.dart';
 import 'components/profile_pic.dart';
@@ -10,7 +11,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: scaffoldBackground,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -19,9 +20,9 @@ class ProfilePage extends StatelessWidget {
               child: Text(
                 "Account",
                 style: GoogleFonts.montserrat(
-                  color: const Color(0xff202022),
+                  color: primaryText,
                   fontSize: 21.sp,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
             ),
@@ -32,7 +33,7 @@ class ProfilePage extends StatelessWidget {
             floating: false,
             stretch: true,
             surfaceTintColor: Color(0xffF9F9F9),
-            backgroundColor: Colors.white,
+            backgroundColor: profileAppBar,
           ),
           SliverFillRemaining(
             child: Padding(
