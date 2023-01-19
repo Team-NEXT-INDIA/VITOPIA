@@ -152,7 +152,7 @@ class InformationPage extends StatelessWidget {
                                 name: 'Dr. Sayyed Faizan Ali ',
                                 subtitle: 'Co Convenor (SENSE)',
                                 image:
-                                    'https://vitap.ac.in/wp-content/uploads/2022/10/Mr.faizan-ali.jpg',
+                                    'https://i.im.ge/2023/01/19/sAlUpK.DSC-0017-JPG.jpg',
                               ),
                               MentionsCardBuild(
                                 name: 'Dr. Manikanta Ravindra Kumar V ',
