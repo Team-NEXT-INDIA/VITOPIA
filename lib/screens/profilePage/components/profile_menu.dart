@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vitopia/customs/colors.dart';
 
 class ProfileMenu extends StatelessWidget {
   const ProfileMenu({
@@ -20,12 +21,12 @@ class ProfileMenu extends StatelessWidget {
         child: ListTile(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10))),
-          tileColor: Color(0xffF5F5F5),
+          tileColor: Color(0xff261F2D),
           contentPadding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
           title: Text(
             title,
             style: GoogleFonts.montserrat(
-              color: const Color(0xff212121),
+              color: primaryText,
               fontSize: 11.sp,
               fontWeight: FontWeight.w800,
             ),
@@ -37,7 +38,7 @@ class ProfileMenu extends StatelessWidget {
               Text(
                 text,
                 style: GoogleFonts.montserrat(
-                  color: const Color(0xff262626),
+                  color: secondaryText,
                   fontSize: 14.sp,
                   fontWeight: FontWeight.normal,
                 ),
