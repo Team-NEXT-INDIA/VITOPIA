@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:vitopia/screens/events/events_view.dart';
 
 import '../../customs/colors.dart';
 import '../../customs/ontapscale.dart';
@@ -243,7 +244,13 @@ class _EventsPageState extends State<EventsPage> {
                                     alignment: MainAxisAlignment.start,
                                     children: [
                                       TextButton(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        EventsViewPage()));
+                                          },
                                           child: Text(
                                             "View",
                                             style: GoogleFonts.montserrat(

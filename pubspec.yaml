@@ -52,6 +52,7 @@ dependencies:
   flutter_profile_picture: ^2.0.0
   animated_text_kit: ^4.2.2
   http: ^0.13.5
+  sliding_up_panel: ^2.0.0+1
 
 
 
