@@ -429,13 +429,6 @@
             </list>
           </value>
         </entry>
-        <entry key="sliding_up_panel">
-          <value>
-            <list>
-              <option value="/Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/sliding_up_panel-2.0.0+1/lib" />
-            </list>
-          </value>
-        </entry>
         <entry key="smooth_corner">
           <value>
             <list>
@@ -609,7 +602,6 @@
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/qr-3.0.1/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/rxdart-0.27.7/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/shimmer_animation-2.1.0+1/lib" />
-      <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/sliding_up_panel-2.0.0+1/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/smooth_corner-1.1.0/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/source_span-1.9.0/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/sqflite-2.2.3/lib" />
