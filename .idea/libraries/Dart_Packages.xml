@@ -226,6 +226,13 @@
             </list>
           </value>
         </entry>
+        <entry key="hashcodes">
+          <value>
+            <list>
+              <option value="/Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/hashcodes-2.0.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="http">
           <value>
             <list>
@@ -237,6 +244,13 @@
           <value>
             <list>
               <option value="/Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-4.0.2/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="image_size_getter">
+          <value>
+            <list>
+              <option value="/Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/image_size_getter-2.1.2/lib" />
             </list>
           </value>
         </entry>
@@ -422,6 +436,13 @@
             </list>
           </value>
         </entry>
+        <entry key="skeletons">
+          <value>
+            <list>
+              <option value="/Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/skeletons-0.0.3/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="sky_engine">
           <value>
             <list>
@@ -581,8 +602,10 @@
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_svg-1.1.6/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/font_awesome_flutter-10.3.0/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/google_fonts-3.0.1/lib" />
+      <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/hashcodes-2.0.0/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.13.5/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-4.0.2/lib" />
+      <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/image_size_getter-2.1.2/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/js-0.6.4/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/lints-2.0.1/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/lottie-2.2.0/lib" />
@@ -609,6 +632,7 @@
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/qr-3.0.1/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/rxdart-0.27.7/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/shimmer_animation-2.1.0+1/lib" />
+      <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/skeletons-0.0.3/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/sliding_up_panel-2.0.0+1/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/smooth_corner-1.1.0/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/source_span-1.9.0/lib" />

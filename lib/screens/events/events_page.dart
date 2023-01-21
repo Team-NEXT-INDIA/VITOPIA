@@ -205,22 +205,25 @@ class _EventsPageState extends State<EventsPage> {
                               children: [
                                 Stack(
                                   children: [
-                                    CachedNetworkImage(
-                                      imageUrl: event['image'],
-                                      height: 240.h,
-                                      fit: BoxFit.cover,
-                                      width: double.infinity,
-                                      placeholder: (context, url) => Shimmer(
-                                        child: Container(
-                                          height: 140.h,
-                                          width: 135.h,
-                                          color: Color(0x23FFFFFF),
+                                    Hero(
+                                      tag: 'main_image',
+                                      child: CachedNetworkImage(
+                                        imageUrl: event['image'],
+                                        height: 240.h,
+                                        fit: BoxFit.cover,
+                                        width: double.infinity,
+                                        placeholder: (context, url) => Shimmer(
+                                          child: Container(
+                                            height: 140.h,
+                                            width: 135.h,
+                                            color: Color(0x23FFFFFF),
+                                          ),
                                         ),
+                                        errorWidget: (context, url, error) =>
+                                            Icon(Icons.error),
                                       ),
-                                      errorWidget: (context, url, error) =>
-                                          Icon(Icons.error),
                                     ),
-                                    const Positioned(
+                                    Positioned(
                                         top: 10,
                                         right: 10,
                                         child: CircleAvatar(
@@ -228,8 +231,8 @@ class _EventsPageState extends State<EventsPage> {
                                           backgroundColor: Colors.white,
                                           child: CircleAvatar(
                                             radius: 22.0,
-                                            backgroundImage: NetworkImage(
-                                                'https://api.vitap.app/next_logo.png'),
+                                            backgroundImage:
+                                                NetworkImage(event['avatar']),
                                             backgroundColor: Colors.transparent,
                                           ),
                                         )),
@@ -283,7 +286,9 @@ class _EventsPageState extends State<EventsPage> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      EventsViewPage()));
+                                                      EventsViewPage(
+                                                          event:
+                                                              _events[index])));
                                         },
                                         child: Text(
                                           "View",
@@ -306,7 +311,7 @@ class _EventsPageState extends State<EventsPage> {
                       );
                     } else {
                       return Center(
-                        child: CircularProgressIndicator(),
+                        child: CupertinoActivityIndicator(),
                       );
                     }
                   },

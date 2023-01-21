@@ -1,9 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:vitopia/screens/events/panel_widget.dart';
 
 class EventsViewPage extends StatefulWidget {
-  const EventsViewPage({Key? key}) : super(key: key);
+  final Map<String, dynamic> event;
+  EventsViewPage({Key? key, required this.event}) : super(key: key);
 
   @override
   State<EventsViewPage> createState() => _EventsViewPageState();
@@ -13,11 +17,54 @@ class _EventsViewPageState extends State<EventsViewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SlidingUpPanel(
-        body: Image.asset("assets/images/poster-1.jpg"),
-        panelBuilder: (controller) => PanelWidget(
-          controller: controller,
-        ),
+      body: Stack(
+        alignment: Alignment.topLeft,
+        children: [
+          SlidingUpPanel(
+            color: Color(0xff0A0220),
+            minHeight: 210.h,
+            maxHeight: 550.h,
+            parallaxEnabled: true,
+            parallaxOffset: .1,
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(18),
+            ),
+            body: Stack(children: [
+              Hero(
+                tag: 'main_image',
+                child: CachedNetworkImage(
+                  imageUrl: widget.event['image'],
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  placeholder: (context, url) => Shimmer(
+                    child: Container(
+                      color: Color(0x23FFFFFF),
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                ),
+              ),
+            ]),
+            panelBuilder: (controller) => PanelWidget(
+              controller: controller,
+            ),
+          ),
+          Padding(
+              padding: EdgeInsets.only(left: 10.h, top: 25.h),
+              child: CircleAvatar(
+                radius: 25,
+                backgroundColor: Colors.white70,
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(
+                    Icons.arrow_back_ios_new,
+                    color: Colors.black,
+                  ),
+                ),
+              )),
+        ],
       ),
     );
   }

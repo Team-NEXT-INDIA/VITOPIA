@@ -53,6 +53,8 @@ dependencies:
   animated_text_kit: ^4.2.2
   http: ^0.13.5
   sliding_up_panel: ^2.0.0+1
+  skeletons: ^0.0.3
+  image_size_getter: ^2.1.2
 
 
 
