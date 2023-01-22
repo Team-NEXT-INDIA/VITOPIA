@@ -35,6 +35,7 @@ class _EventsViewPageState extends State<EventsViewPage> {
                 child: CachedNetworkImage(
                   imageUrl: widget.event['image'],
                   fit: BoxFit.cover,
+                  height: 325.h,
                   width: double.infinity,
                   placeholder: (context, url) => Shimmer(
                     child: Container(
