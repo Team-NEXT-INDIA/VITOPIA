@@ -1,16 +1,14 @@
-import 'dart:convert';
-
 import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
 import 'package:shimmer_animation/shimmer_animation.dart';
 
 import '../../customs/colors.dart';
 import '../components/mytickets.dart';
+import 'backend/fetch_events.dart';
 import 'events_view.dart';
 
 class EventsPage extends StatefulWidget {
@@ -24,15 +22,15 @@ class _EventsPageState extends State<EventsPage> {
   var data2 = 'RY - ASASASDADASDADQ21';
   var _searchText = '';
   List<Map<String, dynamic>> _events = [];
-  var _hasDataBeenFetched = false;
   //for Hiding the Registered Events widget
   final FocusNode _focusNode = FocusNode();
+  EventAPI eventAPI = EventAPI();
   bool _widgetVisible = true;
 
   @override
   void initState() {
     super.initState();
-    _fetchEvents();
+    eventAPI.fetchEvents();
     _focusNode.addListener(_onFocusChange);
   }
 
@@ -40,29 +38,8 @@ class _EventsPageState extends State<EventsPage> {
     setState(() {});
   }
 
-  Future<void> _fetchEvents() async {
-    if (_hasDataBeenFetched) {
-      return;
-    }
-    try {
-      final response = await http.get(Uri.parse('http://10.0.2.2:5000/events'));
-      if (response.statusCode == 200) {
-        setState(() {
-          _hasDataBeenFetched = true;
-          _events = List<Map<String, dynamic>>.from(json.decode(response.body));
-        });
-      } else {
-        throw Exception('Failed to load events');
-      }
-    } catch (e) {
-      print(e);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Could not fetch events")));
-    }
-  }
-
   List<Map<String, dynamic>> _getFilteredEvents() {
-    return _events
+    return eventAPI.events
         .where((event) =>
             event['title'].toString().toLowerCase().contains(_searchText) ||
             event['subtitle'].toString().toLowerCase().contains(_searchText))
@@ -191,7 +168,7 @@ class _EventsPageState extends State<EventsPage> {
               Padding(
                 padding: EdgeInsets.only(top: 2.h),
                 child: FutureBuilder(
-                  future: _fetchEvents(),
+                  future: eventAPI.fetchEvents(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
                       if (snapshot.hasError) {
@@ -205,7 +182,7 @@ class _EventsPageState extends State<EventsPage> {
                         padding: EdgeInsets.only(left: 14.h, right: 14.h),
                         physics: NeverScrollableScrollPhysics(),
                         itemCount: _getFilteredEvents().length,
-                        itemBuilder: (context, index) {
+                        itemBuilder: (BuildContext context, int index) {
                           final event = _getFilteredEvents()[index];
                           return Card(
                             color: cardBackground,
@@ -304,7 +281,8 @@ class _EventsPageState extends State<EventsPage> {
                                                   builder: (context) =>
                                                       EventsViewPage(
                                                           event:
-                                                              _events[index])));
+                                                              _getFilteredEvents()[
+                                                                  index])));
                                         },
                                         child: Text(
                                           "View",
