@@ -220,7 +220,7 @@ class _EventsPageState extends State<EventsPage> {
                                 Stack(
                                   children: [
                                     Hero(
-                                      tag: 'main_image',
+                                      tag: event['image'],
                                       child: CachedNetworkImage(
                                         imageUrl: event['image'],
                                         height: 240.h,
@@ -280,6 +280,8 @@ class _EventsPageState extends State<EventsPage> {
                                         padding: EdgeInsets.only(top: 4.h),
                                         child: Text(
                                           event['description'],
+                                          maxLines: 2,
+                                          overflow: TextOverflow.fade,
                                           style: GoogleFonts.montserrat(
                                             color: secondaryText,
                                             fontSize: 13.sp,

@@ -31,7 +31,7 @@ class _EventsViewPageState extends State<EventsViewPage> {
             ),
             body: Stack(children: [
               Hero(
-                tag: 'main_image',
+                tag: widget.event['image'],
                 child: CachedNetworkImage(
                   imageUrl: widget.event['image'],
                   fit: BoxFit.cover,
