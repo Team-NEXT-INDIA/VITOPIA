@@ -21,12 +21,12 @@ class _EventsViewPageState extends State<EventsViewPage> {
         alignment: Alignment.topLeft,
         children: [
           SlidingUpPanel(
-            color: Color(0xff0A0220),
-            minHeight: 210.h,
+            color: const Color(0xff0A0220),
+            minHeight: 332.h,
             maxHeight: 550.h,
             parallaxEnabled: true,
             parallaxOffset: .1,
-            borderRadius: BorderRadius.vertical(
+            borderRadius: const BorderRadius.vertical(
               top: Radius.circular(18),
             ),
             body: Stack(children: [
@@ -38,10 +38,10 @@ class _EventsViewPageState extends State<EventsViewPage> {
                   width: double.infinity,
                   placeholder: (context, url) => Shimmer(
                     child: Container(
-                      color: Color(0x23FFFFFF),
+                      color: const Color(0x23FFFFFF),
                     ),
                   ),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
             ]),
@@ -58,7 +58,7 @@ class _EventsViewPageState extends State<EventsViewPage> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_back_ios_new,
                     color: Colors.black,
                   ),

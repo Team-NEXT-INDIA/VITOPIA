@@ -24,6 +24,7 @@ class _EventsPageState extends State<EventsPage> {
   var data2 = 'RY - ASASASDADASDADQ21';
   var _searchText = '';
   List<Map<String, dynamic>> _events = [];
+  var _hasDataBeenFetched = false;
   //for Hiding the Registered Events widget
   final FocusNode _focusNode = FocusNode();
   bool _widgetVisible = true;
@@ -39,17 +40,25 @@ class _EventsPageState extends State<EventsPage> {
     setState(() {});
   }
 
-  Future<List<Map<String, dynamic>>> _fetchEvents() async {
-    final response = await http.get(Uri.parse('http://10.0.2.2:5000/events'));
-    if (response.statusCode == 200) {
-      setState(() {
-        _events = List<Map<String, dynamic>>.from(json.decode(response.body));
-      });
-      return _events;
-    } else {
-      throw Exception('Failed to load events');
+  Future<void> _fetchEvents() async {
+    if (_hasDataBeenFetched) {
+      return;
     }
-    return [];
+    try {
+      final response = await http.get(Uri.parse('http://10.0.2.2:5000/events'));
+      if (response.statusCode == 200) {
+        setState(() {
+          _hasDataBeenFetched = true;
+          _events = List<Map<String, dynamic>>.from(json.decode(response.body));
+        });
+      } else {
+        throw Exception('Failed to load events');
+      }
+    } catch (e) {
+      print(e);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Could not fetch events")));
+    }
   }
 
   List<Map<String, dynamic>> _getFilteredEvents() {
@@ -184,8 +193,13 @@ class _EventsPageState extends State<EventsPage> {
                 child: FutureBuilder(
                   future: _fetchEvents(),
                   builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      List<Map<String, dynamic>> events = snapshot.data ?? [];
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      if (snapshot.hasError) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Could not fetch events")));
+
+                        return Center(child: Text("Error: ${snapshot.error}"));
+                      }
                       return ListView.builder(
                         shrinkWrap: true,
                         padding: EdgeInsets.only(left: 14.h, right: 14.h),
@@ -304,10 +318,6 @@ class _EventsPageState extends State<EventsPage> {
                             ),
                           );
                         },
-                      );
-                    } else if (snapshot.hasError) {
-                      return Center(
-                        child: Text("Error: ${snapshot.error}"),
                       );
                     } else {
                       return Center(
