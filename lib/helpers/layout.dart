@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vitopia/screens/InformationPage/information_page.dart';
+import 'package:vitopia/screens/ShoppingPage/shopping_page.dart';
 import 'package:vitopia/screens/home/student_home.dart';
 
 import '../customs/colors.dart';
@@ -23,8 +24,8 @@ class _LayoutState extends State<Layout> {
   final List<Widget> pages = [
     StudentHome(),
     EventsPage(),
+    ShoppingPage(),
     InformationPage(),
-    ProfilePage(),
     ProfilePage(),
   ];
 

@@ -249,7 +249,7 @@ class InformationPage extends StatelessWidget {
                           Text(
                             "Sports",
                             style: GoogleFonts.montserrat(
-                              color:Color(0xffFFFFFF),
+                              color: Color(0xffFFFFFF),
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
                             ),
