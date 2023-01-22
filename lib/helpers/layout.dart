@@ -38,7 +38,7 @@ class _LayoutState extends State<Layout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
+      extendBody: false,
       body: pages[_selectedPage],
       bottomNavigationBar: Container(
         height: 60.h,
