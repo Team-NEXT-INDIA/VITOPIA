@@ -1,6 +1,7 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vitopia/screens/InformationPage/information_page.dart';
 import 'package:vitopia/screens/home/student_home.dart';
@@ -24,6 +25,7 @@ class _LayoutState extends State<Layout> {
     EventsPage(),
     InformationPage(),
     ProfilePage(),
+    ProfilePage(),
   ];
 
   void _onItemTapped(int index) {
@@ -35,7 +37,7 @@ class _LayoutState extends State<Layout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: false,
+      extendBody: true,
       body: pages[_selectedPage],
       bottomNavigationBar: Container(
         height: 60.h,
@@ -68,9 +70,13 @@ class _LayoutState extends State<Layout> {
         icon: Icon(FluentIcons.home_20_filled),
         label: 'Home',
       ),
-      const BottomNavigationBarItem(
+      BottomNavigationBarItem(
         icon: Icon(FluentIcons.calendar_empty_20_filled),
         label: 'Events',
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(FontAwesomeIcons.shoppingBag, size: 21.sp),
+        label: 'Merch',
       ),
       const BottomNavigationBarItem(
         icon: Icon(FluentIcons.reward_24_filled),

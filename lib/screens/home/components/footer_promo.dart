@@ -26,6 +26,12 @@ class FooterPromo extends StatelessWidget {
           fit: BoxFit.cover,
           width: double.infinity,
         ),
+        Image.asset(
+          'assets/images/gradient.png',
+          fit: BoxFit.fitHeight,
+          height: 233.h,
+          width: double.infinity,
+        ),
         Positioned(
           bottom: 30.h,
           right: 40.h,
