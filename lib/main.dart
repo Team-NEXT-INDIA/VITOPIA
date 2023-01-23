@@ -11,7 +11,34 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  String? payment_response;
+
+  //Live
+  String mid = "LIVE_MID_HERE";
+  String PAYTM_MERCHANT_KEY = "LIVE_KEY_HERE";
+  String website = "DEFAULT";
+  bool testing = false;
+
+  //Testing
+  // String mid = "TEST_MID_HERE";
+  // String PAYTM_MERCHANT_KEY = "TEST_KEY_HERE";
+  // String website = "WEBSTAGING";
+  // bool testing = true;
+
+  double amount = 1;
+  bool loading = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {

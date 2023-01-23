@@ -38,7 +38,6 @@ class _LayoutState extends State<Layout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: false,
       body: pages[_selectedPage],
       bottomNavigationBar: Container(
         height: 60.h,
@@ -71,7 +70,7 @@ class _LayoutState extends State<Layout> {
         icon: Icon(FluentIcons.home_20_filled),
         label: 'Home',
       ),
-      BottomNavigationBarItem(
+      const BottomNavigationBarItem(
         icon: Icon(FluentIcons.calendar_empty_20_filled),
         label: 'Events',
       ),

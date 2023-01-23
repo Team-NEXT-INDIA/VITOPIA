@@ -1,4 +1,4 @@
-package com.example.vitopia
+package com.arize.vitopia
 
 import io.flutter.embedding.android.FlutterActivity
 

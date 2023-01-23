@@ -44,6 +44,7 @@ class InformationPage extends StatelessWidget {
             ),
             SliverFillRemaining(
               child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
                 controller: _scrollController,
                 // physics: const BouncingScrollPhysics(),
                 child: Column(
