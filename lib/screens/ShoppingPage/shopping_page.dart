@@ -16,6 +16,8 @@ import 'Components/product_card.dart';
 import 'Data/product_data_class.dart';
 
 class ShoppingPage extends StatefulWidget {
+  const ShoppingPage({super.key});
+
   @override
   _ShoppingPageState createState() => _ShoppingPageState();
 }
@@ -81,6 +83,15 @@ class _ShoppingPageState extends State<ShoppingPage> {
                 expandedHeight: 190,
                 stretch: true,
                 automaticallyImplyLeading: false,
+                leading: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(
+                    Icons.arrow_back_ios_new,
+                    color: Colors.white,
+                  ),
+                ),
                 flexibleSpace: FlexibleSpaceBar(
                   background: Align(
                     child: Container(
@@ -111,6 +122,8 @@ class _ShoppingPageState extends State<ShoppingPage> {
                             color: Colors.grey,
                             borderRadius: BorderRadius.circular(0),
                           ),
+                          height: 140.h,
+                          width: 135.h,
                           child: Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -127,8 +140,6 @@ class _ShoppingPageState extends State<ShoppingPage> {
                               ],
                             ),
                           ),
-                          height: 140.h,
-                          width: 135.h,
                         ),
                       ),
                     ),

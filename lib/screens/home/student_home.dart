@@ -11,7 +11,6 @@ import 'package:vitopia/screens/Intro/Components/featured_events_slider.dart';
 import 'package:vitopia/screens/components/mytickets.dart';
 
 import '../Intro/Components/feature_cards.dart';
-import 'components/fab.dart';
 import 'components/footer_promo.dart';
 import 'components/for_you_widget.dart';
 
@@ -72,8 +71,8 @@ class _StudentHomeState extends State<StudentHome> {
         elevation: 0,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton:
-          isFAB ? buildFAB(context) : buildExtendedFAB(context),
+      // floatingActionButton:
+      //     isFAB ? buildFAB(context) : buildExtendedFAB(context),
       body: CustomScrollView(
         slivers: [
           // const SliverAppBar(
