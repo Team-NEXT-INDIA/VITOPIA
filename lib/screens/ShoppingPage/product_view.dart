@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:paytm_allinonesdk/paytm_allinonesdk.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:vitopia/customs/ontapscale.dart';
+import 'package:vitopia/screens/ShoppingPage/FollowPages/Failed_Payment.dart';
 import 'package:vitopia/screens/ShoppingPage/FollowPages/Sucess_Payment.dart';
 
 import '../../customs/colors.dart';
@@ -238,7 +238,10 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
   }
 
   void initiateTransaction(String amount) async {
-    Map<String, dynamic> body = {'amount': amount};
+    Map<String, dynamic> body = {
+      'amount': amount,
+      'reg_no': 'samuel.21bce7615@gmail.com'
+    };
 
     var parts = [];
     body.forEach((key, value) {
@@ -298,6 +301,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
         Navigator.push(
             context,
             CupertinoPageRoute(
+              fullscreenDialog: true,
               builder: (context) => PaymentSucess(
                 currency: CURRENCY,
                 gatewayname: GATEWAYNAME,
@@ -325,20 +329,14 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
         setState(() {
           _starttransaction = false;
         });
-        AwesomeDialog(
-          context: context,
-          animType: AnimType.scale,
-          dialogType: DialogType.warning,
-          body: Center(
-            child: Text(
-              error.message,
-              style: TextStyle(fontStyle: FontStyle.italic),
-            ),
-          ),
-          title: 'Payment Failed',
-          desc: 'A Error Occured',
-          btnOkOnPress: () {},
-        ).show();
+        Navigator.push(
+            context,
+            CupertinoPageRoute(
+              fullscreenDialog: true,
+              builder: (context) => PaymentFailed(
+                error: error.message,
+              ),
+            ));
       });
     } else {
       setState(() {
@@ -346,18 +344,14 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
       });
       print("VERIFY JSON MESSAGE12121231231231231231231231231231");
       print(res.body);
-      AwesomeDialog(
-        context: context,
-        animType: AnimType.bottomSlide,
-        dialogType: DialogType.warning,
-        body: Center(
-          child: Text(
-            res.body,
-            style: TextStyle(fontStyle: FontStyle.italic),
-          ),
-        ),
-        btnOkOnPress: () {},
-      ).show();
+      Navigator.push(
+          context,
+          CupertinoPageRoute(
+            fullscreenDialog: true,
+            builder: (context) => PaymentFailed(
+              error: res.body,
+            ),
+          ));
     }
   }
 
