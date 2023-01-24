@@ -47,8 +47,7 @@ android {
         applicationId "com.arize.vitopia"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdkVersion 19
-        multiDexEnabled true
+        minSdkVersion 24 // i have kept 24 as min
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

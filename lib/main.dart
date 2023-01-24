@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,6 +12,7 @@ import 'package:vitopia/screens/profilePage/profile_page.dart';
 import 'helpers/layout.dart';
 
 void main() {
+  HttpOverrides.global = MyHttpOverrides();
   runApp(MyApp());
 }
 
@@ -72,11 +75,20 @@ class _MyAppState extends State<MyApp> {
                   builder: (_) => ShoppingPage(), settings: settings);
             case '/product_view':
               return CupertinoPageRoute(
-                  builder: (_) => ProductDetailsView(), settings: settings);
+                  builder: (_) => ProductsDetailsView(), settings: settings);
           }
         },
         debugShowCheckedModeBanner: false,
       ),
     );
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }
