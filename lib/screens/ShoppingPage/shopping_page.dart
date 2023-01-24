@@ -286,6 +286,10 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                       child: ScaleAnimation(
                                         child: FadeInAnimation(
                                           child: ProductCard(
+                                            onTap: () {
+                                              Navigator.of(context)
+                                                  .pushNamed('/product_view');
+                                            },
                                             productName:
                                                 _products[index].name ?? "",
                                             productPrice: _products[index]

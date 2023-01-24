@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vitopia/screens/Intro/splash_screen.dart';
+import 'package:vitopia/screens/ShoppingPage/product_view.dart';
 import 'package:vitopia/screens/ShoppingPage/shopping_page.dart';
 import 'package:vitopia/screens/login/student_login.dart';
 import 'package:vitopia/screens/profilePage/profile_page.dart';
@@ -69,6 +70,9 @@ class _MyAppState extends State<MyApp> {
             case '/shop':
               return CupertinoPageRoute(
                   builder: (_) => ShoppingPage(), settings: settings);
+            case '/product_view':
+              return CupertinoPageRoute(
+                  builder: (_) => ProductDetailsView(), settings: settings);
           }
         },
         debugShowCheckedModeBanner: false,

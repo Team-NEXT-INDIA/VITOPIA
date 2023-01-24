@@ -13,19 +13,21 @@ class ProductCard extends StatelessWidget {
   final String productPrice;
   final String sub_category;
   final String image;
+  final Function()? onTap;
 
   ProductCard({
     Key? key,
     required this.productName,
     required this.productPrice,
     required this.image,
+    this.onTap,
     required this.sub_category,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return CustomTap(
-      onTap: () {},
+      onTap: onTap,
       child: SizedBox(
         height: 240.h,
         width: 135.h,
