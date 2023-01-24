@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vitopia/screens/Intro/splash_screen.dart';
+import 'package:vitopia/screens/ShoppingPage/Data/product_data_class.dart';
 import 'package:vitopia/screens/ShoppingPage/product_view.dart';
 import 'package:vitopia/screens/ShoppingPage/shopping_page.dart';
 import 'package:vitopia/screens/login/student_login.dart';
@@ -52,8 +53,12 @@ class _MyAppState extends State<MyApp> {
               return CupertinoPageRoute(
                   builder: (_) => ShoppingPage(), settings: settings);
             case '/product_view':
+              var product = settings.arguments as Product;
               return CupertinoPageRoute(
-                  builder: (_) => ProductDetailsView(), settings: settings);
+                  builder: (_) => ProductDetailsView(
+                        product: product,
+                      ),
+                  settings: settings);
           }
         },
         debugShowCheckedModeBanner: false,

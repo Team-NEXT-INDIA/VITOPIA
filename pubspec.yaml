@@ -61,6 +61,7 @@ dependencies:
   change_app_package_name: ^1.1.0
   flutter_staggered_animations: ^1.1.1
   paytm_allinonesdk: ^1.1.7
+  awesome_dialog: ^3.0.2
 
 dev_dependencies:
   flutter_test:
@@ -88,6 +89,7 @@ flutter:
   assets:
      - assets/images/
      - assets/icons/
+     - assets/lottie/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

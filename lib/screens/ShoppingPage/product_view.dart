@@ -1,15 +1,32 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+import 'package:paytm_allinonesdk/paytm_allinonesdk.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:vitopia/customs/ontapscale.dart';
+import 'package:vitopia/screens/ShoppingPage/FollowPages/Sucess_Payment.dart';
 
-class ProductDetailsView extends StatelessWidget {
-  ProductDetailsView({Key? key}) : super(key: key);
-  List<String> images = [
-    "https://static.javatpoint.com/tutorial/flutter/images/flutter-logo.png",
-    "https://static.javatpoint.com/tutorial/flutter/images/flutter-logo.png",
-    "https://static.javatpoint.com/tutorial/flutter/images/flutter-logo.png",
-    "https://static.javatpoint.com/tutorial/flutter/images/flutter-logo.png"
-  ];
+import '../../customs/colors.dart';
+import 'Data/product_data_class.dart';
+
+class ProductDetailsView extends StatefulWidget {
+  ProductDetailsView({Key? key, required this.product}) : super(key: key);
+  final Product product;
+
+  @override
+  State<ProductDetailsView> createState() => _ProductDetailsViewState();
+}
+
+class _ProductDetailsViewState extends State<ProductDetailsView> {
+  bool _starttransaction = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,13 +60,41 @@ class ProductDetailsView extends StatelessWidget {
             Expanded(
                 child: Stack(
               children: [
-                Container(
-                  padding: EdgeInsets.only(bottom: 20),
-                  width: double.infinity,
+                CachedNetworkImage(
+                  imageUrl: widget.product.image ?? "",
                   height: 450.h,
-                  child: Image.network(
-                    'https://i.ibb.co/GHFXdq9/t-shirt.jpg',
-                    fit: BoxFit.cover,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) => Shimmer(
+                    child: Container(
+                      height: 140.h,
+                      width: 135.h,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    height: 140.h,
+                    width: 135.h,
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Failed To Load Image",
+                            style: GoogleFonts.montserrat(
+                              color: primaryText,
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   ),
                 ),
                 Align(
@@ -57,7 +102,7 @@ class ProductDetailsView extends StatelessWidget {
                   child: Container(
                     height: 200.h,
                     width: double.infinity,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         color: Color(0xFF070707),
                         boxShadow: [
                           BoxShadow(
@@ -85,7 +130,7 @@ class ProductDetailsView extends StatelessWidget {
                                 width: 60,
                                 height: 5,
                                 decoration: BoxDecoration(
-                                    color: Color(0xff1a1a1a),
+                                    color: const Color(0xff1a1a1a),
                                     borderRadius: BorderRadius.circular(10)),
                                 child: Column(
                                   children: [
@@ -102,7 +147,7 @@ class ProductDetailsView extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(left: 15, top: 10),
                           child: Text(
-                            'GRAPHIC GORILLA DESIGN',
+                            widget.product.name ?? "",
                             style: GoogleFonts.montserrat(
                               color: Colors.white,
                               fontSize: 18.sp,
@@ -113,9 +158,9 @@ class ProductDetailsView extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(left: 15),
                           child: Text(
-                            'T-shirts',
+                            widget.product.sub_category ?? "",
                             style: GoogleFonts.montserrat(
-                              color: Color(0xFF808080),
+                              color: const Color(0xFF808080),
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w500,
                             ),
@@ -124,9 +169,9 @@ class ProductDetailsView extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(left: 15),
                           child: Text(
-                            'However, I am facing one issue the logged in user is not getting displayed in the users Authentication section of firebase ,',
+                            widget.product.description ?? "",
                             style: GoogleFonts.montserrat(
-                              color: Color(0xFF808080),
+                              color: const Color(0xFF808080),
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w500,
                             ),
@@ -138,25 +183,47 @@ class ProductDetailsView extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.symmetric(
                               vertical: 20, horizontal: 20.h),
-                          child: Container(
-                            height: 40.h,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Buy Now',
-                                  style: GoogleFonts.montserrat(
-                                    color: Colors.black,
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.bold,
+                          child: CustomTap(
+                            onTap: () {
+                              setState(() {
+                                _starttransaction = true;
+                              });
+                              FocusScope.of(context).requestFocus(FocusNode());
+                              String amount = widget.product.price.toString();
+                              Future.delayed(const Duration(seconds: 3));
+                              if (amount.isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content:
+                                        Text("Error In Payment (0XFF9709)"),
                                   ),
-                                ),
-                              ],
+                                );
+                                return;
+                              }
+                              initiateTransaction(amount);
+                            },
+                            child: Container(
+                              height: 40.h,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  _starttransaction
+                                      ? const CupertinoActivityIndicator()
+                                      : Text(
+                                          '\₹ ${widget.product.price}',
+                                          style: GoogleFonts.montserrat(
+                                            color: Colors.black,
+                                            fontSize: 18.sp,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                ],
+                              ),
                             ),
                           ),
                         )
@@ -168,5 +235,172 @@ class ProductDetailsView extends StatelessWidget {
             ))
           ],
         ));
+  }
+
+  void initiateTransaction(String amount) async {
+    Map<String, dynamic> body = {'amount': amount};
+
+    var parts = [];
+    body.forEach((key, value) {
+      parts.add('${Uri.encodeQueryComponent(key)}='
+          '${Uri.encodeQueryComponent(value)}');
+    });
+    var formData = parts.join('&');
+    print("VERIFY JSON MESSAGE12121231231231231231231231231231");
+    print(formData);
+    var res = await http.post(
+      Uri.https(
+        "10.0.2.2", // my ip address , localhost
+        "paytmphp/generate_token.php",
+      ),
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded", // urlencoded
+      },
+      body: formData,
+    );
+
+    // print(res.body);
+    // print(res.statusCode);
+    if (res.statusCode == 200) {
+      print("VERIFY JSON AMOUNT");
+      print(res.body);
+      var bodyJson = jsonDecode(res.body);
+      var response = AllInOneSdk.startTransaction(
+        bodyJson['mid'], // merchant id  from api
+        bodyJson['orderId'], // order id from api
+        amount, // amount
+        bodyJson['txnToken'],
+        "",
+        true,
+        false,
+      ).then((value) {
+        //  on payment completion we will verify transaction with transaction verify api
+        //  after payment completion we will verify this transaction
+        //  and this will be final verification for payment
+        Map<String, dynamic> jsonResponse = json.decode(json.encode(value));
+        String CURRENCY = jsonResponse['CURRENCY'];
+        String GATEWAYNAME = jsonResponse['GATEWAYNAME'];
+        String RESPMSG = jsonResponse['RESPMSG'];
+        String BANKNAME = jsonResponse['BANKNAME'];
+        String PAYMENTMODE = jsonResponse['PAYMENTMODE'];
+        String MID = jsonResponse['MID'];
+        String RESPCODE = jsonResponse['RESPCODE'];
+        String TXNID = jsonResponse['TXNID'];
+        String ORDERID = jsonResponse['ORDERID'];
+        String STATUS = jsonResponse['STATUS'];
+        String BANKTXNID = jsonResponse['BANKTXNID'];
+        String TXNDATE = jsonResponse['TXNDATE'];
+        String CHECKSUMHASH = jsonResponse['CHECKSUMHASH'];
+
+        String TXNAMOUNT = jsonResponse['TXNAMOUNT'];
+
+        print("PRINT value");
+        Navigator.push(
+            context,
+            CupertinoPageRoute(
+              builder: (context) => PaymentSucess(
+                currency: CURRENCY,
+                gatewayname: GATEWAYNAME,
+                respmsg: RESPMSG,
+                bankname: BANKNAME,
+                paymentmode: PAYMENTMODE,
+                mid: MID,
+                respcode: RESPCODE,
+                txnid: TXNID,
+                orderid: ORDERID,
+                status: STATUS,
+                banktxnid: BANKTXNID,
+                txndate: TXNDATE,
+                checksumhash: CHECKSUMHASH,
+                txnamount: TXNAMOUNT,
+              ),
+            ));
+
+        print(value);
+        setState(() {
+          _starttransaction = false;
+        });
+        verifyTransaction(bodyJson['orderId']);
+      }).catchError((error, stackTrace) {
+        setState(() {
+          _starttransaction = false;
+        });
+        AwesomeDialog(
+          context: context,
+          animType: AnimType.scale,
+          dialogType: DialogType.warning,
+          body: Center(
+            child: Text(
+              error.message,
+              style: TextStyle(fontStyle: FontStyle.italic),
+            ),
+          ),
+          title: 'Payment Failed',
+          desc: 'A Error Occured',
+          btnOkOnPress: () {},
+        ).show();
+      });
+    } else {
+      setState(() {
+        _starttransaction = false;
+      });
+      print("VERIFY JSON MESSAGE12121231231231231231231231231231");
+      print(res.body);
+      AwesomeDialog(
+        context: context,
+        animType: AnimType.bottomSlide,
+        dialogType: DialogType.warning,
+        body: Center(
+          child: Text(
+            res.body,
+            style: TextStyle(fontStyle: FontStyle.italic),
+          ),
+        ),
+        btnOkOnPress: () {},
+      ).show();
+    }
+  }
+
+  void verifyTransaction(String orderId) async {
+    Map<String, dynamic> body = {
+      'orderId': orderId,
+    };
+
+    var parts = [];
+    body.forEach((key, value) {
+      parts.add('${Uri.encodeQueryComponent(key)}='
+          '${Uri.encodeQueryComponent(value)}');
+    });
+    var formData = parts.join('&');
+    var res = await http.post(
+      Uri.https(
+        "10.0.2.2", // my ip address , localhost
+        "paytmphp/verify_transaction.php", // let's check verifycation code on backend
+      ),
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded", // urlencoded
+      },
+      body: formData,
+    );
+
+    // print(res.body);
+    // print(res.statusCode);
+    // json decode
+    var verifyJson = jsonDecode(res.body);
+    //  display result info > result msg
+    print("VERIFY JSON MESSAGE12121231231231231231231231231231");
+    print(res.body);
+
+    print(
+        "VERIFY JSON MESSAGE ENDS HEREVERIFY JSON MESSAGE12121231231231231231231231231231");
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

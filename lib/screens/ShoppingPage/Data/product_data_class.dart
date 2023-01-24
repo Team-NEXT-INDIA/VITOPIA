@@ -1,14 +1,14 @@
 class Product {
   int? id;
-  String? name;
+  String name;
   String? sub_category;
   String? description;
-  double? price;
+  double price;
   String? image;
 
   Product(
       {this.id,
-      this.name,
+      required this.name,
       this.description,
       required this.price,
       this.image,

@@ -37,6 +37,13 @@
             </list>
           </value>
         </entry>
+        <entry key="awesome_dialog">
+          <value>
+            <list>
+              <option value="/Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/awesome_dialog-3.0.2/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="barcode">
           <value>
             <list>
@@ -338,6 +345,13 @@
             </list>
           </value>
         </entry>
+        <entry key="graphs">
+          <value>
+            <list>
+              <option value="/Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/graphs-2.2.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="hashcodes">
           <value>
             <list>
@@ -555,6 +569,13 @@
             </list>
           </value>
         </entry>
+        <entry key="rive">
+          <value>
+            <list>
+              <option value="/Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/rive-0.9.1/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="rxdart">
           <value>
             <list>
@@ -710,6 +731,7 @@
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/animated_text_kit-4.2.2/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/archive-3.3.5/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.9.0/lib" />
+      <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/awesome_dialog-3.0.2/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/barcode-2.2.3/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/barcode_widget-2.0.3/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/boolean_selector-2.1.0/lib" />
@@ -750,6 +772,7 @@
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/google_sign_in_ios-5.5.1/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/google_sign_in_platform_interface-2.3.0/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/google_sign_in_web-0.10.2+1/lib" />
+      <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/graphs-2.2.0/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/hashcodes-2.0.0/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.13.5/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-4.0.2/lib" />
@@ -781,6 +804,7 @@
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/process-4.2.4/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/qr-3.0.1/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/quiver-3.2.1/lib" />
+      <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/rive-0.9.1/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/rxdart-0.27.7/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/shimmer_animation-2.1.0+1/lib" />
       <root url="file:///Applications/development/flutter/.pub-cache/hosted/pub.dartlang.org/skeletons-0.0.3/lib" />

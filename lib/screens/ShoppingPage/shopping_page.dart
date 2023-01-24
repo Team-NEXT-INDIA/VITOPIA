@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:vitopia/screens/ShoppingPage/product_view.dart';
 
 import '../../backend/api_services/ApiService.dart';
 import '../../customs/colors.dart';
@@ -287,8 +289,34 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                         child: FadeInAnimation(
                                           child: ProductCard(
                                             onTap: () {
-                                              Navigator.of(context)
-                                                  .pushNamed('/product_view');
+                                              Navigator.push(
+                                                  context,
+                                                  CupertinoPageRoute(
+                                                      builder: (context) =>
+                                                          ProductDetailsView(
+                                                            product: Product(
+                                                              id: _products[
+                                                                      index]
+                                                                  .id,
+                                                              name: _products[
+                                                                      index]
+                                                                  .name,
+                                                              sub_category:
+                                                                  _products[
+                                                                          index]
+                                                                      .sub_category,
+                                                              description:
+                                                                  _products[
+                                                                          index]
+                                                                      .description,
+                                                              price: _products[
+                                                                      index]
+                                                                  .price,
+                                                              image: _products[
+                                                                      index]
+                                                                  .image,
+                                                            ),
+                                                          )));
                                             },
                                             productName:
                                                 _products[index].name ?? "",
@@ -312,6 +340,23 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                 ),
                               ),
                             ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "End of Products",
+                                  style: TextStyle(
+                                    fontFamily: 'Monument Extended',
+                                    color: const Color(0xFFB4B4B4),
+                                    fontSize: 9.sp,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20.h,
+                            )
                           ],
                         ),
                       ),
