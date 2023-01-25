@@ -7,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vitopia/screens/InformationPage/information_page.dart';
 import 'package:vitopia/screens/home/student_home.dart';
 
-import '../customs/colors.dart';
 import '../screens/events/events_page.dart';
 import '../screens/profilePage/profile_page.dart';
 
@@ -95,16 +94,25 @@ class _LayoutState extends State<Layout> {
       // ),
       body: pages[_selectedPage],
       bottomNavigationBar: Container(
+        clipBehavior: Clip.none,
         height: 60.h,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+            colors: [Colors.black.withOpacity(1), Colors.transparent],
+          ),
+        ),
         child: BottomAppBar(
+          color: Colors.transparent,
           clipBehavior: Clip.antiAliasWithSaveLayer,
           shape: CircularNotchedRectangle(),
           child: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
               elevation: 0,
-              backgroundColor: bottomNavigation,
+              backgroundColor: Colors.transparent,
               showSelectedLabels: true,
-              enableFeedback: true,
+              enableFeedback: false,
               currentIndex: _selectedPage,
               selectedLabelStyle: GoogleFonts.montserrat(
                 fontSize: 9.5.sp,

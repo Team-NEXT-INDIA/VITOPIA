@@ -61,6 +61,10 @@ class _PaymentSucessState extends State<PaymentSucess>
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.black,
+        bottomNavigationBar: Padding(
+          padding: EdgeInsets.all(25.h),
+          child: gotoshop(),
+        ),
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: Colors.black,
@@ -159,35 +163,45 @@ class _PaymentSucessState extends State<PaymentSucess>
               SizedBox(
                 height: 15.h,
               ),
-              CustomTap(
-                onTap: () {
-                  Navigator.pushNamed(context, '/shop');
-                },
-                child: Container(
-                  height: 45.h,
-                  width: 290.w,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12.r)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Go to Shop",
-                        style: GoogleFonts.montserrat(
-                            color: Color(0xff000000),
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.w700),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 15.h,
-              ),
+
+              // SizedBox(
+              //   height: 15.h,
+              // ),
             ],
           ),
         ));
+  }
+}
+
+class gotoshop extends StatelessWidget {
+  const gotoshop({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomTap(
+      onTap: () {
+        Navigator.pushNamed(context, '/shop');
+      },
+      child: Container(
+        height: 45.h,
+        width: 290.w,
+        decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.circular(12.r)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Go to Shop",
+              style: GoogleFonts.montserrat(
+                  color: Color(0xff000000),
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.w700),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
