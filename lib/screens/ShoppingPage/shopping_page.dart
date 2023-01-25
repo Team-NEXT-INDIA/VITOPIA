@@ -73,6 +73,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.black,
+
         // floatingActionButton: FloatingActionButton(
         //   onPressed: _loadProducts,
         //   child: const Icon(Icons.refresh),
@@ -259,7 +260,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                     ),
                                   ),
                                   IconButton(
-                                    icon: Icon(Icons.filter_list,
+                                    icon: Icon(Icons.shopping_bag,
                                         color: isSorted
                                             ? Colors.blue
                                             : Colors.grey),

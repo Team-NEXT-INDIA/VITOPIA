@@ -4,9 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vitopia/screens/Intro/splash_screen.dart';
+import 'package:vitopia/screens/ShoppingPage/Components/shop_layout.dart';
 import 'package:vitopia/screens/ShoppingPage/Data/product_data_class.dart';
+import 'package:vitopia/screens/ShoppingPage/InvoicePage.dart';
+import 'package:vitopia/screens/ShoppingPage/MyOrders.dart';
 import 'package:vitopia/screens/ShoppingPage/product_view.dart';
-import 'package:vitopia/screens/ShoppingPage/shopping_page.dart';
 import 'package:vitopia/screens/login/student_login.dart';
 import 'package:vitopia/screens/profilePage/profile_page.dart';
 
@@ -51,7 +53,13 @@ class _MyAppState extends State<MyApp> {
                   builder: (_) => ProfilePage(), settings: settings);
             case '/shop':
               return CupertinoPageRoute(
-                  builder: (_) => ShoppingPage(), settings: settings);
+                  builder: (_) => ShopLayout(), settings: settings);
+            case '/invoice_page':
+              return CupertinoPageRoute(
+                  builder: (_) => InvoicePage(), settings: settings);
+            case '/orders':
+              return CupertinoPageRoute(
+                  builder: (_) => MyOrders(), settings: settings);
             case '/product_view':
               var product = settings.arguments as Product;
               return CupertinoPageRoute(

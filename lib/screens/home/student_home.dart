@@ -8,7 +8,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vitopia/customs/ontapscale.dart';
 import 'package:vitopia/screens/Intro/Components/featured_events_slider.dart';
-import 'package:vitopia/screens/components/mytickets.dart';
 
 import '../Intro/Components/feature_cards.dart';
 import 'components/footer_promo.dart';
@@ -114,6 +113,23 @@ class _StudentHomeState extends State<StudentHome> {
                   ),
                 ),
                 Align(
+                  alignment: AlignmentDirectional(1, 1),
+                  child: Container(
+                    height: 570.h,
+                    decoration: const BoxDecoration(
+                      gradient: RadialGradient(
+                        colors: [
+                          // Color.fromARGB(255, 118, 53, 245),
+                          Color(0xFF7635F5),
+                          Colors.black
+                        ],
+                        center: Alignment(-1.0, -1.0),
+                        radius: 1.0,
+                      ),
+                    ),
+                  ),
+                ),
+                Align(
                   alignment: const AlignmentDirectional(-0.91, -0.38),
                   child: Padding(
                     // padding: EdgeInsets.only(top: 20.h),
@@ -208,7 +224,7 @@ class _StudentHomeState extends State<StudentHome> {
                                   ],
                                 ),
                               ),
-                              AnimatedTextField(),
+                              // AnimatedTextField(),
                               FadeIn(child: const FeaturedEvents()),
                             ],
                           ),
@@ -257,7 +273,7 @@ class _StudentHomeState extends State<StudentHome> {
                             ],
                           ),
                         ),
-                        MyTickets(data2: data2),
+                        // MyTickets(data2: data2),
                         SizedBox(
                           height: 20.h,
                         ),
