@@ -25,9 +25,9 @@ class _SplashScreenState extends State<SplashScreen>
     final provider = Provider.of<GoogleSignInProvider>(context, listen: false);
     Timer(const Duration(seconds: 7), () async {
       if (await provider.googleSignIn.isSignedIn()) {
-        Navigator.of(context).pushNamed('/studenthome');
+        Navigator.pushReplacementNamed(context, '/studenthome');
       } else {
-        Navigator.of(context).pushNamed('/login');
+        Navigator.pushReplacementNamed(context, '/login');
       }
     });
   }
