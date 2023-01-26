@@ -260,7 +260,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                     ),
                                   ),
                                   IconButton(
-                                    icon: Icon(Icons.shopping_bag,
+                                    icon: Icon(Icons.filter_list,
                                         color: isSorted
                                             ? Colors.blue
                                             : Colors.grey),
@@ -316,9 +316,9 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                                               image: _products[
                                                                       index]
                                                                   .image,
-                                                              SKU: _products[
+                                                              sku: _products[
                                                                       index]
-                                                                  .SKU,
+                                                                  .sku,
                                                             ),
                                                           )));
                                             },
@@ -379,11 +379,11 @@ class _ShoppingPageState extends State<ShoppingPage> {
             children: <Widget>[
               ListTile(
                 leading: const Icon(
-                  FontAwesomeIcons.sortAmountDown,
+                  FontAwesomeIcons.sortAmountUp,
                   color: Colors.white,
                 ),
                 title: Text(
-                  "Price High To Low",
+                  "Price Low To High",
                   style: GoogleFonts.montserrat(
                     color: const Color(0xffFFFFFF),
                     fontSize: 13.sp,
@@ -401,11 +401,11 @@ class _ShoppingPageState extends State<ShoppingPage> {
               ),
               ListTile(
                 leading: const Icon(
-                  FontAwesomeIcons.sortAmountUp,
+                  FontAwesomeIcons.sortAmountDown,
                   color: Colors.white,
                 ),
                 title: Text(
-                  "Price Low To High",
+                  "Price High To Low",
                   style: GoogleFonts.montserrat(
                     color: const Color(0xffFFFFFF),
                     fontSize: 13.sp,
