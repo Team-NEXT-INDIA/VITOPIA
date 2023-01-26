@@ -316,6 +316,9 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                                               image: _products[
                                                                       index]
                                                                   .image,
+                                                              SKU: _products[
+                                                                      index]
+                                                                  .SKU,
                                                             ),
                                                           )));
                                             },

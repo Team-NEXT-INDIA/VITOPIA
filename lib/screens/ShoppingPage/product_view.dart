@@ -26,6 +26,58 @@ class ProductDetailsView extends StatefulWidget {
 
 class _ProductDetailsViewState extends State<ProductDetailsView> {
   bool _starttransaction = false;
+  final String _baseUrl = "http://10.0.2.2:8080/transactions";
+  Future<http.Response> postTransactionDetails(transactionDetails) async {
+    final response = await http.post(
+      Uri.parse(
+        _baseUrl,
+      ),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(transactionDetails),
+    );
+    print(response);
+    return response;
+  }
+
+  // Function to save the transaction details to the database
+  void saveOrders({
+    required txnAmount,
+    required orderId,
+    required paymentMode,
+    required txnDate,
+    required SKU,
+  }) async {
+    try {
+      // Create the request body with the transaction details
+      Map<String, dynamic> body = {
+        "ORDERID": orderId,
+        "TXNAMOUNT": txnAmount,
+        "PAYMENTMODE": paymentMode,
+        "TXNDATE": txnDate,
+        "SKU": SKU,
+      };
+
+      // Make the API call
+      final response = await http.post(
+          Uri.parse(
+            'http://10.0.2.2:8080/save-order',
+          ),
+          body: body);
+
+      if (response.statusCode == 200) {
+        // The API call was successful
+        print("Transaction saved successfully!");
+      } else {
+        // The API call failed
+        print("Error saving transaction: ${response.statusCode}");
+      }
+    } catch (e) {
+      // Handle any errors that occurred during the API call
+      print("Error saving transaction: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -169,6 +221,17 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                         Padding(
                           padding: const EdgeInsets.only(left: 15),
                           child: Text(
+                            widget.product.SKU ?? "",
+                            style: GoogleFonts.montserrat(
+                              color: const Color(0xFF808080),
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: Text(
                             widget.product.description ?? "",
                             style: GoogleFonts.montserrat(
                               color: const Color(0xFF808080),
@@ -268,6 +331,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
       print("VERIFY JSON AMOUNT");
       print(res.body);
       var bodyJson = jsonDecode(res.body);
+
       var response = AllInOneSdk.startTransaction(
         bodyJson['mid'], // merchant id  from api
         bodyJson['orderId'], // order id from api
@@ -281,23 +345,32 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
         //  after payment completion we will verify this transaction
         //  and this will be final verification for payment
         Map<String, dynamic> jsonResponse = json.decode(json.encode(value));
-        String CURRENCY = jsonResponse['CURRENCY'];
-        String GATEWAYNAME = jsonResponse['GATEWAYNAME'];
-        String RESPMSG = jsonResponse['RESPMSG'];
-        String BANKNAME = jsonResponse['BANKNAME'];
-        String PAYMENTMODE = jsonResponse['PAYMENTMODE'];
-        String MID = jsonResponse['MID'];
-        String RESPCODE = jsonResponse['RESPCODE'];
-        String TXNID = jsonResponse['TXNID'];
-        String ORDERID = jsonResponse['ORDERID'];
-        String STATUS = jsonResponse['STATUS'];
-        String BANKTXNID = jsonResponse['BANKTXNID'];
-        String TXNDATE = jsonResponse['TXNDATE'];
-        String CHECKSUMHASH = jsonResponse['CHECKSUMHASH'];
-
-        String TXNAMOUNT = jsonResponse['TXNAMOUNT'];
-
-        print("PRINT value");
+        postTransactionDetails(value);
+        String CURRENCY = jsonResponse['CURRENCY'] ?? "";
+        String GATEWAYNAME = jsonResponse['GATEWAYNAME'] ?? "";
+        String RESPMSG = jsonResponse['RESPMSG'] ?? "";
+        String BANKNAME = jsonResponse['BANKNAME'] ?? "";
+        String PAYMENTMODE = jsonResponse['PAYMENTMODE'] ?? "";
+        String MID = jsonResponse['MID'] ?? "";
+        String RESPCODE = jsonResponse['RESPCODE'] ?? "";
+        String TXNID = jsonResponse['TXNID'] ?? "";
+        String ORDERID = jsonResponse['ORDERID'] ?? "";
+        String STATUS = jsonResponse['STATUS'] ?? "";
+        String BANKTXNID = jsonResponse['BANKTXNID'] ?? "";
+        String TXNDATE = jsonResponse['TXNDATE'] ?? "";
+        String CHECKSUMHASH = jsonResponse['CHECKSUMHASH'] ?? "";
+        String TXNAMOUNT = jsonResponse['TXNAMOUNT'] ?? "";
+        String SKU = widget.product.SKU ?? "";
+        print("Saving Orders to database");
+        print(widget.product.SKU);
+        saveOrders(
+          txnAmount: TXNAMOUNT,
+          paymentMode: PAYMENTMODE,
+          txnDate: TXNDATE,
+          orderId: ORDERID,
+          SKU: widget.product.SKU,
+        );
+        print("SUCCESS TRANSACTION");
         Navigator.push(
             context,
             CupertinoPageRoute(
@@ -317,6 +390,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                 txndate: TXNDATE,
                 checksumhash: CHECKSUMHASH,
                 txnamount: TXNAMOUNT,
+                SKU: SKU,
               ),
             ));
 
@@ -325,16 +399,37 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
           _starttransaction = false;
         });
         verifyTransaction(bodyJson['orderId']);
-      }).catchError((error, stackTrace) {
+      }).catchError((onError) {
         setState(() {
           _starttransaction = false;
         });
+        print("FAILED TRANSACTION");
+
+        var transactionDetails = onError.details;
+        postTransactionDetails(transactionDetails);
+        String CURRENCY = transactionDetails['CURRENCY'] ?? "";
+        String GATEWAYNAME = transactionDetails['GATEWAYNAME'] ?? "";
+        String RESPMSG = transactionDetails['RESPMSG'] ?? "";
+        String BANKNAME = transactionDetails['BANKNAME'] ?? "";
+        String PAYMENTMODE = transactionDetails['PAYMENTMODE'] ?? "";
+        String MID = transactionDetails['MID'] ?? "";
+        String RESPCODE = transactionDetails['RESPCODE'] ?? "";
+        String TXNID = transactionDetails['TXNID'] ?? "";
+        String ORDERID = transactionDetails['ORDERID'] ?? "";
+        String STATUS = transactionDetails['STATUS'] ?? "";
+        String BANKTXNID = transactionDetails['BANKTXNID'] ?? "";
+        String TXNDATE = transactionDetails['TXNDATE'];
+        String CHECKSUMHASH = transactionDetails['CHECKSUMHASH'] ?? "";
+
+        String TXNAMOUNT = transactionDetails['TXNAMOUNT'] ?? "";
+        print("FAILED MESSAGE");
+
         Navigator.push(
             context,
             CupertinoPageRoute(
               fullscreenDialog: true,
               builder: (context) => PaymentFailed(
-                error: error.message,
+                error: RESPMSG,
               ),
             ));
       });
@@ -342,7 +437,6 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
       setState(() {
         _starttransaction = false;
       });
-      print("VERIFY JSON MESSAGE12121231231231231231231231231231");
       print(res.body);
       Navigator.push(
           context,

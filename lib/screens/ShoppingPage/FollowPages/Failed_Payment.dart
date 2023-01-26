@@ -101,15 +101,15 @@ class _PaymentFailedState extends State<PaymentFailed>
                 height: 15.h,
               ),
               SizedBox(
-                height: 10.h,
+                height: 5.h,
               ),
-              Text(
-                'Logged Error',
-                style: GoogleFonts.montserrat(
-                    color: Colors.redAccent,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w500),
-              ),
+              // Text(
+              //   'Error',
+              //   style: GoogleFonts.montserrat(
+              //       color: Colors.redAccent,
+              //       fontSize: 17.sp,
+              //       fontWeight: FontWeight.w500),
+              // ),
               SizedBox(
                 height: 5.h,
               ),
@@ -120,7 +120,6 @@ class _PaymentFailedState extends State<PaymentFailed>
                   textAlign: TextAlign.center,
                   style: GoogleFonts.montserrat(
                       color: Color(0xCFDEDEDE),
-                      fontStyle: FontStyle.italic,
                       fontSize: 11.sp,
                       fontWeight: FontWeight.w600),
                 ),

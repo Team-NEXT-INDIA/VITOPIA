@@ -1,14 +1,41 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:vitopia/customs/ontapscale.dart';
 
 import '../../customs/colors.dart';
 
-class MyOrders extends StatelessWidget {
+class MyOrders extends StatefulWidget {
   const MyOrders({Key? key}) : super(key: key);
+
+  @override
+  State<MyOrders> createState() => _MyOrdersState();
+}
+
+class _MyOrdersState extends State<MyOrders> {
+  List<dynamic> _orders = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchOrders();
+  }
+
+  var email = "samuel.21bce7615@gmail.com";
+  _fetchOrders() async {
+    final response = await http
+        .get(Uri.parse('http://10.0.2.2:8080/my-orders?email=$email'));
+    if (response.statusCode == 200) {
+      _orders = json.decode(response.body);
+    } else {
+      throw Exception('Failed to load orders');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

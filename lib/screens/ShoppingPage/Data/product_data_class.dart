@@ -3,6 +3,7 @@ class Product {
   String name;
   String? sub_category;
   String? description;
+  String? SKU;
   double price;
   String? image;
 
@@ -10,6 +11,7 @@ class Product {
       {this.id,
       required this.name,
       this.description,
+      required this.SKU,
       required this.price,
       this.image,
       this.sub_category});
@@ -21,6 +23,7 @@ class Product {
       sub_category: json["sub_category"] ?? "",
       price: double.parse(json["price"]),
       image: json["image"] ?? "",
+      SKU: json["SKU"] ?? "",
     );
   }
 
