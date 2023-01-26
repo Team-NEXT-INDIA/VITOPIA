@@ -4,6 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
+
+import '../provider/google_sign_in.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -19,8 +22,14 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
-    Timer(const Duration(seconds: 7),
-        () => Navigator.of(context).pushNamed('/login'));
+    final provider = Provider.of<GoogleSignInProvider>(context, listen: false);
+    Timer(const Duration(seconds: 7), () async {
+      if (await provider.googleSignIn.isSignedIn()) {
+        Navigator.of(context).pushNamed('/studenthome');
+      } else {
+        Navigator.of(context).pushNamed('/login');
+      }
+    });
   }
 
   @override

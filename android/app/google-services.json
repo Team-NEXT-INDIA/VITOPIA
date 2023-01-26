@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "331520781309",
+    "project_id": "signin-4d5e8",
+    "storage_bucket": "signin-4d5e8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:331520781309:android:946046b1e6208078928794",
+        "android_client_info": {
+          "package_name": "com.arize.vitopia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "331520781309-1st00v6nrdo92c85500kenl84d9l323h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.arize.vitopia",
+            "certificate_hash": "07fc44ffdce827b79def43bd8172973616b0bd8e"
+          }
+        },
+        {
+          "client_id": "331520781309-h41ecl0ta11to83mr9ld0s17l989j0cd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaUWd88YFOqxswhGsiRjhPGCcFZBeBLUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "331520781309-f9c7st7mpbbmi0h9v4ub4c0j0ebm1cr1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
