@@ -73,6 +73,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.black,
+
         // floatingActionButton: FloatingActionButton(
         //   onPressed: _loadProducts,
         //   child: const Icon(Icons.refresh),
@@ -315,6 +316,9 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                                               image: _products[
                                                                       index]
                                                                   .image,
+                                                              sku: _products[
+                                                                      index]
+                                                                  .sku,
                                                             ),
                                                           )));
                                             },
@@ -375,11 +379,11 @@ class _ShoppingPageState extends State<ShoppingPage> {
             children: <Widget>[
               ListTile(
                 leading: const Icon(
-                  FontAwesomeIcons.sortAmountDown,
+                  FontAwesomeIcons.sortAmountUp,
                   color: Colors.white,
                 ),
                 title: Text(
-                  "Price High To Low",
+                  "Price Low To High",
                   style: GoogleFonts.montserrat(
                     color: const Color(0xffFFFFFF),
                     fontSize: 13.sp,
@@ -397,11 +401,11 @@ class _ShoppingPageState extends State<ShoppingPage> {
               ),
               ListTile(
                 leading: const Icon(
-                  FontAwesomeIcons.sortAmountUp,
+                  FontAwesomeIcons.sortAmountDown,
                   color: Colors.white,
                 ),
                 title: Text(
-                  "Price Low To High",
+                  "Price High To Low",
                   style: GoogleFonts.montserrat(
                     color: const Color(0xffFFFFFF),
                     fontSize: 13.sp,

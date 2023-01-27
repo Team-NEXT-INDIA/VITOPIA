@@ -20,6 +20,7 @@ class PaymentSucess extends StatefulWidget {
   final String txndate;
   final String checksumhash;
   final String txnamount;
+  final String SKU;
 
   PaymentSucess(
       {required this.currency,
@@ -35,7 +36,8 @@ class PaymentSucess extends StatefulWidget {
       required this.banktxnid,
       required this.txndate,
       required this.checksumhash,
-      required this.txnamount});
+      required this.txnamount,
+      required this.SKU});
 
   @override
   State<PaymentSucess> createState() => _PaymentSucessState();
@@ -60,6 +62,7 @@ class _PaymentSucessState extends State<PaymentSucess>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        extendBodyBehindAppBar: true,
         backgroundColor: Colors.black,
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -159,35 +162,88 @@ class _PaymentSucessState extends State<PaymentSucess>
               SizedBox(
                 height: 15.h,
               ),
-              CustomTap(
-                onTap: () {
-                  Navigator.pushNamed(context, '/shop');
-                },
-                child: Container(
-                  height: 45.h,
-                  width: 290.w,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12.r)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Go to Shop",
-                        style: GoogleFonts.montserrat(
-                            color: Color(0xff000000),
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.w700),
-                      )
-                    ],
-                  ),
-                ),
+              Padding(
+                padding: EdgeInsets.all(10.h),
+                child: viewInvoice(),
               ),
-              SizedBox(
-                height: 15.h,
+              Padding(
+                padding: EdgeInsets.all(10.h),
+                child: gotoshop(),
               ),
+
+              // SizedBox(
+              //   height: 15.h,
+              // ),
             ],
           ),
         ));
+  }
+}
+
+class viewInvoice extends StatelessWidget {
+  const viewInvoice({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomTap(
+      onTap: () {
+        Navigator.pushNamed(context, '/invoice_page');
+      },
+      child: Container(
+        height: 45.h,
+        width: 290.w,
+        decoration: BoxDecoration(
+            border: Border.all(width: 0.9.h, color: Colors.white),
+            color: Colors.transparent,
+            borderRadius: BorderRadius.circular(12.r)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "View Invoice",
+              style: GoogleFonts.montserrat(
+                  color: Color(0xffffffff),
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.w700),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class gotoshop extends StatelessWidget {
+  const gotoshop({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomTap(
+      onTap: () {
+        Navigator.pushNamed(context, '/shop');
+      },
+      child: Container(
+        height: 45.h,
+        width: 290.w,
+        decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.circular(12.r)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Go to Shop",
+              style: GoogleFonts.montserrat(
+                  color: Color(0xff000000),
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.w700),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

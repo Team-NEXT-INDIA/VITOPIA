@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:vitopia/customs/ontapscale.dart';
+
+import '../provider/google_sign_in.dart';
 
 class StudentLogin extends StatefulWidget {
   const StudentLogin({Key? key}) : super(key: key);
@@ -156,7 +159,36 @@ class _StudentLoginState extends State<StudentLogin> {
                   ],
                 ),
                 SizedBox(
-                  height: 19.h,
+                  height: 20.h,
+                ),
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xffffffff)),
+                    onPressed: () {
+                      final provider = Provider.of<GoogleSignInProvider>(
+                          context,
+                          listen: false);
+                      provider.googleLogin(context, Navigator.pushNamed);
+                    },
+                    child: Text('Sign up with google ')),
+                Row(
+                  children: [
+                    InkWell(
+                      onTap: () {},
+                      borderRadius: BorderRadius.circular(3),
+                      child: Container(
+                        margin: EdgeInsets.all(3),
+                        height: 20.h,
+                        child: Center(
+                          child: Text(
+                            "EXTERNAL STUDENT? LOGIN HERE",
+                            style: GoogleFonts.montserrat(
+                                fontSize: 10.sp, color: Color(0xffe1e1e1)),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: 118.h,

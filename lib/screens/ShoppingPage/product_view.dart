@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,7 +26,78 @@ class ProductDetailsView extends StatefulWidget {
 }
 
 class _ProductDetailsViewState extends State<ProductDetailsView> {
+  final user = FirebaseAuth.instance.currentUser!;
   bool _starttransaction = false;
+  final String _successbaseUrl = "http://10.0.2.2:8080/save-transaction";
+  final String _failedbaseUrl = "http://10.0.2.2:8080/save-failed-transaction";
+  Future<http.Response> postTransactionDetails(transactionDetails) async {
+    final response = await http.post(
+      Uri.parse(
+        _successbaseUrl,
+      ),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(transactionDetails),
+    );
+    return response;
+  }
+
+  Future<http.Response> postFailedTransactionDetails(transactionDetails) async {
+    final response = await http.post(
+      Uri.parse(
+        _failedbaseUrl,
+      ),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(transactionDetails),
+    );
+    return response;
+  }
+
+  // Function to save the transaction details to the database
+  void saveOrders(
+      {required txnAmount,
+      required orderId,
+      required paymentMode,
+      required txnDate,
+      required sku,
+      required email}) async {
+    try {
+      // Create the request body with the transaction details
+      Map<String, dynamic> body = {
+        "ORDERID": orderId,
+        "TXNAMOUNT": txnAmount,
+        "PAYMENTMODE": paymentMode,
+        "TXNDATE": txnDate,
+        "SKU": sku,
+        "EMAIL": user.email,
+      };
+
+      // convert the body to json string
+      var jsonBody = jsonEncode(body);
+
+      // Make the API call
+      final response = await http.post(
+          Uri.parse(
+            'http://10.0.2.2:8080/save-order',
+          ),
+          headers: {"Content-Type": "application/json"},
+          body: jsonBody);
+
+      if (response.statusCode == 200) {
+        // The API call was successful
+        print("ORDER Transaction saved successfully!");
+      } else {
+        // The API call failed
+        print("Error saving transaction: ${response.statusCode}");
+      }
+    } catch (e) {
+      // Handle any errors that occurred during the API call
+      print("Error saving transaction: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -169,6 +241,17 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                         Padding(
                           padding: const EdgeInsets.only(left: 15),
                           child: Text(
+                            widget.product.sku ?? "",
+                            style: GoogleFonts.montserrat(
+                              color: const Color(0xFF808080),
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: Text(
                             widget.product.description ?? "",
                             style: GoogleFonts.montserrat(
                               color: const Color(0xFF808080),
@@ -240,7 +323,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
   void initiateTransaction(String amount) async {
     Map<String, dynamic> body = {
       'amount': amount,
-      'reg_no': 'samuel.21bce7615@gmail.com'
+      'reg_no': user.email ?? "",
     };
 
     var parts = [];
@@ -249,8 +332,6 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
           '${Uri.encodeQueryComponent(value)}');
     });
     var formData = parts.join('&');
-    print("VERIFY JSON MESSAGE12121231231231231231231231231231");
-    print(formData);
     var res = await http.post(
       Uri.https(
         "10.0.2.2", // my ip address , localhost
@@ -268,6 +349,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
       print("VERIFY JSON AMOUNT");
       print(res.body);
       var bodyJson = jsonDecode(res.body);
+
       var response = AllInOneSdk.startTransaction(
         bodyJson['mid'], // merchant id  from api
         bodyJson['orderId'], // order id from api
@@ -281,23 +363,39 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
         //  after payment completion we will verify this transaction
         //  and this will be final verification for payment
         Map<String, dynamic> jsonResponse = json.decode(json.encode(value));
-        String CURRENCY = jsonResponse['CURRENCY'];
-        String GATEWAYNAME = jsonResponse['GATEWAYNAME'];
-        String RESPMSG = jsonResponse['RESPMSG'];
-        String BANKNAME = jsonResponse['BANKNAME'];
-        String PAYMENTMODE = jsonResponse['PAYMENTMODE'];
-        String MID = jsonResponse['MID'];
-        String RESPCODE = jsonResponse['RESPCODE'];
-        String TXNID = jsonResponse['TXNID'];
-        String ORDERID = jsonResponse['ORDERID'];
-        String STATUS = jsonResponse['STATUS'];
-        String BANKTXNID = jsonResponse['BANKTXNID'];
-        String TXNDATE = jsonResponse['TXNDATE'];
-        String CHECKSUMHASH = jsonResponse['CHECKSUMHASH'];
-
-        String TXNAMOUNT = jsonResponse['TXNAMOUNT'];
-
-        print("PRINT value");
+        String CURRENCY = jsonResponse['CURRENCY'] ?? "";
+        String GATEWAYNAME = jsonResponse['GATEWAYNAME'] ?? "";
+        String RESPMSG = jsonResponse['RESPMSG'] ?? "";
+        String BANKNAME = jsonResponse['BANKNAME'] ?? "";
+        String PAYMENTMODE = jsonResponse['PAYMENTMODE'] ?? "";
+        String MID = jsonResponse['MID'] ?? "";
+        String RESPCODE = jsonResponse['RESPCODE'] ?? "";
+        String TXNID = jsonResponse['TXNID'] ?? "";
+        String ORDERID = jsonResponse['ORDERID'] ?? "";
+        String STATUS = jsonResponse['STATUS'] ?? "";
+        String BANKTXNID = jsonResponse['BANKTXNID'] ?? "";
+        String TXNDATE = jsonResponse['TXNDATE'] ?? "";
+        String CHECKSUMHASH = jsonResponse['CHECKSUMHASH'] ?? "";
+        String TXNAMOUNT = jsonResponse['TXNAMOUNT'] ?? "";
+        String SKU = widget.product.sku ?? "";
+        Map<String, dynamic> body = {
+          'CURRENCY': CURRENCY,
+          'GATEWAYNAME': GATEWAYNAME,
+          'RESPMSG': RESPMSG,
+          'BANKNAME': BANKNAME,
+          'PAYMENTMODE': PAYMENTMODE,
+          'MID': MID,
+          'RESPCODE': RESPCODE,
+          'TXNID': TXNID,
+          'ORDERID': ORDERID,
+          'STATUS': STATUS,
+          'BANKTXNID': BANKTXNID,
+          'TXNDATE': TXNDATE,
+          'CHECKSUMHASH': CHECKSUMHASH,
+          'TXNAMOUNT': TXNAMOUNT,
+        };
+        postTransactionDetails(body);
+        print("SUCCESS TRANSACTION");
         Navigator.push(
             context,
             CupertinoPageRoute(
@@ -317,24 +415,73 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                 txndate: TXNDATE,
                 checksumhash: CHECKSUMHASH,
                 txnamount: TXNAMOUNT,
+                SKU: SKU,
               ),
             ));
+        print("SAVING ORDERS TO DB");
 
+        saveOrders(
+          email: user.email,
+          txnAmount: TXNAMOUNT,
+          orderId: ORDERID,
+          paymentMode: PAYMENTMODE,
+          txnDate: TXNDATE,
+          sku: SKU,
+        );
+        print("ENDING SAVING ORDERS TO DB");
         print(value);
         setState(() {
           _starttransaction = false;
         });
         verifyTransaction(bodyJson['orderId']);
-      }).catchError((error, stackTrace) {
+      }).catchError((onError) {
         setState(() {
           _starttransaction = false;
         });
+        print("FAILED TRANSACTION");
+
+        var transactionDetails = onError.details;
+
+        String CURRENCY = transactionDetails['CURRENCY'] ?? "";
+        String GATEWAYNAME = transactionDetails['GATEWAYNAME'] ?? "NGW";
+        String RESPMSG = transactionDetails['RESPMSG'] ?? "";
+        String BANKNAME = transactionDetails['BANKNAME'] ?? "";
+        String PAYMENTMODE = transactionDetails['PAYMENTMODE'] ?? "";
+        String MID = transactionDetails['MID'] ?? "";
+        String RESPCODE = transactionDetails['RESPCODE'] ?? "";
+        String TXNID = transactionDetails['TXNID'] ?? "";
+        String ORDERID = transactionDetails['ORDERID'] ?? "";
+        String STATUS = transactionDetails['STATUS'] ?? "";
+        String BANKTXNID = transactionDetails['BANKTXNID'] ?? "";
+        String TXNDATE = transactionDetails['TXNDATE'] ?? "";
+        String CHECKSUMHASH = transactionDetails['CHECKSUMHASH'] ?? "";
+        String SKU = widget.product.sku ?? "";
+        String TXNAMOUNT = transactionDetails['TXNAMOUNT'] ?? "";
+        print("FAILED MESSAGE");
+        Map<String, dynamic> failbody = {
+          'CURRENCY': CURRENCY,
+          'GATEWAYNAME': GATEWAYNAME,
+          'RESPMSG': RESPMSG,
+          'BANKNAME': BANKNAME,
+          'PAYMENTMODE': PAYMENTMODE,
+          'MID': MID,
+          'RESPCODE': RESPCODE,
+          'TXNID': TXNID,
+          'ORDERID': ORDERID,
+          'STATUS': STATUS,
+          'BANKTXNID': BANKTXNID,
+          'TXNDATE': TXNDATE,
+          'CHECKSUMHASH': CHECKSUMHASH,
+          'TXNAMOUNT': TXNAMOUNT,
+        };
+        postFailedTransactionDetails(failbody);
+        print(transactionDetails);
         Navigator.push(
             context,
             CupertinoPageRoute(
               fullscreenDialog: true,
               builder: (context) => PaymentFailed(
-                error: error.message,
+                error: RESPMSG,
               ),
             ));
       });
@@ -342,7 +489,6 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
       setState(() {
         _starttransaction = false;
       });
-      print("VERIFY JSON MESSAGE12121231231231231231231231231231");
       print(res.body);
       Navigator.push(
           context,
