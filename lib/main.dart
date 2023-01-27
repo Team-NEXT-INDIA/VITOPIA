@@ -7,6 +7,7 @@ import 'package:vitopia/screens/Intro/splash_screen.dart';
 import 'package:vitopia/screens/ShoppingPage/Data/product_data_class.dart';
 import 'package:vitopia/screens/ShoppingPage/product_view.dart';
 import 'package:vitopia/screens/ShoppingPage/shopping_page.dart';
+import 'package:vitopia/screens/StudentLoginV2/LoginpageV2.dart';
 import 'package:vitopia/screens/login/student_login.dart';
 import 'package:vitopia/screens/profilePage/profile_page.dart';
 
@@ -43,6 +44,9 @@ class _MyAppState extends State<MyApp> {
             case '/login':
               return CupertinoPageRoute(
                   builder: (_) => StudentLogin(), settings: settings);
+            case '/loginv2':
+              return CupertinoPageRoute(
+                  builder: (_) => Loginpage(), settings: settings);
             case '/studenthome':
               return CupertinoPageRoute(
                   builder: (_) => Layout(), settings: settings);

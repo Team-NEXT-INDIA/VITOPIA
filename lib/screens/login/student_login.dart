@@ -97,7 +97,7 @@ class _StudentLoginState extends State<StudentLogin> {
                     child:
                         getTextField(hint: "Password", labeltext: 'PASSWORD')),
                 SizedBox(
-                  height: 16.h,
+                  height: 50.h,
                 ),
                 FadeIn(
                   duration: Duration(milliseconds: 600),
@@ -108,14 +108,15 @@ class _StudentLoginState extends State<StudentLogin> {
                     child: Container(
                       height: 40.h,
                       width: double.infinity,
-                      decoration: BoxDecoration(color: Colors.white),
+                      decoration: BoxDecoration(color: Color(0xff090419)),
                       child: Center(
                         child: Text(
-                          "LOG IN",
+                          "CONNECT WITH GOOGLE",
                           style: GoogleFonts.montserrat(
-                            color: Color(0xff5B5B5B),
-                            fontSize: 14.sp,
+                            color: Colors.white,
+                            fontSize: 13.sp,
                             fontWeight: FontWeight.w500,
+
                           ),
                         ),
                       ),
@@ -125,32 +126,7 @@ class _StudentLoginState extends State<StudentLogin> {
                 SizedBox(
                   height: 20.h,
                 ),
-                Row(
-                  children: [
-                    Wrap(
-                      children: [
-                        Text(
-                          "Have you forgotten your ",
-                          style: GoogleFonts.montserrat(
-                              fontSize: 10.sp, color: Color(0xffe1e1e1)),
-                        ),
-                        InkWell(
-                          onTap: () {},
-                          borderRadius: BorderRadius.circular(10),
-                          child: Center(
-                            child: Text(
-                              " password? ",
-                              style: GoogleFonts.montserrat(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 10.sp,
-                                  color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+
                 SizedBox(
                   height: 30.h,
                 ),
@@ -180,26 +156,7 @@ class _StudentLoginState extends State<StudentLogin> {
                   ],
                 ),
                 SizedBox(
-                  height: 20.h,
-                ),
-                Row(
-                  children: [
-                    InkWell(
-                      onTap: () {},
-                      borderRadius: BorderRadius.circular(3),
-                      child: Container(
-                        margin: EdgeInsets.all(3),
-                        height: 20.h,
-                        child: Center(
-                          child: Text(
-                            "EXTERNAL STUDENT? LOGIN HERE",
-                            style: GoogleFonts.montserrat(
-                                fontSize: 10.sp, color: Color(0xffe1e1e1)),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                  height: 19.h,
                 ),
                 SizedBox(
                   height: 118.h,
@@ -216,7 +173,7 @@ class _StudentLoginState extends State<StudentLogin> {
                                 "Your privacy is our top concern and we want you to know how we process your personal information."
                                 " By continuing you confirm that you've read and accepted",
                             style: GoogleFonts.montserrat(
-                                fontSize: 9.sp, color: Color(0xff686868)),
+                                fontSize: 6.sp, color: Color(0xff686868)),
                           ),
                           TextSpan(
                             text: " Terms",

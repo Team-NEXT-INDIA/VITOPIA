@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
     _controller = AnimationController(vsync: this);
     Timer(const Duration(seconds: 7),
-        () => Navigator.of(context).pushNamed('/login'));
+        () => Navigator.of(context).pushNamed('/loginv2'));
   }
 
   @override
