@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>331520781309-tgad1tcop9nj2e48neikic4iaoceo5p1.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.331520781309-tgad1tcop9nj2e48neikic4iaoceo5p1</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>331520781309-vb3e58ng8gr6i4ofdqh5gn0vmq45go0q.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBtoQu5HIKv-GF5c8bORW3tWlrv5bAUPvw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>331520781309</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.arize.vitopia</string>
+	<key>PROJECT_ID</key>
+	<string>signin-4d5e8</string>
+	<key>STORAGE_BUCKET</key>
+	<string>signin-4d5e8.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:331520781309:ios:4f01ba7df648bdeb928794</string>
+</dict>
+</plist>

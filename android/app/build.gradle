@@ -52,13 +52,21 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
-
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties['vitopia-keystore']
+            keyPassword keystoreProperties['sheelaP2013@s']
+            storeFile keystoreProperties['vitopia-keystore.jks'] ? file(keystoreProperties['vitopia-keystore.jks']) : null
+            storePassword keystoreProperties['sheelaP2013@s']
+        }
+    }
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
         }
+
     }
 }
 
