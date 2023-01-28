@@ -53,25 +53,25 @@ class _MyAppState extends State<MyApp> {
             switch (settings.name) {
               case '/':
                 return CupertinoPageRoute(
-                    builder: (_) => SplashScreen(), settings: settings);
+                    builder: (_) => const SplashScreen(), settings: settings);
               case '/login':
                 return CupertinoPageRoute(
-                    builder: (_) => StudentLogin(), settings: settings);
+                    builder: (_) => const StudentLogin(), settings: settings);
               case '/studenthome':
                 return CupertinoPageRoute(
-                    builder: (_) => Layout(), settings: settings);
+                    builder: (_) => const Layout(), settings: settings);
               case '/profile':
                 return CupertinoPageRoute(
                     builder: (_) => ProfilePage(), settings: settings);
               case '/shop':
                 return CupertinoPageRoute(
-                    builder: (_) => ShopLayout(), settings: settings);
+                    builder: (_) => const ShopLayout(), settings: settings);
               case '/invoice_page':
                 return CupertinoPageRoute(
-                    builder: (_) => InvoicePage(), settings: settings);
+                    builder: (_) => const InvoicePage(), settings: settings);
               case '/orders':
                 return CupertinoPageRoute(
-                    builder: (_) => MyOrders(), settings: settings);
+                    builder: (_) => const MyOrders(), settings: settings);
               case '/product_view':
                 var product = settings.arguments as Product;
                 return CupertinoPageRoute(
