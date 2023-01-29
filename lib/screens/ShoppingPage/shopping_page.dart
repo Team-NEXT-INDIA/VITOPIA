@@ -9,6 +9,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:vitopia/screens/ShoppingPage/Data/tickets_product_class.dart';
 import 'package:vitopia/screens/ShoppingPage/product_view.dart';
 
 import '../../backend/api_services/ApiService.dart';
@@ -24,17 +25,22 @@ class ShoppingPage extends StatefulWidget {
   _ShoppingPageState createState() => _ShoppingPageState();
 }
 
-class _ShoppingPageState extends State<ShoppingPage> {
+class _ShoppingPageState extends State<ShoppingPage>
+    with SingleTickerProviderStateMixin {
+  late TabController controller;
+
   final GlobalKey<AnimatedListState> _animatedListKey =
       GlobalKey<AnimatedListState>();
   bool _isLoading = false;
   bool isSorted = false;
   List<Product> _products = [];
+  List<Ticket> _tickets = [];
   String? _error;
   String _sortBy = 'price_asc';
   @override
   void initState() {
     super.initState();
+    controller = TabController(length: 2, vsync: this);
     _loadProducts();
   }
 
@@ -47,6 +53,25 @@ class _ShoppingPageState extends State<ShoppingPage> {
       List<Product> products = await api.getProducts();
       setState(() {
         _products = products;
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _error = e.toString();
+        _isLoading = false;
+      });
+    }
+  }
+
+  _loadTickets() async {
+    setState(() {
+      _isLoading = true;
+    });
+    ApiService api = ApiService();
+    try {
+      List<Ticket> tickets = await api.getTickets();
+      setState(() {
+        _tickets = tickets;
         _isLoading = false;
       });
     } catch (e) {
@@ -154,29 +179,48 @@ class _ShoppingPageState extends State<ShoppingPage> {
                 bottom: PreferredSize(
                   preferredSize: const Size.fromHeight(60.0),
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: FadeIn(
-                        child: AnimatedTextKit(
-                          totalRepeatCount: 1000,
-                          animatedTexts: [
-                            ColorizeAnimatedText(
-                              'VITOPIA EXCLUSIVE',
-                              textStyle: colorizeTextStyle,
-                              textAlign: TextAlign.center,
-                              colors: colorizeColors,
+                    padding: EdgeInsets.only(top: 17.h),
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.center,
+                          child: FadeIn(
+                            child: AnimatedTextKit(
+                              totalRepeatCount: 1000,
+                              animatedTexts: [
+                                ColorizeAnimatedText(
+                                  'VITOPIA',
+                                  textStyle: colorizeTextStyle,
+                                  textAlign: TextAlign.center,
+                                  colors: colorizeColors,
+                                ),
+                                ColorizeAnimatedText(
+                                  'MERCHANDISE',
+                                  textStyle: colorizeTextStyle,
+                                  textAlign: TextAlign.center,
+                                  colors: colorizeColors,
+                                ),
+                              ],
+                              isRepeatingAnimation: true,
                             ),
-                            ColorizeAnimatedText(
-                              'MERCHANDISE',
-                              textStyle: colorizeTextStyle,
-                              textAlign: TextAlign.center,
-                              colors: colorizeColors,
-                            ),
-                          ],
-                          isRepeatingAnimation: true,
+                          ),
                         ),
-                      ),
+                        TabBar(
+                          splashFactory: InkSparkle.splashFactory,
+                          labelStyle: const TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 12,
+                              color: Colors.deepOrange),
+                          unselectedLabelColor: Colors.deepOrange,
+                          indicatorColor: Colors.deepOrange,
+                          labelColor: Colors.deepOrange,
+                          tabs: const [
+                            Tab(text: 'TICKETS'),
+                            Tab(text: 'MERCHANDISE'),
+                          ],
+                          controller: controller,
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -213,157 +257,324 @@ class _ShoppingPageState extends State<ShoppingPage> {
                         ],
                       ),
                     )
-                  : RefreshIndicator(
-                      onRefresh: () async {
-                        Future.delayed(const Duration(seconds: 1000));
-                        setState(() {
-                          Future.delayed(const Duration(seconds: 1000));
-                          _isLoading = true;
-                        });
-                        ApiService api = ApiService();
-                        try {
-                          List<Product> products = await api.getProducts();
-                          setState(() {
+                  : TabBarView(
+                      controller: controller,
+                      children: [
+                        RefreshIndicator(
+                          onRefresh: () async {
                             Future.delayed(const Duration(seconds: 1000));
-                            _products = products;
-                            _isLoading = false;
-                          });
-                        } catch (e) {
-                          setState(() {
-                            Future.delayed(const Duration(seconds: 1000));
-                            _error = e.toString();
-                            _isLoading = false;
-                          });
-                        }
-                      },
-                      child: SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                left: 18.h,
-                                top: 20.h,
-                                right: 18.h,
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Products",
-                                    style: TextStyle(
-                                      fontFamily: 'Monument Extended',
-                                      color: const Color(0xffFFFFFF),
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                            setState(() {
+                              Future.delayed(const Duration(seconds: 1000));
+                              _isLoading = true;
+                            });
+                            ApiService api = ApiService();
+                            try {
+                              List<Ticket> ticket = await api.getTickets();
+                              setState(() {
+                                Future.delayed(const Duration(seconds: 1000));
+                                _tickets = ticket;
+                                _isLoading = false;
+                              });
+                            } catch (e) {
+                              setState(() {
+                                Future.delayed(const Duration(seconds: 1000));
+                                _error = e.toString();
+                                _isLoading = false;
+                              });
+                            }
+                          },
+                          child: SingleChildScrollView(
+                            physics: const BouncingScrollPhysics(),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 18.h,
+                                    top: 20.h,
+                                    right: 18.h,
                                   ),
-                                  IconButton(
-                                    icon: Icon(Icons.filter_list,
-                                        color: isSorted
-                                            ? Colors.blue
-                                            : Colors.grey),
-                                    onPressed: () {
-                                      buildShowModalBottomSheet(context);
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 15.h),
-                              child: AnimationLimiter(
-                                child: StaggeredGridView.countBuilder(
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  crossAxisCount: 2,
-                                  itemCount: _products.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return AnimationConfiguration.staggeredGrid(
-                                      position: index,
-                                      duration:
-                                          const Duration(milliseconds: 375),
-                                      columnCount: _products.length,
-                                      child: ScaleAnimation(
-                                        child: FadeInAnimation(
-                                          child: ProductCard(
-                                            onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  CupertinoPageRoute(
-                                                      builder: (context) =>
-                                                          ProductDetailsView(
-                                                            product: Product(
-                                                              id: _products[
-                                                                      index]
-                                                                  .id,
-                                                              name: _products[
-                                                                      index]
-                                                                  .name,
-                                                              sub_category:
-                                                                  _products[
-                                                                          index]
-                                                                      .sub_category,
-                                                              description:
-                                                                  _products[
-                                                                          index]
-                                                                      .description,
-                                                              price: _products[
-                                                                      index]
-                                                                  .price,
-                                                              image: _products[
-                                                                      index]
-                                                                  .image,
-                                                              sku: _products[
-                                                                      index]
-                                                                  .sku,
-                                                            ),
-                                                          )));
-                                            },
-                                            productName:
-                                                _products[index].name ?? "",
-                                            productPrice: _products[index]
-                                                .price
-                                                .toString(),
-                                            image: _products[index].image ?? "",
-                                            sub_category:
-                                                _products[index].sub_category ??
-                                                    "",
-                                          ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Tickets",
+                                        style: TextStyle(
+                                          fontFamily: 'Monument Extended',
+                                          color: const Color(0xffFFFFFF),
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                    );
-                                  },
-                                  staggeredTileBuilder: (int index) =>
-                                      StaggeredTile.count(
-                                          1, index.isEven ? 1.8 : 1.9),
-                                  mainAxisSpacing: 10.0,
-                                  crossAxisSpacing: 4.0,
-                                ),
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "End of Products",
-                                  style: TextStyle(
-                                    fontFamily: 'Monument Extended',
-                                    color: const Color(0xFFB4B4B4),
-                                    fontSize: 9.sp,
-                                    fontWeight: FontWeight.normal,
+                                      IconButton(
+                                        icon: Icon(Icons.filter_list,
+                                            color: isSorted
+                                                ? Colors.blue
+                                                : Colors.grey),
+                                        onPressed: () {
+                                          buildShowModalBottomSheet(context);
+                                        },
+                                      ),
+                                    ],
                                   ),
                                 ),
+                                Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 15.h),
+                                  child: AnimationLimiter(
+                                    child: StaggeredGridView.countBuilder(
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      crossAxisCount: 2,
+                                      itemCount: _tickets.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return AnimationConfiguration
+                                            .staggeredGrid(
+                                          position: index,
+                                          duration:
+                                              const Duration(milliseconds: 375),
+                                          columnCount: _tickets.length,
+                                          child: ScaleAnimation(
+                                            child: FadeInAnimation(
+                                              child: ProductCard(
+                                                onTap: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      CupertinoPageRoute(
+                                                          builder: (context) =>
+                                                              ProductDetailsView(
+                                                                product:
+                                                                    Product(
+                                                                  id: _products[
+                                                                          index]
+                                                                      .id,
+                                                                  name: _products[
+                                                                          index]
+                                                                      .name,
+                                                                  sub_category:
+                                                                      _products[
+                                                                              index]
+                                                                          .sub_category,
+                                                                  description:
+                                                                      _products[
+                                                                              index]
+                                                                          .description,
+                                                                  price: _products[
+                                                                          index]
+                                                                      .price,
+                                                                  image: _products[
+                                                                          index]
+                                                                      .image,
+                                                                  sku: _products[
+                                                                          index]
+                                                                      .sku,
+                                                                ),
+                                                              )));
+                                                },
+                                                productName:
+                                                    _products[index].name ?? "",
+                                                productPrice: _products[index]
+                                                    .price
+                                                    .toString(),
+                                                image: _products[index].image ??
+                                                    "",
+                                                sub_category: _products[index]
+                                                        .sub_category ??
+                                                    "",
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      staggeredTileBuilder: (int index) =>
+                                          StaggeredTile.count(
+                                              1, index.isEven ? 1.8 : 1.9),
+                                      mainAxisSpacing: 10.0,
+                                      crossAxisSpacing: 4.0,
+                                    ),
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "End of Products",
+                                      style: TextStyle(
+                                        fontFamily: 'Monument Extended',
+                                        color: const Color(0xFFB4B4B4),
+                                        fontSize: 9.sp,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                )
                               ],
                             ),
-                            SizedBox(
-                              height: 20.h,
-                            )
-                          ],
+                          ),
                         ),
-                      ),
+                        RefreshIndicator(
+                          onRefresh: () async {
+                            Future.delayed(const Duration(seconds: 1000));
+                            setState(() {
+                              Future.delayed(const Duration(seconds: 1000));
+                              _isLoading = true;
+                            });
+                            ApiService api = ApiService();
+                            try {
+                              List<Product> products = await api.getProducts();
+                              setState(() {
+                                Future.delayed(const Duration(seconds: 1000));
+                                _products = products;
+                                _isLoading = false;
+                              });
+                            } catch (e) {
+                              setState(() {
+                                Future.delayed(const Duration(seconds: 1000));
+                                _error = e.toString();
+                                _isLoading = false;
+                              });
+                            }
+                          },
+                          child: SingleChildScrollView(
+                            physics: const BouncingScrollPhysics(),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 18.h,
+                                    top: 20.h,
+                                    right: 18.h,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Products",
+                                        style: TextStyle(
+                                          fontFamily: 'Monument Extended',
+                                          color: const Color(0xffFFFFFF),
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      IconButton(
+                                        icon: Icon(Icons.filter_list,
+                                            color: isSorted
+                                                ? Colors.blue
+                                                : Colors.grey),
+                                        onPressed: () {
+                                          buildShowModalBottomSheet(context);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 15.h),
+                                  child: AnimationLimiter(
+                                    child: StaggeredGridView.countBuilder(
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      crossAxisCount: 2,
+                                      itemCount: _products.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return AnimationConfiguration
+                                            .staggeredGrid(
+                                          position: index,
+                                          duration:
+                                              const Duration(milliseconds: 375),
+                                          columnCount: _products.length,
+                                          child: ScaleAnimation(
+                                            child: FadeInAnimation(
+                                              child: ProductCard(
+                                                onTap: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      CupertinoPageRoute(
+                                                          builder: (context) =>
+                                                              ProductDetailsView(
+                                                                product:
+                                                                    Product(
+                                                                  id: _products[
+                                                                          index]
+                                                                      .id,
+                                                                  name: _products[
+                                                                          index]
+                                                                      .name,
+                                                                  sub_category:
+                                                                      _products[
+                                                                              index]
+                                                                          .sub_category,
+                                                                  description:
+                                                                      _products[
+                                                                              index]
+                                                                          .description,
+                                                                  price: _products[
+                                                                          index]
+                                                                      .price,
+                                                                  image: _products[
+                                                                          index]
+                                                                      .image,
+                                                                  sku: _products[
+                                                                          index]
+                                                                      .sku,
+                                                                ),
+                                                              )));
+                                                },
+                                                productName:
+                                                    _products[index].name ?? "",
+                                                productPrice: _products[index]
+                                                    .price
+                                                    .toString(),
+                                                image: _products[index].image ??
+                                                    "",
+                                                sub_category: _products[index]
+                                                        .sub_category ??
+                                                    "",
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      staggeredTileBuilder: (int index) =>
+                                          StaggeredTile.count(
+                                              1, index.isEven ? 1.8 : 1.9),
+                                      mainAxisSpacing: 10.0,
+                                      crossAxisSpacing: 4.0,
+                                    ),
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "End of Products",
+                                      style: TextStyle(
+                                        fontFamily: 'Monument Extended',
+                                        color: const Color(0xFFB4B4B4),
+                                        fontSize: 9.sp,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
         ));
   }
