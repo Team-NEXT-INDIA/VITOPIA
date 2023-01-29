@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "331520781309-hg22u82mib6imunibul8ih5f9h13uhla.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.arize.vitopia",
+            "certificate_hash": "07fc44ffdce827b79def43bd8172973616b0bd8e"
+          }
+        },
+        {
           "client_id": "331520781309-ik89gm6kq6tkptda8otvi2q2iadsnslb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
