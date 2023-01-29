@@ -30,6 +30,14 @@
           }
         },
         {
+          "client_id": "331520781309-kqo8j79phljhprcj7cg98iftb51cs6vi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.arize.vitopia",
+            "certificate_hash": "1ce64939b8da9e9944eeac5234c1b234d978ee84"
+          }
+        },
+        {
           "client_id": "331520781309-h41ecl0ta11to83mr9ld0s17l989j0cd.apps.googleusercontent.com",
           "client_type": 3
         }
