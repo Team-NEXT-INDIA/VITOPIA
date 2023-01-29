@@ -14,7 +14,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "331520781309-ik89gm6kq6tkptda8otvi2q2iadsnslb.apps.googleusercontent.com",
+          "client_id": "331520781309-vb3e58ng8gr6i4ofdqh5gn0vmq45go0q.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.arize.vitopia",
@@ -37,13 +37,6 @@
             {
               "client_id": "331520781309-f9c7st7mpbbmi0h9v4ub4c0j0ebm1cr1.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "331520781309-tgad1tcop9nj2e48neikic4iaoceo5p1.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.arize.vitopia"
-              }
             }
           ]
         }
