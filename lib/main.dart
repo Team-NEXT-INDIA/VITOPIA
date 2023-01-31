@@ -11,6 +11,7 @@ import 'package:vitopia/screens/ShoppingPage/Data/product_data_class.dart';
 import 'package:vitopia/screens/ShoppingPage/InvoicePage.dart';
 import 'package:vitopia/screens/ShoppingPage/MyOrders.dart';
 import 'package:vitopia/screens/ShoppingPage/product_view.dart';
+import 'package:vitopia/screens/StudentLoginV2/LoginpageV2.dart';
 import 'package:vitopia/screens/login/student_login.dart';
 import 'package:vitopia/screens/profilePage/profile_page.dart';
 import 'package:vitopia/screens/provider/google_sign_in.dart';
@@ -56,7 +57,7 @@ class _MyAppState extends State<MyApp> {
                     builder: (_) => const SplashScreen(), settings: settings);
               case '/login':
                 return CupertinoPageRoute(
-                    builder: (_) => const StudentLogin(), settings: settings);
+                    builder: (_) => const Loginpage(), settings: settings);
               case '/studenthome':
                 return CupertinoPageRoute(
                     builder: (_) => const Layout(), settings: settings);
