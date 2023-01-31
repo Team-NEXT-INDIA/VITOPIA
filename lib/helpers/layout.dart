@@ -1,14 +1,14 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vitopia/customs/colors.dart';
 import 'package:vitopia/screens/InformationPage/information_page.dart';
+import 'package:vitopia/screens/TicketShop/ticket_shop.dart';
 import 'package:vitopia/screens/home/student_home.dart';
 
 import '../screens/events/events_page.dart';
-import '../screens/profilePage/profile_page.dart';
 
 class Layout extends StatefulWidget {
   const Layout({super.key});
@@ -23,8 +23,8 @@ class _LayoutState extends State<Layout> {
   final List<Widget> pages = [
     StudentHome(),
     EventsPage(),
+    TicketShop(),
     InformationPage(),
-    ProfilePage(),
   ];
 
   void _onItemTapped(int index) {
@@ -41,8 +41,8 @@ class _LayoutState extends State<Layout> {
       floatingActionButton: AnimatedContainer(
         duration: Duration(milliseconds: 200),
         curve: Curves.linear,
-        width: 45.h,
-        height: 45.h,
+        width: 50.h,
+        height: 50.h,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(60),
             boxShadow: [
@@ -64,18 +64,17 @@ class _LayoutState extends State<Layout> {
             color: Color(0xff7636F6)),
         child: FloatingActionButton.small(
           elevation: 7,
-          tooltip: 'Scan QR Code',
           backgroundColor: Colors.transparent,
           foregroundColor: Color(0xffD3D7D8),
           onPressed: () {
             Navigator.of(context).pushNamed('/shop');
           },
-          child: FadeIn(
-            child: Center(
-                child: Icon(
-              FontAwesomeIcons.shoppingBag,
-              size: 23.sp,
-            )),
+          child: Padding(
+            padding: EdgeInsets.only(right: 5.h),
+            child: Icon(
+              FontAwesome5.tshirt,
+              size: 18.sp,
+            ),
           ),
         ),
       ),
@@ -93,40 +92,27 @@ class _LayoutState extends State<Layout> {
       //   child: const Icon(Icons.refresh),
       // ),
       body: pages[_selectedPage],
-      bottomNavigationBar: Container(
-        clipBehavior: Clip.none,
-        height: 60.h,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.bottomCenter,
-            end: Alignment.topCenter,
-            colors: [Colors.black.withOpacity(1), Colors.transparent],
-          ),
-        ),
-        child: BottomAppBar(
-          color: Colors.transparent,
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          shape: CircularNotchedRectangle(),
-          child: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-              showSelectedLabels: true,
-              enableFeedback: false,
-              currentIndex: _selectedPage,
-              selectedLabelStyle: GoogleFonts.montserrat(
-                fontSize: 9.5.sp,
-                fontWeight: FontWeight.w400,
-              ),
-              selectedItemColor: Color(0xffDFC1FF),
-              unselectedItemColor: Color(0xffCFD4D5),
-              selectedFontSize: 10.sp,
-              unselectedFontSize: 10.sp,
-              iconSize: 25.sp,
-              showUnselectedLabels: false,
-              onTap: _onItemTapped,
-              items: _navBarsItems()),
-        ),
+      bottomNavigationBar: SizedBox(
+        height: 70.h,
+        child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            elevation: 0,
+            backgroundColor: scaffoldBackground,
+            showSelectedLabels: true,
+            enableFeedback: false,
+            currentIndex: _selectedPage,
+            selectedLabelStyle: GoogleFonts.montserrat(
+              fontSize: 9.5.sp,
+              fontWeight: FontWeight.w400,
+            ),
+            selectedItemColor: Color(0xffDFC1FF),
+            unselectedItemColor: Color(0xffCFD4D5),
+            selectedFontSize: 10.sp,
+            unselectedFontSize: 10.sp,
+            iconSize: 25.sp,
+            showUnselectedLabels: false,
+            onTap: _onItemTapped,
+            items: _navBarsItems()),
       ),
     );
   }
@@ -142,12 +128,12 @@ class _LayoutState extends State<Layout> {
         label: 'Events',
       ),
       const BottomNavigationBarItem(
-        icon: Icon(FluentIcons.reward_24_filled),
-        label: 'Mentions',
+        icon: Icon(FluentIcons.ticket_diagonal_16_filled),
+        label: 'Tickets',
       ),
       const BottomNavigationBarItem(
-        icon: Icon(FluentIcons.person_20_filled),
-        label: 'You',
+        icon: Icon(FluentIcons.reward_24_filled),
+        label: 'Mentions',
       ),
     ];
   }
