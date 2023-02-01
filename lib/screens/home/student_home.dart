@@ -2,7 +2,6 @@ import 'package:animate_do/animate_do.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -11,6 +10,7 @@ import 'package:vitopia/customs/ontapscale.dart';
 
 import '../Intro/Components/feature_cards.dart';
 import '../Intro/Components/featured_events_slider.dart';
+import 'components/CarouselSlider.dart';
 import 'components/footer_promo.dart';
 import 'components/for_you_widget.dart';
 
@@ -211,10 +211,14 @@ class _StudentHomeState extends State<StudentHome> {
                                 ),
                               ),
                               // AnimatedTextField(),
-                              FadeIn(child: const FeaturedEvents()),
                             ],
                           ),
                         ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        PromoSlider(),
+                        FadeIn(child: const FeaturedEvents()),
                         FadeIn(
                           duration: const Duration(milliseconds: 390),
                           child: SingleChildScrollView(

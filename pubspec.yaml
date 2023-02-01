@@ -67,6 +67,8 @@ dependencies:
   firebase_core: ^2.4.1
   firebase_messaging: ^14.2.1
   fluttericon: ^2.0.0
+  webview_flutter: ^4.0.2
+  full_screen_image_null_safe: ^2.0.0
 
 dev_dependencies:
   flutter_test:

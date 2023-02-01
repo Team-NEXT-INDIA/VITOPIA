@@ -307,6 +307,9 @@ class _EventsPageState extends State<EventsPage> {
                   },
                 ),
               ),
+              SizedBox(
+                height: 100.h,
+              )
             ],
           ),
         ),

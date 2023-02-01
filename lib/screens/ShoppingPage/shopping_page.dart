@@ -113,7 +113,7 @@ class _ShoppingPageState extends State<ShoppingPage>
                 automaticallyImplyLeading: false,
                 leading: IconButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/studenthome');
+                    Navigator.pop(context);
                   },
                   icon: const Icon(
                     Icons.arrow_back_ios_new,
