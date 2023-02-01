@@ -21,7 +21,7 @@ class MyOrders extends StatefulWidget {
 
 class _MyOrdersState extends State<MyOrders> {
   final user = FirebaseAuth.instance.currentUser!;
-  final String _myorders = "http://10.0.2.2:8080/orders";
+  final String _myorders = "http://10.0.2.2:1080/orders";
   Future<List<Product>> getOrders(String email) async {
     final response = await http.post(Uri.parse(_myorders),
         headers: {"Content-Type": "application/json"},

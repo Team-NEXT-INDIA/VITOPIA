@@ -28,8 +28,8 @@ class ProductDetailsView extends StatefulWidget {
 class _ProductDetailsViewState extends State<ProductDetailsView> {
   final user = FirebaseAuth.instance.currentUser!;
   bool _starttransaction = false;
-  final String _successbaseUrl = "http://10.0.2.2:8080/save-transaction";
-  final String _failedbaseUrl = "http://10.0.2.2:8080/save-failed-transaction";
+  final String _successbaseUrl = "http://10.0.2.2:1080/save-transaction";
+  final String _failedbaseUrl = "http://10.0.2.2:1080/save-failed-transaction";
   Future<http.Response> postTransactionDetails(transactionDetails) async {
     final response = await http.post(
       Uri.parse(
