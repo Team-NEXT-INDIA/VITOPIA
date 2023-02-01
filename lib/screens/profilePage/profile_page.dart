@@ -19,40 +19,15 @@ class ProfilePage extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            //
             expandedHeight: 0,
             actions: [
               Padding(
                 padding: EdgeInsets.only(right: 15.h),
                 child: IconButton(
                   onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return Container(
-                            child: AlertDialog(
-                              title: Text("Leaving to Soon!"),
-                              content: Text("Are sure you want to logout?"),
-                              actions: [
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: Text("NO")),
-                                TextButton(
-                                    onPressed: () {
-                                      final provider =
-                                          Provider.of<GoogleSignInProvider>(
-                                              context,
-                                              listen: false);
-                                      provider.logout(
-                                          context, Navigator.pushNamed);
-                                    },
-                                    child: Text("YES")),
-                              ],
-                            ),
-                          );
-                        });
+                    final provider = Provider.of<GoogleSignInProvider>(context,
+                        listen: false);
+                    provider.logout(context, Navigator.pushNamed);
                   },
                   icon: Icon(
                     FontAwesomeIcons.arrowRightFromBracket,
