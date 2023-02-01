@@ -1,13 +1,15 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:vitopia/customs/ontapscale.dart';
 
+import '../../customs/colors.dart';
 import '../Intro/Components/feature_cards.dart';
 import '../Intro/Components/featured_events_slider.dart';
 import 'components/CarouselSlider.dart';
@@ -186,21 +188,74 @@ class _StudentHomeState extends State<StudentHome> {
                                         // ),
                                         Padding(
                                           padding: EdgeInsets.only(right: 0.h),
-                                          child: InkWell(
+                                          child: CustomTap(
                                             onTap: () {
                                               Navigator.of(context)
                                                   .pushNamed('/profile');
                                             },
-                                            borderRadius:
-                                                BorderRadius.circular(50.r),
                                             child: CircleAvatar(
-                                              backgroundColor:
-                                                  const Color(0x25F5EFFF),
                                               radius: 25.r,
-                                              child: Icon(
-                                                FluentIcons.person_32_filled,
-                                                size: 20.sp,
-                                                color: const Color(0xffFFFFFF),
+                                              backgroundColor:
+                                                  const Color(0x8CFFFFFF),
+                                              child: CircleAvatar(
+                                                backgroundColor:
+                                                    const Color(0x25F5EFFF),
+                                                radius: 22.r,
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(50),
+                                                  child: CachedNetworkImage(
+                                                    imageUrl:
+                                                        user.photoURL ?? "",
+                                                    width: double.infinity,
+                                                    fit: BoxFit.fill,
+                                                    placeholder:
+                                                        (context, url) =>
+                                                            Shimmer(
+                                                      child: Container(
+                                                        height: 25.h,
+                                                        width: 25.h,
+                                                        color: Colors.grey,
+                                                      ),
+                                                    ),
+                                                    errorWidget:
+                                                        (context, url, error) =>
+                                                            Container(
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.grey,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(12.0),
+                                                      ),
+                                                      child: Center(
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              "No Image",
+                                                              style: GoogleFonts
+                                                                  .montserrat(
+                                                                color:
+                                                                    primaryText,
+                                                                fontSize: 4.sp,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                              ),
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      height: 140.h,
+                                                      width: 135.h,
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -218,7 +273,14 @@ class _StudentHomeState extends State<StudentHome> {
                           height: 10.h,
                         ),
                         PromoSlider(),
-                        FadeIn(child: const FeaturedEvents()),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        FadeIn(
+                            child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 13.h),
+                          child: const FeaturedEvents(),
+                        )),
                         FadeIn(
                           duration: const Duration(milliseconds: 390),
                           child: SingleChildScrollView(

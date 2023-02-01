@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:vitopia/customs/ontapscale.dart';
 
 import '../../../customs/colors.dart';
 import '../webview_page.dart';
@@ -44,7 +45,7 @@ class _PromoSliderState extends State<PromoSlider> {
       items: sliderImages.map((image) {
         return Builder(
           builder: (BuildContext context) {
-            return GestureDetector(
+            return CustomTap(
               onTap: () {
                 if (image['action_url'] != null) {
                   Navigator.push(
@@ -111,7 +112,7 @@ class _PromoSliderState extends State<PromoSlider> {
         );
       }).toList(),
       options: CarouselOptions(
-        height: 200.0,
+        height: 130.h,
         aspectRatio: 16 / 9,
         viewportFraction: 0.9,
         initialPage: 0,
