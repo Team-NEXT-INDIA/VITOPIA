@@ -7,6 +7,7 @@ build/
 windows
 macos
 web
+.idea/
 # If you're building an application, you may want to check-in your pubspec.lock
 pubspec.lock
 
