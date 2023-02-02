@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../screens/Intro/splash_screen.dart';
 import '../screens/ShoppingPage/Data/product_data_class.dart';
-import '../screens/ShoppingPage/InvoicePage.dart';
 import '../screens/ShoppingPage/MyOrders.dart';
 import '../screens/ShoppingPage/product_view.dart';
 import '../screens/ShoppingPage/shopping_page.dart';
@@ -30,12 +29,12 @@ class RouteGenerator {
       case '/shop':
         return CupertinoPageRoute(
             builder: (_) => const ShoppingPage(), settings: settings);
-      case '/invoice_page':
-        return CupertinoPageRoute(
-            builder: (_) => const InvoicePage(), settings: settings);
+      // case '/invoice_page':
+      //   return CupertinoPageRoute(
+      //       builder: (_) => const InvoicePage(), settings: settings);
       case '/orders':
         return CupertinoPageRoute(
-            builder: (_) => const MyOrders(), settings: settings);
+            builder: (_) => MyOrders(), settings: settings);
 
       case '/product_view':
         var product = settings.arguments as Product;

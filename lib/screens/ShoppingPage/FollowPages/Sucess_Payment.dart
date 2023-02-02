@@ -65,6 +65,17 @@ class _PaymentSucessState extends State<PaymentSucess>
         extendBodyBehindAppBar: true,
         backgroundColor: Colors.black,
         appBar: AppBar(
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(
+                Icons.close,
+                color: Colors.white,
+              ),
+            ),
+          ],
           automaticallyImplyLeading: false,
           backgroundColor: Colors.black,
           elevation: 0,

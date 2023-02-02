@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vitopia/screens/ShoppingPage/shopping_page.dart';
 
 import '../../../customs/colors.dart';
-import '../MyOrders.dart';
 
 class ShopLayout extends StatefulWidget {
   const ShopLayout({super.key});
@@ -17,7 +16,7 @@ class ShopLayout extends StatefulWidget {
 class _ShopLayoutState extends State<ShopLayout> {
   int _selectedPage = 0;
 
-  final List<Widget> pages = [ShoppingPage(), MyOrders()];
+  final List<Widget> pages = [ShoppingPage()];
 
   void _onItemTapped(int index) {
     setState(() {

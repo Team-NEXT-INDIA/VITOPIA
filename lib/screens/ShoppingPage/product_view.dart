@@ -31,6 +31,41 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
   final String _successbaseUrl = "http://10.0.2.2:1080/save-transaction";
   final String _failedbaseUrl = "http://10.0.2.2:1080/save-failed-transaction";
   Future<http.Response> postTransactionDetails(transactionDetails) async {
+    Map<String, dynamic> successResponse =
+        json.decode(json.encode(transactionDetails));
+    String CURRENCY = successResponse['CURRENCY'] ?? "";
+    String GATEWAYNAME = successResponse['GATEWAYNAME'] ?? "";
+    String RESPMSG = successResponse['RESPMSG'] ?? "";
+    String BANKNAME = successResponse['BANKNAME'] ?? "";
+    String PAYMENTMODE = successResponse['PAYMENTMODE'] ?? "";
+    String MID = successResponse['MID'] ?? "";
+    String RESPCODE = successResponse['RESPCODE'] ?? "";
+    String TXNID = successResponse['TXNID'] ?? "";
+    String ORDERID = successResponse['ORDERID'] ?? "";
+    String STATUS = successResponse['STATUS'] ?? "";
+    String BANKTXNID = successResponse['BANKTXNID'] ?? "";
+    String TXNDATE = successResponse['TXNDATE'] ?? "";
+    String CHECKSUMHASH = successResponse['CHECKSUMHASH'] ?? "";
+    String TXNAMOUNT = successResponse['TXNAMOUNT'] ?? "";
+    String SKU = widget.product.sku ?? "";
+
+    Map<String, dynamic> body = {
+      'CURRENCY': CURRENCY,
+      'GATEWAYNAME': GATEWAYNAME,
+      'RESPMSG': RESPMSG,
+      'BANKNAME': BANKNAME,
+      'PAYMENTMODE': PAYMENTMODE,
+      'MID': MID,
+      'RESPCODE': RESPCODE,
+      'TXNID': TXNID,
+      'ORDERID': ORDERID,
+      'STATUS': STATUS,
+      'BANKTXNID': BANKTXNID,
+      'TXNDATE': TXNDATE,
+      'CHECKSUMHASH': CHECKSUMHASH,
+      'TXNAMOUNT': TXNAMOUNT,
+      'SKU': SKU,
+    };
     final response = await http.post(
       Uri.parse(
         _successbaseUrl,
@@ -38,7 +73,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(transactionDetails),
+      body: jsonEncode(body),
     );
     return response;
   }
@@ -81,7 +116,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
       // Make the API call
       final response = await http.post(
           Uri.parse(
-            'http://10.0.2.2:8080/save-order',
+            'http://10.0.2.2:1080/save-order',
           ),
           headers: {"Content-Type": "application/json"},
           body: jsonBody);
@@ -395,7 +430,20 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
           'TXNAMOUNT': TXNAMOUNT,
         };
         postTransactionDetails(body);
-        print("SUCCESS TRANSACTION");
+        final snackBar = SnackBar(
+          behavior: SnackBarBehavior.floating,
+          content: Text("Order Success"),
+          action: SnackBarAction(
+            label: 'Dismiss',
+            onPressed: () {
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            },
+          ),
+        );
+
+        // Find the ScaffoldMessenger in the widget tree
+        // and use it to show a SnackBar.
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
         Navigator.push(
             context,
             CupertinoPageRoute(
@@ -476,6 +524,20 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
         };
         postFailedTransactionDetails(failbody);
         print(transactionDetails);
+        final snackBar = SnackBar(
+          behavior: SnackBarBehavior.floating,
+          content: Text("Order Failed"),
+          action: SnackBarAction(
+            label: 'Dismiss',
+            onPressed: () {
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            },
+          ),
+        );
+
+        // Find the ScaffoldMessenger in the widget tree
+        // and use it to show a SnackBar.
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
         Navigator.push(
             context,
             CupertinoPageRoute(
@@ -523,16 +585,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
       body: formData,
     );
 
-    // print(res.body);
-    // print(res.statusCode);
-    // json decode
-    var verifyJson = jsonDecode(res.body);
-    //  display result info > result msg
-    print("VERIFY JSON MESSAGE12121231231231231231231231231231");
-    print(res.body);
-
-    print(
-        "VERIFY JSON MESSAGE ENDS HEREVERIFY JSON MESSAGE12121231231231231231231231231231");
+    // var verifyJson = jsonDecode(res.body);
   }
 }
 

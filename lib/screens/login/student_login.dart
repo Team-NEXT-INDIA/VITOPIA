@@ -18,6 +18,7 @@ class StudentLogin extends StatefulWidget {
 }
 
 class _StudentLoginState extends State<StudentLogin> {
+  bool _startlogin = false;
   @override
   Widget build(BuildContext context) {
     final scaffoldBg = Color(0xff101010);
@@ -119,7 +120,6 @@ class _StudentLoginState extends State<StudentLogin> {
                             color: Colors.white,
                             fontSize: 13.sp,
                             fontWeight: FontWeight.w500,
-
                           ),
                         ),
                       ),
@@ -129,7 +129,6 @@ class _StudentLoginState extends State<StudentLogin> {
                 SizedBox(
                   height: 20.h,
                 ),
-
                 SizedBox(
                   height: 30.h,
                 ),

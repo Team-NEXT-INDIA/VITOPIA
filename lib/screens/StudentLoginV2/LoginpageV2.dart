@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,9 +9,15 @@ import 'package:vitopia/customs/ontapscale.dart';
 
 import '../provider/google_sign_in.dart';
 
-class Loginpage extends StatelessWidget {
+class Loginpage extends StatefulWidget {
   const Loginpage({Key? key}) : super(key: key);
 
+  @override
+  State<Loginpage> createState() => _LoginpageState();
+}
+
+class _LoginpageState extends State<Loginpage> {
+  bool _startlogin = false;
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -117,11 +124,30 @@ class Loginpage extends StatelessWidget {
                             ),
                             CustomTap(
                               onTap: () {
-                                final provider =
-                                    Provider.of<GoogleSignInProvider>(context,
-                                        listen: false);
-                                provider.googleLogin(
-                                    context, Navigator.pushNamed);
+                                try {
+                                  setState(() {
+                                    _startlogin = true;
+                                  });
+                                  final provider =
+                                      Provider.of<GoogleSignInProvider>(context,
+                                          listen: false);
+
+                                  provider.googleLogin(
+                                      context, Navigator.pushNamed);
+
+                                  Future.delayed(const Duration(seconds: 10),
+                                      () {
+                                    setState(() {
+                                      _startlogin = false;
+                                    });
+                                  });
+                                } catch (e, s) {
+                                  print(s.toString());
+
+                                  setState(() {
+                                    _startlogin = false;
+                                  });
+                                }
                               },
                               child: Container(
                                 height: 40.h,
@@ -139,12 +165,16 @@ class Loginpage extends StatelessWidget {
                                     SizedBox(
                                       width: 10.h,
                                     ),
-                                    Text('Sign in with Google',
-                                        style: GoogleFonts.montserrat(
-                                          color: const Color(0xffCECECE),
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w600,
-                                        )),
+                                    _startlogin
+                                        ? const CupertinoActivityIndicator(
+                                            color: Colors.white,
+                                          )
+                                        : Text('Sign in with Google',
+                                            style: GoogleFonts.montserrat(
+                                              color: const Color(0xffCECECE),
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w600,
+                                            )),
                                   ],
                                 ),
                               ),
@@ -153,6 +183,21 @@ class Loginpage extends StatelessWidget {
                               height: 17.h,
                             ),
                             CustomTap(
+                              onTap: () {
+                                final snackBar = SnackBar(
+                                  behavior: SnackBarBehavior.floating,
+                                  content: Text('e.toString()'),
+                                  action: SnackBarAction(
+                                    label: 'Dismiss',
+                                    onPressed: () {
+                                      ScaffoldMessenger.of(context)
+                                          .hideCurrentSnackBar();
+                                    },
+                                  ),
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              },
                               child: Container(
                                 height: 40.h,
                                 width: MediaQuery.of(context).size.width,

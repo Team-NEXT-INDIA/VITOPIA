@@ -1,12 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class InvoicePage extends StatelessWidget {
-  const InvoicePage({Key? key}) : super(key: key);
+  final invoice;
+  final product;
+  InvoicePage({Key? key, required this.invoice, required this.product})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -57,7 +62,7 @@ class InvoicePage extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        " ₹1700.00",
+                        invoice['TXNAMOUNT'],
                         style: GoogleFonts.montserrat(
                           fontSize: 17.sp,
                           fontWeight: FontWeight.w500,
@@ -76,7 +81,7 @@ class InvoicePage extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "2023-01-29",
+                        invoice['TXNDATE'],
                         style: GoogleFonts.montserrat(
                           fontSize: 17.sp,
                           fontWeight: FontWeight.w500,
@@ -112,7 +117,7 @@ class InvoicePage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Name',
+                          "Name",
                           style: GoogleFonts.montserrat(
                             color: Color(0xffBCBCBC),
                             fontWeight: FontWeight.w300,
@@ -120,7 +125,7 @@ class InvoicePage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'Samuel Philip',
+                          user.displayName.toString(),
                           style: GoogleFonts.montserrat(
                             color: Color(0xffBCBCBC),
                             fontWeight: FontWeight.w300,
@@ -141,7 +146,7 @@ class InvoicePage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'samuel.200@gmail.com',
+                          user.email.toString(),
                           style: GoogleFonts.montserrat(
                             color: Color(0xffBCBCBC),
                             fontWeight: FontWeight.w300,
@@ -230,7 +235,7 @@ class InvoicePage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Neon T-shirt',
+                          product['name'],
                           style: GoogleFonts.montserrat(
                             color: Color(0xffBCBCBC),
                             fontWeight: FontWeight.w300,
@@ -238,7 +243,7 @@ class InvoicePage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          " ₹1700.00",
+                          product['price'],
                           style: GoogleFonts.montserrat(
                             fontSize: 15.sp,
                             fontWeight: FontWeight.w500,
@@ -248,7 +253,7 @@ class InvoicePage extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      'SKU1002',
+                      product['SKU'],
                       style: GoogleFonts.montserrat(
                         color: Color(0xffBCBCBC),
                         fontWeight: FontWeight.w300,
