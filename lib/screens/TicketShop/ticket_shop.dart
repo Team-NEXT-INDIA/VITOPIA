@@ -1,23 +1,65 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:vitopia/screens/ShoppingPage/Components/ticket_card.dart';
+import 'package:vitopia/screens/TicketShop/Ticket_view.dart';
 
+import '../../backend/api_services/ApiService.dart';
 import '../../customs/colors.dart';
 import '../InformationPage/mentioncolor.dart';
+import '../ShoppingPage/Data/product_data_class.dart';
 
-// https://wallpaper.dog/large/20497496.jpg
 class TicketShop extends StatefulWidget {
-  TicketShop({Key? key}) : super(key: key);
+  const TicketShop({super.key});
 
   @override
-  State<TicketShop> createState() => _TicketShopState();
+  _TicketShopState createState() => _TicketShopState();
 }
 
-class _TicketShopState extends State<TicketShop> {
+class _TicketShopState extends State<TicketShop>
+    with SingleTickerProviderStateMixin {
+  late TabController controller;
+
+  final GlobalKey<AnimatedListState> _animatedListKey =
+      GlobalKey<AnimatedListState>();
+  bool _isLoading = false;
+  bool isSorted = false;
+  List<Product> _products = [];
+  String? _error;
+  String _sortBy = 'price_asc';
+  @override
+  void initState() {
+    super.initState();
+    controller = TabController(length: 2, vsync: this);
+    _loadProducts();
+  }
+
+  _loadProducts() async {
+    setState(() {
+      _isLoading = true;
+    });
+    ApiService api = ApiService();
+    try {
+      List<Product> products = await api.getTickets();
+      setState(() {
+        _products = products;
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _error = e.toString();
+        _isLoading = false;
+      });
+    }
+  }
+
   var colorizeTextStyle = TextStyle(
     fontFamily: 'Monument Extended',
     color: const Color(0xffFFFFFF),
@@ -47,15 +89,6 @@ class _TicketShopState extends State<TicketShop> {
                 expandedHeight: 170.h,
                 stretch: true,
                 automaticallyImplyLeading: false,
-                leading: IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(
-                    Icons.arrow_back_ios_new,
-                    color: Colors.white,
-                  ),
-                ),
                 flexibleSpace: FlexibleSpaceBar(
                   background: Align(
                     child: Container(
@@ -141,101 +174,222 @@ class _TicketShopState extends State<TicketShop> {
               ),
             ];
           },
-          body: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.h),
-                child: Container(
-                  height: 150.h,
-                  child: Row(
-                    children: [
-                      Container(
-                        height: 150.h,
-                        width: 120.h,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(15.r),
-                                bottomLeft: Radius.circular(15.r))),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(15.r),
-                              bottomLeft: Radius.circular(15.r)),
-                          child: Image.network(
-                            'https://i.ibb.co/hD7FHGb/STANDUP-COMEDY.png',
-                            fit: BoxFit.cover,
+          body: _isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : _error != null
+                  ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            "assets/images/net_error.png",
+                            width: 200.w,
                           ),
-                        ),
+                          Text(
+                            "Oopssss...",
+                            style: GoogleFonts.montserrat(
+                              color: Colors.white,
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            _error!,
+                            style: GoogleFonts.montserrat(
+                              color: Colors.red,
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        width: 10.h,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(10.h),
+                    )
+                  : RefreshIndicator(
+                      onRefresh: () async {
+                        Future.delayed(const Duration(seconds: 1000));
+                        setState(() {
+                          Future.delayed(const Duration(seconds: 1000));
+                          _isLoading = true;
+                        });
+                        ApiService api = ApiService();
+                        try {
+                          List<Product> products = await api.getTickets();
+                          setState(() {
+                            Future.delayed(const Duration(seconds: 1000));
+                            _products = products;
+                            _isLoading = false;
+                          });
+                        } catch (e) {
+                          setState(() {
+                            Future.delayed(const Duration(seconds: 1000));
+                            _error = e.toString();
+                            _isLoading = false;
+                          });
+                        }
+                      },
+                      child: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Comedy show',
-                              style: GoogleFonts.montserrat(
-                                color: Color(0xffffffff),
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.w600,
+                            Padding(
+                              padding: EdgeInsets.only(
+                                left: 18.h,
+                                top: 20.h,
+                                right: 18.h,
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Tickets",
+                                    style: TextStyle(
+                                      fontFamily: 'Monument Extended',
+                                      color: const Color(0xffFFFFFF),
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  IconButton(
+                                    icon: Icon(Icons.filter_list,
+                                        color: isSorted
+                                            ? Colors.blue
+                                            : Colors.grey),
+                                    onPressed: () {
+                                      buildShowModalBottomSheet(context);
+                                    },
+                                  ),
+                                ],
                               ),
                             ),
-                            Text(
-                              'A virtually real-time \nexperience Fun and relistic ',
-                              style: GoogleFonts.montserrat(
-                                color: Color(0xffffffff),
-                                fontSize: 10.sp,
-                                fontWeight: FontWeight.w600,
+                            AnimationLimiter(
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: _products.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return AnimationConfiguration.staggeredList(
+                                    position: index,
+                                    duration: const Duration(milliseconds: 375),
+                                    child: ScaleAnimation(
+                                      child: FadeInAnimation(
+                                        child: TicketCard(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                CupertinoPageRoute(
+                                                    builder: (context) =>
+                                                        Ticket_view()));
+                                          },
+                                          productName:
+                                              _products[index].name ?? "",
+                                          productPrice:
+                                              _products[index].price.toString(),
+                                          image: _products[index].image ?? "",
+                                          sub_category:
+                                              _products[index].sub_category ??
+                                                  "",
+                                          description:
+                                              _products[index].description ??
+                                                  "",
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
-                            ),
-                            SizedBox(
-                              height: 10.h,
                             ),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
-                                  Icons.location_on,
-                                  size: 17.sp,
-                                  color: Color(0x84ececec),
-                                ),
                                 Text(
-                                  'AB-2 304',
-                                  style: GoogleFonts.montserrat(
-                                    color: Color(0x84ececec),
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
+                                  "End of Tickets",
+                                  style: TextStyle(
+                                    fontFamily: 'Monument Extended',
+                                    color: const Color(0xFFB4B4B4),
+                                    fontSize: 9.sp,
+                                    fontWeight: FontWeight.normal,
                                   ),
                                 ),
                               ],
                             ),
                             SizedBox(
-                              height: 8.h,
-                            ),
-                            Text(
-                              '₹ 1000',
-                              style: GoogleFonts.montserrat(
-                                color: Color(0xff39FF65),
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.w800,
-                              ),
-                            ),
+                              height: 20.h,
+                            )
                           ],
                         ),
                       ),
-                    ],
-                  ),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      color: Color(0xff1C1C1C),
-                      borderRadius: BorderRadius.circular(15.r)),
+                    ),
+        ));
+  }
+
+  Future<dynamic> buildShowModalBottomSheet(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          color: const Color(0xdf2f2f2f),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                leading: const Icon(
+                  FontAwesomeIcons.sortAmountUp,
+                  color: Colors.white,
                 ),
-              )
+                title: Text(
+                  "Price Low To High",
+                  style: GoogleFonts.montserrat(
+                    color: const Color(0xffFFFFFF),
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                onTap: () {
+                  isSorted = !isSorted;
+                  _products.sort(
+                      (a, b) => (a.price as num).compareTo(b.price as num));
+                  _animatedListKey.currentState?.setState(() {});
+                  setState(() {});
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(
+                  FontAwesomeIcons.sortAmountDown,
+                  color: Colors.white,
+                ),
+                title: Text(
+                  "Price High To Low",
+                  style: GoogleFonts.montserrat(
+                    color: const Color(0xffFFFFFF),
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                onTap: () {
+                  isSorted = !isSorted;
+                  _products.sort(
+                      (a, b) => (b.price as num).compareTo(a.price as num));
+                  _animatedListKey.currentState?.setState(() {});
+                  setState(() {});
+                  Navigator.pop(context);
+                },
+              ),
             ],
           ),
-        ));
+        );
+      },
+    );
+  }
+
+  void _sortProducts() {
+    if (_sortBy == 'price_asc') {
+      _products.sort((a, b) => (a.price as num).compareTo(b.price as num));
+    } else if (_sortBy == 'price_desc') {
+      _products.sort((a, b) => (b.price as num).compareTo(a.price as num));
+    }
+    _animatedListKey.currentState?.setState(() {});
+    setState(() {});
   }
 }
