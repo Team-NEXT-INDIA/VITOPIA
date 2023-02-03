@@ -102,17 +102,17 @@ class ProfileV2 extends StatelessWidget {
             ),
             ListTile(
               title: Text(
-                "Rewards",
+                "My profile",
                 style: GoogleFonts.montserrat(
-                  color: const Color(0xffCECECE),
+                  color: const Color(0xffFFFFFF),
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w500,
                 ),
               ),
               subtitle: Text(
-                "view your rewards and unlock new ones",
+                "check your profile",
                 style: GoogleFonts.montserrat(
-                  color: const Color(0xffCECECE),
+                  color: const Color(0xff727272),
                   fontSize: 10.sp,
                   fontWeight: FontWeight.w500,
                 ),
@@ -131,17 +131,17 @@ class ProfileV2 extends StatelessWidget {
             ),
             ListTile(
               title: Text(
-                "Rewards",
+                "My orders",
                 style: GoogleFonts.montserrat(
-                  color: const Color(0xffCECECE),
+                  color: const Color(0xffFFFFFF),
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w500,
                 ),
               ),
               subtitle: Text(
-                "view your rewards and unlock new ones",
+                "view orders",
                 style: GoogleFonts.montserrat(
-                  color: const Color(0xffCECECE),
+                  color: const Color(0xff727272),
                   fontSize: 10.sp,
                   fontWeight: FontWeight.w500,
                 ),
@@ -157,7 +157,144 @@ class ProfileV2 extends StatelessWidget {
                   color: Color(0xffCECECE),
                 ),
               ),
-            )
+            ),
+            ListTile(
+              title: Text(
+                "Developers",
+                style: GoogleFonts.montserrat(
+                  color: const Color(0xffFFFFFF),
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              subtitle: Text(
+                "view your rewards and unlock new ones",
+                style: GoogleFonts.montserrat(
+                  color: const Color(0xff727272),
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                color: Color(0xffCECECE),
+              ),
+              leading: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(
+                  Icons.shopping_bag,
+                  color: Color(0xffCECECE),
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text(
+                "Data privacy",
+                style: GoogleFonts.montserrat(
+                  color: const Color(0xffFFFFFF),
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              subtitle: Text(
+                "view your rewards and unlock new ones",
+                style: GoogleFonts.montserrat(
+                  color: const Color(0xff727272),
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                color: Color(0xffCECECE),
+              ),
+              leading: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(
+                  Icons.shopping_bag,
+                  color: Color(0xffCECECE),
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text(
+                "Share with friends",
+                style: GoogleFonts.montserrat(
+                  color: const Color(0xffFFFFFF),
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              subtitle: Text(
+                "view your rewards and unlock new ones",
+                style: GoogleFonts.montserrat(
+                  color: const Color(0xff727272),
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                color: Color(0xffCECECE),
+              ),
+              leading: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(
+                  Icons.shopping_bag,
+                  color: Color(0xffCECECE),
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text(
+                "Offers",
+                style: GoogleFonts.montserrat(
+                  color: const Color(0xffFFFFFF),
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              subtitle: Text(
+                "view your offers and unlock new ones",
+                style: GoogleFonts.montserrat(
+                  color: const Color(0xff727272),
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                color: Color(0xffCECECE),
+              ),
+              leading: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(
+                  Icons.shopping_bag,
+                  color: Color(0xffCECECE),
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text(
+                "Logout",
+                style: GoogleFonts.montserrat(
+                  color: const Color(0xffFFFFFF),
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                color: Color(0xffCECECE),
+              ),
+              leading: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(
+                  Icons.shopping_bag,
+                  color: Color(0xffCECECE),
+                ),
+              ),
+            ),
           ],
         ),
       ),
