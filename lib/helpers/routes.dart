@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:vitopia/screens/profilePage/profilepage_v2.dart';
 
 import '../screens/Intro/splash_screen.dart';
 import '../screens/ShoppingPage/Data/product_data_class.dart';
@@ -24,6 +25,9 @@ class RouteGenerator {
         return CupertinoPageRoute(
             builder: (_) => const Layout(), settings: settings);
       case '/profile':
+        return CupertinoPageRoute(
+            builder: (_) => ProfileV2(), settings: settings);
+      case '/profilev2':
         return CupertinoPageRoute(
             builder: (_) => ProfilePage(), settings: settings);
       case '/shop':
