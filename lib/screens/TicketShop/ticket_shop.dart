@@ -155,12 +155,12 @@ class _TicketShopState extends State<TicketShop> {
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(15.h),
-                                bottomLeft: Radius.circular(15.h))),
+                                topLeft: Radius.circular(15.r),
+                                bottomLeft: Radius.circular(15.r))),
                         child: ClipRRect(
                           borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(15.h),
-                              bottomLeft: Radius.circular(15.h)),
+                              topLeft: Radius.circular(15.r),
+                              bottomLeft: Radius.circular(15.r)),
                           child: Image.network(
                             'https://i.ibb.co/hD7FHGb/STANDUP-COMEDY.png',
                             fit: BoxFit.cover,
@@ -168,22 +168,70 @@ class _TicketShopState extends State<TicketShop> {
                         ),
                       ),
                       SizedBox(
-                        width: 10,
+                        width: 10.h,
                       ),
-                      Text(
-                        'satyanand',
-                        style: GoogleFonts.montserrat(
-                          color: primaryText,
-                          fontSize: 10.sp,
-                          fontWeight: FontWeight.w600,
+                      Padding(
+                        padding: EdgeInsets.all(10.h),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Comedy show',
+                              style: GoogleFonts.montserrat(
+                                color: Color(0xffffffff),
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            Text(
+                              'A virtually real-time \nexperience Fun and relistic ',
+                              style: GoogleFonts.montserrat(
+                                color: Color(0xffffffff),
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.location_on,
+                                  size: 17.sp,
+                                  color: Color(0x84ececec),
+                                ),
+                                Text(
+                                  'AB-2 304',
+                                  style: GoogleFonts.montserrat(
+                                    color: Color(0x84ececec),
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 8.h,
+                            ),
+                            Text(
+                              '₹ 1000',
+                              style: GoogleFonts.montserrat(
+                                color: Color(0xff39FF65),
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                          ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                   width: double.infinity,
                   decoration: BoxDecoration(
                       color: Color(0xff1C1C1C),
-                      borderRadius: BorderRadius.circular(15)),
+                      borderRadius: BorderRadius.circular(15.r)),
                 ),
               )
             ],
