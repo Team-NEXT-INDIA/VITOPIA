@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -69,13 +70,15 @@ class _MyOrdersState extends State<MyOrders> {
             color: Colors.white,
           ),
         ),
-        title: const Text(
-          'My Orders',
-          style: TextStyle(
-            fontFamily: 'Monument Extended',
-            color: Color(0xffFFFFFF),
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
+        title: FadeIn(
+          child: Text(
+            'My Orders',
+            style: TextStyle(
+              fontFamily: 'Monument Extended',
+              color: Color(0xffFFFFFF),
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),

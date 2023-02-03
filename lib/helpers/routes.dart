@@ -27,7 +27,7 @@ class RouteGenerator {
       case '/profile':
         return CupertinoPageRoute(
             builder: (_) => ProfileV2(), settings: settings);
-      case '/profilev2':
+      case '/profileview':
         return CupertinoPageRoute(
             builder: (_) => ProfilePage(), settings: settings);
       case '/shop':

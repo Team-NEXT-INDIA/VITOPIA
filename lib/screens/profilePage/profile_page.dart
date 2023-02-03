@@ -1,13 +1,12 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:vitopia/customs/colors.dart';
 
-import '../provider/google_sign_in.dart';
 import 'components/profile_menu.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -15,60 +14,30 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
-      backgroundColor: scaffoldBackground,
+      backgroundColor: Colors.black,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            //
-            expandedHeight: 0,
-            actions: [
-              Padding(
-                padding: EdgeInsets.only(right: 15.h),
-                child: IconButton(
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return Container(
-                            child: AlertDialog(
-                              title: Text("Leaving to Soon!"),
-                              content: Text("Are sure you want to logout?"),
-                              actions: [
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: Text("NO")),
-                                TextButton(
-                                    onPressed: () {
-                                      final provider =
-                                          Provider.of<GoogleSignInProvider>(
-                                              context,
-                                              listen: false);
-                                      provider.logout(
-                                          context, Navigator.pushNamed);
-                                    },
-                                    child: Text("YES")),
-                              ],
-                            ),
-                          );
-                        });
-                  },
-                  icon: Icon(
-                    FontAwesomeIcons.arrowRightFromBracket,
-                    color: Colors.white,
-                    size: 23.sp,
-                  ),
-                ),
+            leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(
+                Icons.arrow_back_ios_new,
+                color: Colors.white,
               ),
-            ],
+            ),
+            expandedHeight: 0,
             title: FadeIn(
-              child: Text(
-                "Account",
-                style: GoogleFonts.montserrat(
-                  color: primaryText,
-                  fontSize: 21.sp,
-                  fontWeight: FontWeight.w800,
+              child: Hero(
+                tag: 'APP',
+                child: Text(
+                  "Profile",
+                  style: GoogleFonts.montserrat(
+                    color: primaryText,
+                    fontSize: 21.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
             ),
@@ -87,11 +56,55 @@ class ProfilePage extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(300),
-                      child: Image.network(
-                        user.photoURL ?? "",
-                        height: 100.h,
+                    Hero(
+                      tag: "PROFILE",
+                      child: CircleAvatar(
+                        radius: 38.r,
+                        backgroundColor: Color(0xfffffff),
+                        child: CircleAvatar(
+                          radius: 30.r,
+                          backgroundColor: Color(0xfffffff),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(100),
+                            child: CachedNetworkImage(
+                              imageUrl: user.photoURL ?? "",
+                              width: double.infinity,
+                              fit: BoxFit.fill,
+                              placeholder: (context, url) => Shimmer(
+                                child: Container(
+                                  height: 25.h,
+                                  width: 25.h,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              errorWidget: (context, url, error) => Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.grey,
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                                height: 140.h,
+                                width: 135.h,
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "No Image",
+                                        style: GoogleFonts.montserrat(
+                                          color: primaryText,
+                                          fontSize: 4.sp,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                     SizedBox(height: 20),

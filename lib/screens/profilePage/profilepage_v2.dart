@@ -1,8 +1,13 @@
+import 'package:animate_do/animate_do.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttericon/entypo_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:vitopia/customs/colors.dart';
+import 'package:vitopia/customs/ontapscale.dart';
 
 class ProfileV2 extends StatelessWidget {
   const ProfileV2({Key? key}) : super(key: key);
@@ -11,293 +16,352 @@ class ProfileV2 extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
-      backgroundColor: scaffoldBackground,
-      appBar: AppBar(
-        backgroundColor: scaffoldBackground,
-        elevation: 0,
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios_new,
-            color: Colors.white,
+        backgroundColor: Color(0xff010101),
+        appBar: AppBar(
+          backgroundColor: Color(0xff010101),
+          elevation: 0,
+          centerTitle: true,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: Colors.white,
+            ),
+          ),
+          title: FadeIn(
+            child: Text('PROFILE',
+                style: TextStyle(
+                  fontFamily: 'Monument Extended',
+                  color: const Color(0xffFFFFFF),
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.bold,
+                )),
           ),
         ),
-        title: Text('PROFILE',
-            style: TextStyle(
-              fontFamily: 'Monument Extended',
-              color: const Color(0xffFFFFFF),
-              fontSize: 20.sp,
-              fontWeight: FontWeight.bold,
-            )),
-      ),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.all(10.h),
-              child: Container(
-                height: 100.h,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        opacity: 0.4,
-                        image: AssetImage('assets/images/pattern.png'),
-                        fit: BoxFit.cover),
-                    color: Color(0xff2D2B30),
-                    borderRadius: BorderRadius.circular(18.r)),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 10.h),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+        body: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(10.h),
+                    child: Container(
+                      height: 100.h,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              opacity: 0.4,
+                              image: AssetImage('assets/images/pattern.png'),
+                              fit: BoxFit.cover),
+                          color: Color(0x13737373),
+                          borderRadius: BorderRadius.circular(18.r)),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            'Hi 👋🏻',
-                            style: GoogleFonts.montserrat(
-                              color: primaryText,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w600,
+                          Padding(
+                            padding: EdgeInsets.only(left: 10.h),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Hi 👋🏻',
+                                  style: GoogleFonts.montserrat(
+                                    color: primaryText,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                Text(
+                                  user.displayName ?? "",
+                                  style: GoogleFonts.montserrat(
+                                    color: primaryText,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w900,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          Text(
-                            'Satyanand',
-                            style: GoogleFonts.montserrat(
-                              color: primaryText,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w900,
+                          Padding(
+                            padding: EdgeInsets.only(right: 9.h),
+                            child: Hero(
+                              tag: "PROFILE",
+                              child: CircleAvatar(
+                                radius: 38.r,
+                                backgroundColor: Color(0xfffffff),
+                                child: CircleAvatar(
+                                  radius: 30.r,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: CachedNetworkImage(
+                                      imageUrl: user.photoURL ?? "",
+                                      width: double.infinity,
+                                      fit: BoxFit.fill,
+                                      placeholder: (context, url) => Shimmer(
+                                        child: Container(
+                                          height: 25.h,
+                                          width: 25.h,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey,
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                        height: 140.h,
+                                        width: 135.h,
+                                        child: Center(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                "No Image",
+                                                style: GoogleFonts.montserrat(
+                                                  color: primaryText,
+                                                  fontSize: 4.sp,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 9.h),
-                      child: CircleAvatar(
-                        radius: 38.r,
-                        backgroundColor: Color(0xfffffff),
-                        child: CircleAvatar(
-                          radius: 30.r,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: Image.network(
-                              user.photoURL ?? "",
-                              height: 110.h,
-                              fit: BoxFit.cover,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 5.h),
+                        child: CustomTap(
+                          onTap: () {
+                            Navigator.of(context).pushNamed('/profileview');
+                          },
+                          child: Container(
+                            height: 90.h,
+                            width: 140.h,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.r),
+                              color: Color(0x21737373),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Entypo.user,
+                                  size: 28.sp,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  height: 05.h,
+                                ),
+                                Text(
+                                  "Profile",
+                                  style: GoogleFonts.montserrat(
+                                    color: const Color(0xffFFFFFF),
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                         ),
                       ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.h),
+                        child: CustomTap(
+                          onTap: () {
+                            Navigator.of(context).pushNamed('/orders');
+                          },
+                          child: Container(
+                            height: 90.h,
+                            width: 140.h,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.r),
+                              color: Color(0x21737373),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Entypo.bag,
+                                  size: 28.sp,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  height: 05.h,
+                                ),
+                                Text(
+                                  "Orders",
+                                  style: GoogleFonts.montserrat(
+                                    color: const Color(0xffFFFFFF),
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 13.h, horizontal: 14.h),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Application",
+                          style: GoogleFonts.montserrat(
+                            color: const Color(0xffFFFFFF),
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  ListTile(
+                    onTap: () {},
+                    title: Text(
+                      "Developers",
+                      style: GoogleFonts.montserrat(
+                        color: const Color(0xffFFFFFF),
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    subtitle: Text(
+                      "view your rewards and unlock new ones",
+                      style: GoogleFonts.montserrat(
+                        color: const Color(0xff727272),
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      color: Color(0xffCECECE),
+                    ),
+                    leading: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(
+                        Icons.developer_mode,
+                        color: Color(0xffCECECE),
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    onTap: () {},
+                    title: Text(
+                      "Data privacy",
+                      style: GoogleFonts.montserrat(
+                        color: const Color(0xffFFFFFF),
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    subtitle: Text(
+                      "view your rewards and unlock new ones",
+                      style: GoogleFonts.montserrat(
+                        color: const Color(0xff727272),
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      color: Color(0xffCECECE),
+                    ),
+                    leading: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(
+                        Icons.privacy_tip_outlined,
+                        color: Color(0xffCECECE),
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    onTap: () {},
+                    title: Text(
+                      "Share with friends",
+                      style: GoogleFonts.montserrat(
+                        color: const Color(0xffFFFFFF),
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    subtitle: Text(
+                      "view your rewards and unlock new ones",
+                      style: GoogleFonts.montserrat(
+                        color: const Color(0xff727272),
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      color: Color(0xffCECECE),
+                    ),
+                    leading: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(
+                        Icons.ios_share,
+                        color: Color(0xffCECECE),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.h),
+                    child: CustomTap(
+                      onTap: () {},
+                      child: Container(
+                        height: 40.h,
+                        width: 140.w,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Logout",
+                              style: GoogleFonts.montserrat(
+                                color: const Color(0xff000000),
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(6.r)),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            ListTile(
-              title: Text(
-                "My profile",
-                style: GoogleFonts.montserrat(
-                  color: const Color(0xffFFFFFF),
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              subtitle: Text(
-                "check your profile",
-                style: GoogleFonts.montserrat(
-                  color: const Color(0xff727272),
-                  fontSize: 10.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                color: Color(0xffCECECE),
-              ),
-              leading: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(
-                  Icons.shopping_bag,
-                  color: Color(0xffCECECE),
-                ),
-              ),
-            ),
-            ListTile(
-              title: Text(
-                "My orders",
-                style: GoogleFonts.montserrat(
-                  color: const Color(0xffFFFFFF),
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              subtitle: Text(
-                "view orders",
-                style: GoogleFonts.montserrat(
-                  color: const Color(0xff727272),
-                  fontSize: 10.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                color: Color(0xffCECECE),
-              ),
-              leading: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(
-                  Icons.shopping_bag,
-                  color: Color(0xffCECECE),
-                ),
-              ),
-            ),
-            ListTile(
-              title: Text(
-                "Developers",
-                style: GoogleFonts.montserrat(
-                  color: const Color(0xffFFFFFF),
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              subtitle: Text(
-                "view your rewards and unlock new ones",
-                style: GoogleFonts.montserrat(
-                  color: const Color(0xff727272),
-                  fontSize: 10.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                color: Color(0xffCECECE),
-              ),
-              leading: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(
-                  Icons.shopping_bag,
-                  color: Color(0xffCECECE),
-                ),
-              ),
-            ),
-            ListTile(
-              title: Text(
-                "Data privacy",
-                style: GoogleFonts.montserrat(
-                  color: const Color(0xffFFFFFF),
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              subtitle: Text(
-                "view your rewards and unlock new ones",
-                style: GoogleFonts.montserrat(
-                  color: const Color(0xff727272),
-                  fontSize: 10.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                color: Color(0xffCECECE),
-              ),
-              leading: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(
-                  Icons.shopping_bag,
-                  color: Color(0xffCECECE),
-                ),
-              ),
-            ),
-            ListTile(
-              title: Text(
-                "Share with friends",
-                style: GoogleFonts.montserrat(
-                  color: const Color(0xffFFFFFF),
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              subtitle: Text(
-                "view your rewards and unlock new ones",
-                style: GoogleFonts.montserrat(
-                  color: const Color(0xff727272),
-                  fontSize: 10.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                color: Color(0xffCECECE),
-              ),
-              leading: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(
-                  Icons.shopping_bag,
-                  color: Color(0xffCECECE),
-                ),
-              ),
-            ),
-            ListTile(
-              title: Text(
-                "Offers",
-                style: GoogleFonts.montserrat(
-                  color: const Color(0xffFFFFFF),
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              subtitle: Text(
-                "view your offers and unlock new ones",
-                style: GoogleFonts.montserrat(
-                  color: const Color(0xff727272),
-                  fontSize: 10.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                color: Color(0xffCECECE),
-              ),
-              leading: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(
-                  Icons.shopping_bag,
-                  color: Color(0xffCECECE),
-                ),
-              ),
-            ),
-            ListTile(
-              title: Text(
-                "Logout",
-                style: GoogleFonts.montserrat(
-                  color: const Color(0xffFFFFFF),
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                color: Color(0xffCECECE),
-              ),
-              leading: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(
-                  Icons.shopping_bag,
-                  color: Color(0xffCECECE),
-                ),
-              ),
-            ),
+            )
           ],
-        ),
-      ),
-    );
+        ));
   }
 }
