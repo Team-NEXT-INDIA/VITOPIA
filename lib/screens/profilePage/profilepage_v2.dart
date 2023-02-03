@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vitopia/customs/colors.dart';
 
@@ -124,7 +125,7 @@ class ProfileV2 extends StatelessWidget {
               leading: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Icon(
-                  Icons.shopping_bag,
+                  FontAwesomeIcons.user,
                   color: Color(0xffCECECE),
                 ),
               ),
@@ -182,7 +183,7 @@ class ProfileV2 extends StatelessWidget {
               leading: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Icon(
-                  Icons.shopping_bag,
+                  FontAwesomeIcons.dev,
                   color: Color(0xffCECECE),
                 ),
               ),
@@ -211,7 +212,7 @@ class ProfileV2 extends StatelessWidget {
               leading: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Icon(
-                  Icons.shopping_bag,
+                  FontAwesomeIcons.database,
                   color: Color(0xffCECECE),
                 ),
               ),
@@ -240,7 +241,7 @@ class ProfileV2 extends StatelessWidget {
               leading: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Icon(
-                  Icons.shopping_bag,
+                  Icons.share,
                   color: Color(0xffCECECE),
                 ),
               ),
@@ -269,7 +270,7 @@ class ProfileV2 extends StatelessWidget {
               leading: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Icon(
-                  Icons.shopping_bag,
+                  Icons.percent,
                   color: Color(0xffCECECE),
                 ),
               ),
@@ -290,7 +291,7 @@ class ProfileV2 extends StatelessWidget {
               leading: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Icon(
-                  Icons.shopping_bag,
+                  Icons.logout,
                   color: Color(0xffCECECE),
                 ),
               ),
