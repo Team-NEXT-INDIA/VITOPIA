@@ -70,6 +70,7 @@ dependencies:
   webview_flutter: ^4.0.2
   full_screen_image_null_safe: ^2.0.0
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
