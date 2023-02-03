@@ -63,25 +63,6 @@ class _ShoppingPageState extends State<ShoppingPage>
     }
   }
 
-  _loadTickets() async {
-    setState(() {
-      _isLoading = true;
-    });
-    ApiService api = ApiService();
-    try {
-      List<Ticket> tickets = await api.getTickets();
-      setState(() {
-        _tickets = tickets;
-        _isLoading = false;
-      });
-    } catch (e) {
-      setState(() {
-        _error = e.toString();
-        _isLoading = false;
-      });
-    }
-  }
-
   var colorizeTextStyle = TextStyle(
     fontFamily: 'Monument Extended',
     color: const Color(0xffFFFFFF),
