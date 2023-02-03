@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,12 +8,19 @@ import '../../../customs/ontapscale.dart';
 class FeatureCards extends StatelessWidget {
   final String title;
   final String subtitle;
+  final String description;
+  final String time;
+  final String location;
   final String image;
+
   const FeatureCards({
     Key? key,
     required this.image,
     required this.title,
     required this.subtitle,
+    required this.description,
+    required this.time,
+    required this.location,
   }) : super(key: key);
 
   @override
@@ -49,7 +55,7 @@ class FeatureCards extends StatelessWidget {
                   child: SmoothClipRRect(
                     smoothness: 0.9,
                     borderRadius: BorderRadius.circular(25.r),
-                    child: Image.asset(
+                    child: Image.network(
                       image,
                       width: 100.w,
                       height: 100.h,

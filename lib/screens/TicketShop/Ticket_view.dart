@@ -1,9 +1,134 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+import 'package:paytm_allinonesdk/paytm_allinonesdk.dart';
+import 'package:vitopia/customs/ontapscale.dart';
 
-class Ticket_view extends StatelessWidget {
-  const Ticket_view({Key? key}) : super(key: key);
+import '../ShoppingPage/Data/product_data_class.dart';
+import '../ShoppingPage/FollowPages/Failed_Payment.dart';
+import '../ShoppingPage/FollowPages/Sucess_Payment.dart';
+
+class Ticket_view extends StatefulWidget {
+  Ticket_view({Key? key, required this.product}) : super(key: key);
+  final Product product;
+  @override
+  State<Ticket_view> createState() => _Ticket_viewState();
+}
+
+class _Ticket_viewState extends State<Ticket_view> {
+  final user = FirebaseAuth.instance.currentUser!;
+  bool _starttransaction = false;
+  final String _successbaseUrl = "http://10.0.2.2:1080/save-transaction";
+  final String _failedbaseUrl = "http://10.0.2.2:1080/save-failed-transaction";
+  Future<http.Response> postTransactionDetails(transactionDetails) async {
+    Map<String, dynamic> successResponse =
+        json.decode(json.encode(transactionDetails));
+    String CURRENCY = successResponse['CURRENCY'] ?? "";
+    String GATEWAYNAME = successResponse['GATEWAYNAME'] ?? "";
+    String RESPMSG = successResponse['RESPMSG'] ?? "";
+    String BANKNAME = successResponse['BANKNAME'] ?? "";
+    String PAYMENTMODE = successResponse['PAYMENTMODE'] ?? "";
+    String MID = successResponse['MID'] ?? "";
+    String RESPCODE = successResponse['RESPCODE'] ?? "";
+    String TXNID = successResponse['TXNID'] ?? "";
+    String ORDERID = successResponse['ORDERID'] ?? "";
+    String STATUS = successResponse['STATUS'] ?? "";
+    String BANKTXNID = successResponse['BANKTXNID'] ?? "";
+    String TXNDATE = successResponse['TXNDATE'] ?? "";
+    String CHECKSUMHASH = successResponse['CHECKSUMHASH'] ?? "";
+    String TXNAMOUNT = successResponse['TXNAMOUNT'] ?? "";
+    String SKU = widget.product.sku ?? "";
+
+    Map<String, dynamic> body = {
+      'CURRENCY': CURRENCY,
+      'GATEWAYNAME': GATEWAYNAME,
+      'RESPMSG': RESPMSG,
+      'BANKNAME': BANKNAME,
+      'PAYMENTMODE': PAYMENTMODE,
+      'MID': MID,
+      'RESPCODE': RESPCODE,
+      'TXNID': TXNID,
+      'ORDERID': ORDERID,
+      'STATUS': STATUS,
+      'BANKTXNID': BANKTXNID,
+      'TXNDATE': TXNDATE,
+      'CHECKSUMHASH': CHECKSUMHASH,
+      'TXNAMOUNT': TXNAMOUNT,
+      'SKU': SKU,
+    };
+    final response = await http.post(
+      Uri.parse(
+        _successbaseUrl,
+      ),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(body),
+    );
+    return response;
+  }
+
+  Future<http.Response> postFailedTransactionDetails(transactionDetails) async {
+    final response = await http.post(
+      Uri.parse(
+        _failedbaseUrl,
+      ),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(transactionDetails),
+    );
+    return response;
+  }
+
+  // Function to save the transaction details to the database
+  void saveOrders(
+      {required txnAmount,
+      required orderId,
+      required paymentMode,
+      required txnDate,
+      required sku,
+      required email}) async {
+    try {
+      // Create the request body with the transaction details
+      Map<String, dynamic> body = {
+        "ORDERID": orderId,
+        "TXNAMOUNT": txnAmount,
+        "PAYMENTMODE": paymentMode,
+        "TXNDATE": txnDate,
+        "SKU": sku,
+        "EMAIL": user.email,
+      };
+
+      // convert the body to json string
+      var jsonBody = jsonEncode(body);
+
+      // Make the API call
+      final response = await http.post(
+          Uri.parse(
+            'http://10.0.2.2:1080/save-order',
+          ),
+          headers: {"Content-Type": "application/json"},
+          body: jsonBody);
+
+      if (response.statusCode == 200) {
+        // The API call was successful
+        print("ORDER Transaction saved successfully!");
+      } else {
+        // The API call failed
+        print("Error saving transaction: ${response.statusCode}");
+      }
+    } catch (e) {
+      // Handle any errors that occurred during the API call
+      print("Error saving transaction: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +159,7 @@ class Ticket_view extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.h, vertical: 20.h),
           child: Column(
@@ -48,13 +174,15 @@ class Ticket_view extends StatelessWidget {
                     height: 130.h,
                     width: 120.h,
                     decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(
-                            'https://i.ibb.co/hD7FHGb/STANDUP-COMEDY.png'),
-                        fit: BoxFit.cover,
-                      ),
                       color: Color(0xffffffff),
                       borderRadius: BorderRadius.circular(10.r),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10.r),
+                      child: Image.network(
+                        widget.product.image ?? "",
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   Padding(
@@ -64,7 +192,7 @@ class Ticket_view extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Pro Show',
+                          widget.product.name ?? "",
                           style: GoogleFonts.montserrat(
                             color: const Color(0xffffffff),
                             fontSize: 18.sp,
@@ -72,7 +200,7 @@ class Ticket_view extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'Amphi Theatre',
+                          widget.product.sub_category ?? "-",
                           style: GoogleFonts.montserrat(
                             color: const Color(0xff909090),
                             fontSize: 12.sp,
@@ -80,30 +208,51 @@ class Ticket_view extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '₹ 1500',
+                          '₹ ${widget.product.price.toString()}',
                           style: GoogleFonts.montserrat(
-                            color: const Color(0xffffffff),
+                            color: const Color(0xff39FF65),
                             fontSize: 15.sp,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w800,
                           ),
                         ),
                         SizedBox(
                           height: 10.h,
                         ),
-                        Container(
-                          height: 40.h,
-                          width: 140.h,
-                          decoration: BoxDecoration(
-                              color: Color(0xffffffff),
-                              borderRadius: BorderRadius.circular(5.r)),
-                          child: Center(
-                            child: Text(
-                              'Buy Ticket',
-                              style: GoogleFonts.montserrat(
-                                color: Color(0xff000000),
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.w700,
-                              ),
+                        CustomTap(
+                          onTap: () {
+                            setState(() {
+                              _starttransaction = true;
+                            });
+                            FocusScope.of(context).requestFocus(FocusNode());
+                            String amount = widget.product.price.toString();
+                            Future.delayed(const Duration(seconds: 3));
+                            if (amount.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("Error In Payment (0XFF9709)"),
+                                ),
+                              );
+                              return;
+                            }
+                            initiateTransaction(amount);
+                          },
+                          child: Container(
+                            height: 40.h,
+                            width: 140.h,
+                            decoration: BoxDecoration(
+                                color: Color(0xffffffff),
+                                borderRadius: BorderRadius.circular(5.r)),
+                            child: Center(
+                              child: _starttransaction
+                                  ? const CupertinoActivityIndicator()
+                                  : Text(
+                                      'Buy Ticket',
+                                      style: GoogleFonts.montserrat(
+                                        color: Color(0xff000000),
+                                        fontSize: 15.sp,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
                             ),
                           ),
                         ),
@@ -140,30 +289,7 @@ class Ticket_view extends StatelessWidget {
                     width: 8.h,
                   ),
                   Text(
-                    'Amphi Theatre',
-                    style: GoogleFonts.montserrat(
-                      color: Color(0xbdffffff),
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Text(
-                    'Time :',
-                    style: GoogleFonts.montserrat(
-                      color: Color(0xffffffff),
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 8.h,
-                  ),
-                  Text(
-                    '12:00 PM',
+                    widget.product.sub_category.toString(),
                     style: GoogleFonts.montserrat(
                       color: Color(0xbdffffff),
                       fontSize: 12.sp,
@@ -176,18 +302,7 @@ class Ticket_view extends StatelessWidget {
                 height: 20.h,
               ),
               Text(
-                "hsbcdf fjhkxnewuiyhjasdvbcnilxukqhwebyuafjdshNuxhjecvfwqayidwhbcdcnbskhujbwsdvjacebsfyuhjwcbeyhsjab gwrhevsdbuyigwqvfgdushaa"
-                "If you have defined the 'event' variable in another file, such as an EventsPage class, you will need to pass it as an argument to the EventsViewPage widget when you create it."
-                " For example, if you have an event variable in an EventsPage class, you could pass it as a named argument to the EventsViewPage constructor:"
-                "hsbcdf fjhkxnewuiyhjasdvbcnilxukqhwebyuafjdshNuxhjecvfwqayidwhbcdcnbskhujbwsdvjacebsfyuhjwcbeyhsjab gwrhevsdbuyigwqvfgdushaa"
-                "If you have defined the 'event' variable in another file, such as an EventsPage class, you will need to pass it as an argument to the EventsViewPage widget when you create it."
-                " For example, if you have an event variable in an EventsPage class, you could pass it as a named argument to the EventsViewPage constructor:"
-                "hsbcdf fjhkxnewuiyhjasdvbcnilxukqhwebyuafjdshNuxhjecvfwqayidwhbcdcnbskhujbwsdvjacebsfyuhjwcbeyhsjab gwrhevsdbuyigwqvfgdushaa"
-                "If you have defined the 'event' variable in another file, such as an EventsPage class, you will need to pass it as an argument to the EventsViewPage widget when you create it."
-                " For example, if you have an event variable in an EventsPage class, you could pass it as a named argument to the EventsViewPage constructor:"
-                "hsbcdf fjhkxnewuiyhjasdvbcnilxukqhwebyuafjdshNuxhjecvfwqayidwhbcdcnbskhujbwsdvjacebsfyuhjwcbeyhsjab gwrhevsdbuyigwqvfgdushaa"
-                "If you have defined the 'event' variable in another file, such as an EventsPage class, you will need to pass it as an argument to the EventsViewPage widget when you create it."
-                " For example, if you have an event variable in an EventsPage class, you could pass it as a named argument to the EventsViewPage constructor:",
+                widget.product.description.toString(),
                 style: GoogleFonts.montserrat(
                   color: Color(0xffDBDBDB),
                   fontSize: 14.sp,
@@ -199,5 +314,247 @@ class Ticket_view extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void initiateTransaction(String amount) async {
+    Map<String, dynamic> body = {
+      'amount': amount,
+      'reg_no': user.email ?? "",
+    };
+
+    var parts = [];
+    body.forEach((key, value) {
+      parts.add('${Uri.encodeQueryComponent(key)}='
+          '${Uri.encodeQueryComponent(value)}');
+    });
+    var formData = parts.join('&');
+    var res = await http.post(
+      Uri.https(
+        "10.0.2.2", // my ip address , localhost
+        "paytmphp/generate_token.php",
+      ),
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded", // urlencoded
+      },
+      body: formData,
+    );
+
+    // print(res.body);
+    // print(res.statusCode);
+    if (res.statusCode == 200) {
+      print("VERIFY JSON AMOUNT");
+      print(res.body);
+      var bodyJson = jsonDecode(res.body);
+
+      var response = AllInOneSdk.startTransaction(
+        bodyJson['mid'], // merchant id  from api
+        bodyJson['orderId'], // order id from api
+        amount, // amount
+        bodyJson['txnToken'],
+        "",
+        true,
+        false,
+      ).then((value) {
+        //  on payment completion we will verify transaction with transaction verify api
+        //  after payment completion we will verify this transaction
+        //  and this will be final verification for payment
+        Map<String, dynamic> jsonResponse = json.decode(json.encode(value));
+        String CURRENCY = jsonResponse['CURRENCY'] ?? "";
+        String GATEWAYNAME = jsonResponse['GATEWAYNAME'] ?? "";
+        String RESPMSG = jsonResponse['RESPMSG'] ?? "";
+        String BANKNAME = jsonResponse['BANKNAME'] ?? "";
+        String PAYMENTMODE = jsonResponse['PAYMENTMODE'] ?? "";
+        String MID = jsonResponse['MID'] ?? "";
+        String RESPCODE = jsonResponse['RESPCODE'] ?? "";
+        String TXNID = jsonResponse['TXNID'] ?? "";
+        String ORDERID = jsonResponse['ORDERID'] ?? "";
+        String STATUS = jsonResponse['STATUS'] ?? "";
+        String BANKTXNID = jsonResponse['BANKTXNID'] ?? "";
+        String TXNDATE = jsonResponse['TXNDATE'] ?? "";
+        String CHECKSUMHASH = jsonResponse['CHECKSUMHASH'] ?? "";
+        String TXNAMOUNT = jsonResponse['TXNAMOUNT'] ?? "";
+        String SKU = widget.product.sku ?? "";
+        Map<String, dynamic> body = {
+          'CURRENCY': CURRENCY,
+          'GATEWAYNAME': GATEWAYNAME,
+          'RESPMSG': RESPMSG,
+          'BANKNAME': BANKNAME,
+          'PAYMENTMODE': PAYMENTMODE,
+          'MID': MID,
+          'RESPCODE': RESPCODE,
+          'TXNID': TXNID,
+          'ORDERID': ORDERID,
+          'STATUS': STATUS,
+          'BANKTXNID': BANKTXNID,
+          'TXNDATE': TXNDATE,
+          'CHECKSUMHASH': CHECKSUMHASH,
+          'TXNAMOUNT': TXNAMOUNT,
+        };
+        postTransactionDetails(body);
+        final snackBar = SnackBar(
+          behavior: SnackBarBehavior.floating,
+          content: Text("Order Success"),
+          action: SnackBarAction(
+            label: 'Dismiss',
+            onPressed: () {
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            },
+          ),
+        );
+
+        // Find the ScaffoldMessenger in the widget tree
+        // and use it to show a SnackBar.
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        Navigator.push(
+            context,
+            CupertinoPageRoute(
+              fullscreenDialog: true,
+              builder: (context) => PaymentSucess(
+                currency: CURRENCY,
+                gatewayname: GATEWAYNAME,
+                respmsg: RESPMSG,
+                bankname: BANKNAME,
+                paymentmode: PAYMENTMODE,
+                mid: MID,
+                respcode: RESPCODE,
+                txnid: TXNID,
+                orderid: ORDERID,
+                status: STATUS,
+                banktxnid: BANKTXNID,
+                txndate: TXNDATE,
+                checksumhash: CHECKSUMHASH,
+                txnamount: TXNAMOUNT,
+                SKU: SKU,
+              ),
+            ));
+        print("SAVING ORDERS TO DB");
+
+        saveOrders(
+          email: user.email,
+          txnAmount: TXNAMOUNT,
+          orderId: ORDERID,
+          paymentMode: PAYMENTMODE,
+          txnDate: TXNDATE,
+          sku: SKU,
+        );
+        print("ENDING SAVING ORDERS TO DB");
+        print(value);
+        setState(() {
+          _starttransaction = false;
+        });
+        verifyTransaction(bodyJson['orderId']);
+      }).catchError((onError) {
+        setState(() {
+          _starttransaction = false;
+        });
+        print("FAILED TRANSACTION");
+
+        var transactionDetails = onError.details;
+
+        String CURRENCY = transactionDetails['CURRENCY'] ?? "";
+        String GATEWAYNAME = transactionDetails['GATEWAYNAME'] ?? "NGW";
+        String RESPMSG = transactionDetails['RESPMSG'] ?? "";
+        String BANKNAME = transactionDetails['BANKNAME'] ?? "";
+        String PAYMENTMODE = transactionDetails['PAYMENTMODE'] ?? "";
+        String MID = transactionDetails['MID'] ?? "";
+        String RESPCODE = transactionDetails['RESPCODE'] ?? "";
+        String TXNID = transactionDetails['TXNID'] ?? "";
+        String ORDERID = transactionDetails['ORDERID'] ?? "";
+        String STATUS = transactionDetails['STATUS'] ?? "";
+        String BANKTXNID = transactionDetails['BANKTXNID'] ?? "";
+        String TXNDATE = transactionDetails['TXNDATE'] ?? "";
+        String CHECKSUMHASH = transactionDetails['CHECKSUMHASH'] ?? "";
+        String SKU = widget.product.sku ?? "";
+        String TXNAMOUNT = transactionDetails['TXNAMOUNT'] ?? "";
+        print("FAILED MESSAGE");
+        Map<String, dynamic> failbody = {
+          'CURRENCY': CURRENCY,
+          'GATEWAYNAME': GATEWAYNAME,
+          'RESPMSG': RESPMSG,
+          'BANKNAME': BANKNAME,
+          'PAYMENTMODE': PAYMENTMODE,
+          'MID': MID,
+          'RESPCODE': RESPCODE,
+          'TXNID': TXNID,
+          'ORDERID': ORDERID,
+          'STATUS': STATUS,
+          'BANKTXNID': BANKTXNID,
+          'TXNDATE': TXNDATE,
+          'CHECKSUMHASH': CHECKSUMHASH,
+          'TXNAMOUNT': TXNAMOUNT,
+        };
+        postFailedTransactionDetails(failbody);
+        print(transactionDetails);
+        final snackBar = SnackBar(
+          behavior: SnackBarBehavior.floating,
+          content: Text("Order Failed"),
+          action: SnackBarAction(
+            label: 'Dismiss',
+            onPressed: () {
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            },
+          ),
+        );
+
+        // Find the ScaffoldMessenger in the widget tree
+        // and use it to show a SnackBar.
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        Navigator.push(
+            context,
+            CupertinoPageRoute(
+              fullscreenDialog: true,
+              builder: (context) => PaymentFailed(
+                error: RESPMSG,
+              ),
+            ));
+      });
+    } else {
+      setState(() {
+        _starttransaction = false;
+      });
+      print(res.body);
+      Navigator.push(
+          context,
+          CupertinoPageRoute(
+            fullscreenDialog: true,
+            builder: (context) => PaymentFailed(
+              error: res.body,
+            ),
+          ));
+    }
+  }
+
+  void verifyTransaction(String orderId) async {
+    Map<String, dynamic> body = {
+      'orderId': orderId,
+    };
+
+    var parts = [];
+    body.forEach((key, value) {
+      parts.add('${Uri.encodeQueryComponent(key)}='
+          '${Uri.encodeQueryComponent(value)}');
+    });
+    var formData = parts.join('&');
+    var res = await http.post(
+      Uri.https(
+        "10.0.2.2", // my ip address , localhost
+        "paytmphp/verify_transaction.php", // let's check verifycation code on backend
+      ),
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded", // urlencoded
+      },
+      body: formData,
+    );
+
+    // var verifyJson = jsonDecode(res.body);
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

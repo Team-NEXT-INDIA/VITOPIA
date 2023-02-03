@@ -200,7 +200,7 @@ class viewInvoice extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomTap(
       onTap: () {
-        Navigator.pushNamed(context, '/invoice_page');
+        Navigator.pushNamed(context, '/orders');
       },
       child: Container(
         height: 45.h,
@@ -213,7 +213,7 @@ class viewInvoice extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "View Invoice",
+              "View Orders",
               style: GoogleFonts.montserrat(
                   color: Color(0xffffffff),
                   fontSize: 15.sp,

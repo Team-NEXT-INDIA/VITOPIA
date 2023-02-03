@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -6,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:vitopia/customs/ontapscale.dart';
 
@@ -25,6 +28,7 @@ class StudentHome extends StatefulWidget {
 
 class _StudentHomeState extends State<StudentHome> {
   final user = FirebaseAuth.instance.currentUser!;
+  List _featuredEvents = [];
   ScrollController _fabscrollController = new ScrollController();
   ScrollController _ScrollController = new ScrollController();
   bool _isScrolled = false;
@@ -35,6 +39,7 @@ class _StudentHomeState extends State<StudentHome> {
     super.initState();
     _fabscrollController = ScrollController();
     _ScrollController = ScrollController();
+    _fetchFeaturedEvents();
     _fabscrollController.addListener(() {
       if (_fabscrollController.offset > 50) {
         setState(() {
@@ -61,6 +66,20 @@ class _StudentHomeState extends State<StudentHome> {
   }
 
   var data2 = 'RY - ASASASDADASDADQ21';
+
+  void _fetchFeaturedEvents() async {
+    final response =
+        await http.get(Uri.parse('http://10.0.2.2:1080/featured-events'));
+    if (response.statusCode == 200) {
+      print(response.body);
+      setState(() {
+        _featuredEvents = json.decode(response.body);
+      });
+    } else {
+      throw Exception('Failed to load featured events');
+    }
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
       extendBodyBehindAppBar: true,
@@ -284,29 +303,52 @@ class _StudentHomeState extends State<StudentHome> {
                         FadeIn(
                           duration: const Duration(milliseconds: 390),
                           child: SingleChildScrollView(
-                            padding: EdgeInsets.only(left: 10.h),
+                            padding: EdgeInsets.only(
+                              left: 10.h,
+                            ),
                             physics: const BouncingScrollPhysics(),
                             clipBehavior: Clip.none,
                             scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: [
-                                const FeatureCards(
-                                  image: 'assets/images/poster-1.jpg',
-                                  title: 'Indian Ocean Band is Here!',
-                                  subtitle: '🎸 Read to Rock ? ',
-                                ),
-                                const FeatureCards(
-                                  image: 'assets/images/poster-2.jpg',
-                                  title: 'International Cultural Fest',
-                                  subtitle: '⭐️ Dash the dearing',
-                                ),
-                                const FeatureCards(
-                                  image: 'assets/images/poster-3.jpeg',
-                                  title: 'International Cultural Fest',
-                                  subtitle: '⭐️ Dash the dearing',
-                                ),
-                              ],
-                            ),
+                            child: _featuredEvents.isEmpty
+                                ? Padding(
+                                    padding: EdgeInsets.only(
+                                      left: 0.h,
+                                      right: 10.h,
+                                    ),
+                                    child: Center(
+                                      child: Container(
+                                        margin: EdgeInsets.all(10.h),
+                                        alignment: Alignment.center,
+                                        height: 200.h,
+                                        width: 280.h,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(12.r),
+                                            color: Color(0x13ffffff)),
+                                        child: Text(
+                                          'No Featured Events Found',
+                                          style: GoogleFonts.montserrat(
+                                            color: const Color(0xffFFFFFF),
+                                            fontSize: 10.sp,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : Row(
+                                    children: _featuredEvents
+                                        .map((event) => FeatureCards(
+                                              image: event['image'] ?? "",
+                                              title: event['title'] ?? "",
+                                              subtitle: event['subtitle'] ?? "",
+                                              description:
+                                                  event['description'] ?? "",
+                                              time: event['time'] ?? "",
+                                              location: event['location'] ?? "",
+                                            ))
+                                        .toList(),
+                                  ),
                           ),
                         ),
                         Padding(

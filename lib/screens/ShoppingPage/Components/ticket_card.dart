@@ -9,6 +9,7 @@ class TicketCard extends StatelessWidget {
   final String productPrice;
   final String sub_category;
   final String description;
+  final String SKU;
 
   final String image;
   final Function()? onTap;
@@ -21,6 +22,7 @@ class TicketCard extends StatelessWidget {
     this.onTap,
     required this.sub_category,
     required this.description,
+    required this.SKU,
   }) : super(key: key);
 
   @override
@@ -78,12 +80,12 @@ class TicketCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        description,
+                        SKU,
                         maxLines: 2,
                         overflow: TextOverflow.clip,
                         style: GoogleFonts.montserrat(
-                          color: const Color(0xffffffff),
-                          fontSize: 10.sp,
+                          color: Color(0x5effffff),
+                          fontSize: 6.sp,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -94,13 +96,13 @@ class TicketCard extends StatelessWidget {
                         children: [
                           Icon(
                             Icons.location_on,
-                            size: 17.sp,
+                            size: 16.sp,
                             color: const Color(0x84ececec),
                           ),
                           Text(
                             sub_category,
                             style: GoogleFonts.montserrat(
-                              color: const Color(0x84ececec),
+                              color: const Color(0xdaececec),
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w500,
                             ),
@@ -111,7 +113,7 @@ class TicketCard extends StatelessWidget {
                         height: 8.h,
                       ),
                       Text(
-                        productPrice,
+                        '₹ ${productPrice}',
                         style: GoogleFonts.montserrat(
                           color: const Color(0xff39FF65),
                           fontSize: 15.sp,

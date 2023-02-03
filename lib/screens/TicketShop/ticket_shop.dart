@@ -279,7 +279,30 @@ class _TicketShopState extends State<TicketShop>
                                                 context,
                                                 CupertinoPageRoute(
                                                     builder: (context) =>
-                                                        Ticket_view()));
+                                                        Ticket_view(
+                                                          product: Product(
+                                                            id: _products[index]
+                                                                .id,
+                                                            name:
+                                                                _products[index]
+                                                                    .name,
+                                                            sub_category:
+                                                                _products[index]
+                                                                    .sub_category,
+                                                            description:
+                                                                _products[index]
+                                                                    .description,
+                                                            price:
+                                                                _products[index]
+                                                                    .price,
+                                                            image:
+                                                                _products[index]
+                                                                    .image,
+                                                            sku:
+                                                                _products[index]
+                                                                    .sku,
+                                                          ),
+                                                        )));
                                           },
                                           productName:
                                               _products[index].name ?? "",
@@ -292,6 +315,7 @@ class _TicketShopState extends State<TicketShop>
                                           description:
                                               _products[index].description ??
                                                   "",
+                                          SKU: _products[index].sku ?? "",
                                         ),
                                       ),
                                     ),
