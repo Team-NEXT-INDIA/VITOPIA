@@ -32,11 +32,12 @@ class ProfilePage extends StatelessWidget {
               child: Hero(
                 tag: 'APP',
                 child: Text(
-                  "Profile",
-                  style: GoogleFonts.montserrat(
-                    color: primaryText,
+                  "My Profile",
+                  style: TextStyle(
+                    fontFamily: 'Monument Extended',
+                    color: const Color(0xffFFFFFF),
                     fontSize: 21.sp,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
@@ -48,7 +49,7 @@ class ProfilePage extends StatelessWidget {
             floating: false,
             stretch: true,
             surfaceTintColor: Color(0xffF9F9F9),
-            backgroundColor: profileAppBar,
+            backgroundColor: Color(0xff000000),
           ),
           SliverFillRemaining(
             child: Padding(
@@ -112,16 +113,6 @@ class ProfilePage extends StatelessWidget {
                       text: user.displayName ?? "",
                       press: () => {},
                       title: 'Name',
-                    ),
-                    ProfileMenu(
-                      text: user.tenantId ?? "",
-                      press: () {},
-                      title: 'User ID',
-                    ),
-                    ProfileMenu(
-                      text: "Internal",
-                      press: () {},
-                      title: 'Type',
                     ),
                     ProfileMenu(
                       text: user.email ?? "",

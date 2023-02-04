@@ -21,7 +21,7 @@ class ProfileMenu extends StatelessWidget {
         child: ListTile(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10))),
-          tileColor: Color(0xff261F2D),
+          tileColor: Color(0xff101010),
           contentPadding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
           title: Text(
             title,

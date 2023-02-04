@@ -174,7 +174,7 @@ class ProfileV2 extends StatelessWidget {
                                   height: 05.h,
                                 ),
                                 Text(
-                                  "Profile",
+                                  "My Profile",
                                   style: GoogleFonts.montserrat(
                                     color: const Color(0xffFFFFFF),
                                     fontSize: 15.sp,
