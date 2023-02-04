@@ -157,7 +157,7 @@ class ProfileV2 extends StatelessWidget {
                           },
                           child: Container(
                             height: 90.h,
-                            width: 140.h,
+                            width: 130.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.r),
                               color: Color(0x21737373),
@@ -194,7 +194,7 @@ class ProfileV2 extends StatelessWidget {
                           },
                           child: Container(
                             height: 90.h,
-                            width: 140.h,
+                            width: 130.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.r),
                               color: Color(0x21737373),
@@ -252,7 +252,7 @@ class ProfileV2 extends StatelessWidget {
                       ),
                     ),
                     subtitle: Text(
-                      "view your rewards and unlock new ones",
+                      "know your developers",
                       style: GoogleFonts.montserrat(
                         color: const Color(0xff727272),
                         fontSize: 10.sp,
@@ -282,7 +282,7 @@ class ProfileV2 extends StatelessWidget {
                       ),
                     ),
                     subtitle: Text(
-                      "view your rewards and unlock new ones",
+                      "user agreement",
                       style: GoogleFonts.montserrat(
                         color: const Color(0xff727272),
                         fontSize: 10.sp,
@@ -312,7 +312,7 @@ class ProfileV2 extends StatelessWidget {
                       ),
                     ),
                     subtitle: Text(
-                      "view your rewards and unlock new ones",
+                      "share your experience",
                       style: GoogleFonts.montserrat(
                         color: const Color(0xff727272),
                         fontSize: 10.sp,
