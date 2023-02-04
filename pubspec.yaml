@@ -70,6 +70,10 @@ dependencies:
   webview_flutter: ^4.0.2
   full_screen_image_null_safe: ^2.0.0
   pdf: ^3.9.0
+  flutter_html_to_pdf: ^0.7.0
+  flutter_html: ^3.0.0-alpha.3
+  open_file: ^3.2.1
+
 
 
 dev_dependencies:
