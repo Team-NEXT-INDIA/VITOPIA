@@ -33,13 +33,13 @@ class _MyOrdersState extends State<MyOrders> {
 
   Future<List<dynamic>> _fetchOrders() async {
     final user = FirebaseAuth.instance.currentUser!;
-    final String _myorders = "http://10.0.2.2:1080/orders";
+    final String _myorders = "http://216.48.191.15:1080/orders";
     final response = await http.post(Uri.parse(_myorders),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({'email': user.email}));
 
     if (response.statusCode == 200) {
-      // print(response.body);
+      print(response.body);
       setState(() {
         _orders =
             (json.decode(response.body) as Map<String, dynamic>)['orders'];

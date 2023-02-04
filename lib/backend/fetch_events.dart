@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 import 'events_dataclass.dart';
 
-const String url = "http://10.0.2.2:5000/events";
+const String url = "http://216.48.191.15:5000/events";
 
 List<VEvents> parseUser(String responseBody) {
   var list = json.decode(responseBody) as List<dynamic>;

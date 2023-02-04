@@ -5,9 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttericon/entypo_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:vitopia/customs/colors.dart';
 import 'package:vitopia/customs/ontapscale.dart';
+
+import '../provider/google_sign_in.dart';
 
 class ProfileV2 extends StatelessWidget {
   const ProfileV2({Key? key}) : super(key: key);
@@ -334,7 +337,35 @@ class ProfileV2 extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10.h),
                     child: CustomTap(
-                      onTap: () {},
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return Container(
+                                child: AlertDialog(
+                                  title: Text("Leaving to Soon!"),
+                                  content: Text("Are sure you want to logout?"),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text("NO")),
+                                    TextButton(
+                                        onPressed: () {
+                                          final provider =
+                                              Provider.of<GoogleSignInProvider>(
+                                                  context,
+                                                  listen: false);
+                                          provider.logout(
+                                              context, Navigator.pushNamed);
+                                        },
+                                        child: Text("YES")),
+                                  ],
+                                ),
+                              );
+                            });
+                      },
                       child: Container(
                         height: 40.h,
                         width: 140.w,

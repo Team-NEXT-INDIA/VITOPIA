@@ -69,7 +69,7 @@ class _StudentHomeState extends State<StudentHome> {
 
   void _fetchFeaturedEvents() async {
     final response =
-        await http.get(Uri.parse('http://10.0.2.2:1080/featured-events'));
+        await http.get(Uri.parse('http://216.48.191.15:1080/featured-events'));
     if (response.statusCode == 200) {
       print(response.body);
       setState(() {

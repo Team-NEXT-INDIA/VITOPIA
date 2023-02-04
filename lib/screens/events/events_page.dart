@@ -56,6 +56,7 @@ class _EventsPageState extends State<EventsPage> {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           bottom: PreferredSize(
             preferredSize: Size.fromHeight(50.h),
@@ -300,8 +301,12 @@ class _EventsPageState extends State<EventsPage> {
                         },
                       );
                     } else {
-                      return Center(
-                        child: CupertinoActivityIndicator(),
+                      return Column(
+                        children: [
+                          CupertinoActivityIndicator(
+                            color: Colors.white70,
+                          ),
+                        ],
                       );
                     }
                   },

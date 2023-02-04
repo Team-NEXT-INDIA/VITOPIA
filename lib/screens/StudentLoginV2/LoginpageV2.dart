@@ -186,7 +186,7 @@ class _LoginpageState extends State<Loginpage> {
                               onTap: () {
                                 final snackBar = SnackBar(
                                   behavior: SnackBarBehavior.floating,
-                                  content: Text('e.toString()'),
+                                  content: Text('Try Again Later'),
                                   action: SnackBarAction(
                                     label: 'Dismiss',
                                     onPressed: () {

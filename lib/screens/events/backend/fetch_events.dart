@@ -11,7 +11,8 @@ class EventAPI {
       return;
     }
     try {
-      final response = await http.get(Uri.parse('http://10.0.2.2:1080/events'));
+      final response =
+          await http.get(Uri.parse('http://216.48.191.15:1080/events'));
       if (response.statusCode == 200) {
         _hasDataBeenFetched = true;
         _events = List<Map<String, dynamic>>.from(json.decode(response.body));

@@ -28,8 +28,9 @@ class ProductDetailsView extends StatefulWidget {
 class _ProductDetailsViewState extends State<ProductDetailsView> {
   final user = FirebaseAuth.instance.currentUser!;
   bool _starttransaction = false;
-  final String _successbaseUrl = "http://10.0.2.2:1080/save-transaction";
-  final String _failedbaseUrl = "http://10.0.2.2:1080/save-failed-transaction";
+  final String _successbaseUrl = "http://216.48.191.15:1080/save-transaction";
+  final String _failedbaseUrl =
+      "http://216.48.191.15:1080/save-failed-transaction";
   Future<http.Response> postTransactionDetails(transactionDetails) async {
     Map<String, dynamic> successResponse =
         json.decode(json.encode(transactionDetails));
@@ -116,7 +117,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
       // Make the API call
       final response = await http.post(
           Uri.parse(
-            'http://10.0.2.2:1080/save-order',
+            'http://216.48.191.15:1080/save-order',
           ),
           headers: {"Content-Type": "application/json"},
           body: jsonBody);
@@ -369,8 +370,8 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
     var formData = parts.join('&');
     var res = await http.post(
       Uri.https(
-        "10.0.2.2", // my ip address , localhost
-        "paytmphp/generate_token.php",
+        "vitap.app", // my ip address , localhost
+        "/paytmphp/generate_token.php",
       ),
       headers: {
         "Content-Type": "application/x-www-form-urlencoded", // urlencoded
@@ -378,7 +379,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
       body: formData,
     );
 
-    // print(res.body);
+    print(formData);
     // print(res.statusCode);
     if (res.statusCode == 200) {
       print("VERIFY JSON AMOUNT");
@@ -392,7 +393,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
         bodyJson['txnToken'],
         "",
         true,
-        false,
+        true,
       ).then((value) {
         //  on payment completion we will verify transaction with transaction verify api
         //  after payment completion we will verify this transaction
@@ -576,7 +577,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
     var formData = parts.join('&');
     var res = await http.post(
       Uri.https(
-        "10.0.2.2", // my ip address , localhost
+        "vitap.app", // my ip address , localhost
         "paytmphp/verify_transaction.php", // let's check verifycation code on backend
       ),
       headers: {

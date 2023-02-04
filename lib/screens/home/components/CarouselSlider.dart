@@ -29,7 +29,7 @@ class _PromoSliderState extends State<PromoSlider> {
 
   _fetchSliderImages() async {
     var response =
-        await http.get(Uri.parse("http://10.0.2.2:1080/slider_images"));
+        await http.get(Uri.parse("http://216.48.191.15:1080/slider_images"));
     if (response.statusCode == 200) {
       setState(() {
         sliderImages = json.decode(response.body);

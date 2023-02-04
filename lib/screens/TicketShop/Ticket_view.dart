@@ -24,8 +24,9 @@ class Ticket_view extends StatefulWidget {
 class _Ticket_viewState extends State<Ticket_view> {
   final user = FirebaseAuth.instance.currentUser!;
   bool _starttransaction = false;
-  final String _successbaseUrl = "http://10.0.2.2:1080/save-transaction";
-  final String _failedbaseUrl = "http://10.0.2.2:1080/save-failed-transaction";
+  final String _successbaseUrl = "http://216.48.191.15:1080/save-transaction";
+  final String _failedbaseUrl =
+      "http://216.48.191.15:1080/save-failed-transaction";
   Future<http.Response> postTransactionDetails(transactionDetails) async {
     Map<String, dynamic> successResponse =
         json.decode(json.encode(transactionDetails));
@@ -112,7 +113,7 @@ class _Ticket_viewState extends State<Ticket_view> {
       // Make the API call
       final response = await http.post(
           Uri.parse(
-            'http://10.0.2.2:1080/save-order',
+            'http://216.48.191.15:1080/save-order',
           ),
           headers: {"Content-Type": "application/json"},
           body: jsonBody);
@@ -330,7 +331,7 @@ class _Ticket_viewState extends State<Ticket_view> {
     var formData = parts.join('&');
     var res = await http.post(
       Uri.https(
-        "10.0.2.2", // my ip address , localhost
+        "vitap.app", // my ip address , localhost
         "paytmphp/generate_token.php",
       ),
       headers: {
@@ -537,7 +538,7 @@ class _Ticket_viewState extends State<Ticket_view> {
     var formData = parts.join('&');
     var res = await http.post(
       Uri.https(
-        "10.0.2.2", // my ip address , localhost
+        "vitap.app", // my ip address , localhost
         "paytmphp/verify_transaction.php", // let's check verifycation code on backend
       ),
       headers: {

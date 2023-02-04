@@ -69,6 +69,7 @@ dependencies:
   fluttericon: ^2.0.0
   webview_flutter: ^4.0.2
   full_screen_image_null_safe: ^2.0.0
+  pdf: ^3.9.0
 
 
 dev_dependencies:

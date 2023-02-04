@@ -37,6 +37,7 @@ class _LayoutState extends State<Layout> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
+      resizeToAvoidBottomInset: false,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: AnimatedContainer(
         duration: Duration(milliseconds: 200),
