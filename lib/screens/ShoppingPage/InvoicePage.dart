@@ -99,7 +99,7 @@ class _InvoicePageState extends State<InvoicePage> {
             </tbody>
           </table>
           <div style="font-weight: bold; font-size: medium; " class="text text-primary text-right">Grand Total : ${widget.invoice['TXNAMOUNT']}</div>
-          <div style="font-weight: bold;  text-align: right;" class="text">${NumberToWord().convert('en-in', widget.invoice['TXNAMOUNT'])}</div>
+          <div style="font-weight: bold;  text-align: right;" class="text">${NumberToWord().convert('en-in', widget.invoice['TXNAMOUNT'].toString() as int)}</div>
           <table class="table">
             <thead>
               <tr>
@@ -135,7 +135,7 @@ class _InvoicePageState extends State<InvoicePage> {
 
     Directory appDocDir = await getApplicationDocumentsDirectory();
     final targetPath = appDocDir.path;
-    final targetFileName = "VITOPIA_${widget.invoice['BANKTXNID']}";
+    final targetFileName = "VITOPIA";
 
     final generatedPdfFile = await FlutterHtmlToPdf.convertFromHtmlContent(
         htmlContent, targetPath, targetFileName);
