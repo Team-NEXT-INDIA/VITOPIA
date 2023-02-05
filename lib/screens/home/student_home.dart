@@ -4,6 +4,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -292,9 +293,6 @@ class _StudentHomeState extends State<StudentHome> {
                           height: 10.h,
                         ),
                         // PromoSlider(),
-                        SizedBox(
-                          height: 10.h,
-                        ),
                         FadeIn(
                             child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 13.h),
@@ -326,7 +324,7 @@ class _StudentHomeState extends State<StudentHome> {
                                       onTap: () {
                                         Navigator.push(
                                           context,
-                                          MaterialPageRoute(
+                                          CupertinoPageRoute(
                                             builder: (context) =>
                                                 FeatureViewAll(
                                               featuredEvents: _featuredEvents,
