@@ -21,6 +21,7 @@ class GoogleSignInProvider extends ChangeNotifier {
       Navigator.pushReplacementNamed(context, '/studenthome');
       final snackBar = SnackBar(
         content: Text("Logged In Sucessful"),
+        behavior: SnackBarBehavior.floating,
         action: SnackBarAction(
           label: 'Dismiss',
           onPressed: () {
@@ -56,9 +57,9 @@ class GoogleSignInProvider extends ChangeNotifier {
   Future logout(BuildContext context, Function navigate) async {
     try {
       await googleSignIn.disconnect();
+      FirebaseAuth.instance.signOut();
       Navigator.pushReplacementNamed(context, '/login');
 
-      FirebaseAuth.instance.signOut();
       final snackBar = SnackBar(
         behavior: SnackBarBehavior.floating,
         content: Text("Logged Out Sucessful"),

@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttericon/entypo_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:vitopia/customs/colors.dart';
 import 'package:vitopia/customs/ontapscale.dart';
@@ -356,7 +357,12 @@ class ProfileV2 extends StatelessWidget {
                     ),
                   ),
                   ListTile(
-                    onTap: () {},
+                    onTap: () async {
+                      await Share.share(
+                          'Hey, Now VITOPIA App is Available for Both IOS and Android Check it now and Register the PROSHOWS and Enjoy the Event. Download it now https://vitopia.vitap.ac.in'
+                          // 'https://apps.apple.com/in/app/vitap-university-student-app/id6443920958'
+                          );
+                    },
                     title: Text(
                       "Share with friends",
                       style: GoogleFonts.montserrat(

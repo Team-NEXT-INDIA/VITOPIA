@@ -11,7 +11,8 @@ import '../screens/InformationPage/special_mentions.dart';
 import '../screens/events/events_page.dart';
 
 class Layout extends StatefulWidget {
-  const Layout({super.key});
+  final int index;
+  Layout({super.key, required this.index});
 
   @override
   _LayoutState createState() => _LayoutState();
@@ -20,7 +21,7 @@ class Layout extends StatefulWidget {
 class _LayoutState extends State<Layout> {
   int _selectedPage = 0;
 
-  final List<Widget> pages = [
+  List<Widget> pages = [
     StudentHome(),
     EventsPage(),
     TicketShop(),
@@ -29,7 +30,14 @@ class _LayoutState extends State<Layout> {
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedPage = index;
+      _selectedPage = widget.index;
+    });
+  }
+
+  @override
+  void initState() {
+    setState(() {
+      _selectedPage = widget.index;
     });
   }
 
@@ -92,7 +100,7 @@ class _LayoutState extends State<Layout> {
       //   },
       //   child: const Icon(Icons.refresh),
       // ),
-      body: pages[_selectedPage],
+      body: pages.elementAt(_selectedPage),
       bottomNavigationBar: SizedBox(
         height: 70.h,
         child: BottomNavigationBar(
@@ -112,7 +120,11 @@ class _LayoutState extends State<Layout> {
             unselectedFontSize: 10.sp,
             iconSize: 25.sp,
             showUnselectedLabels: false,
-            onTap: _onItemTapped,
+            onTap: (index) {
+              setState(() {
+                _selectedPage = index;
+              });
+            },
             items: _navBarsItems()),
       ),
     );

@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
@@ -21,11 +23,29 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this);
     final provider = Provider.of<GoogleSignInProvider>(context, listen: false);
+    Future<http.Response> getAppStatusFromAPI() async {
+      final String _specials = "http://216.48.191.15:1080/app-status";
+      final response = await http.get(Uri.parse(_specials));
+      if (response.statusCode == 200) {
+        print(response.body);
+        return Future.value(response);
+      } else {
+        return Future.error("Failed to get app status from API");
+      }
+    }
+
+    _controller = AnimationController(vsync: this);
     Timer(const Duration(seconds: 7), () async {
-      if (await provider.googleSignIn.isSignedIn()) {
-        Navigator.pushReplacementNamed(context, '/studenthome');
+      final googleSignInAccount = await provider.googleSignIn.signInSilently();
+      if (googleSignInAccount != null) {
+        final response = await getAppStatusFromAPI();
+        final decodedResponse = json.decode(response.body);
+        if (decodedResponse['status'] == 'disabled') {
+          Navigator.pushReplacementNamed(context, '/disabled');
+        } else {
+          Navigator.pushReplacementNamed(context, '/studenthome');
+        }
       } else {
         Navigator.pushReplacementNamed(context, '/login');
       }

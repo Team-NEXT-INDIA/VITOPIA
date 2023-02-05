@@ -72,7 +72,6 @@ class _StudentHomeState extends State<StudentHome> {
     final response =
         await http.get(Uri.parse('http://216.48.191.15:1080/featured-events'));
     if (response.statusCode == 200) {
-      print(response.body);
       setState(() {
         _featuredEvents = json.decode(response.body);
       });
@@ -421,29 +420,14 @@ class _StudentHomeState extends State<StudentHome> {
                                   ),
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              left: 13.h, top: 8.h, bottom: 10.h),
-                          child: Row(
-                            children: [
-                              Text(
-                                "Registered Events",
-                                style: GoogleFonts.montserrat(
-                                  color: const Color(0xffFFFFFF),
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+
                         // MyTickets(data2: data2),
                         SizedBox(
                           height: 20.h,
                         ),
                         const ForYouBuild(),
                         SizedBox(
-                          height: 10.h,
+                          height: 50.h,
                         ),
                         const FooterPromo(),
                         SizedBox(

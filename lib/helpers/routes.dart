@@ -23,8 +23,12 @@ class RouteGenerator {
         return CupertinoPageRoute(
             builder: (_) => const Loginpage(), settings: settings);
       case '/studenthome':
+        final int index;
         return CupertinoPageRoute(
-            builder: (_) => const Layout(), settings: settings);
+            builder: (_) => Layout(
+                  index: 0,
+                ),
+            settings: settings);
       case '/profile':
         return CupertinoPageRoute(
             builder: (_) => ProfileV2(), settings: settings);

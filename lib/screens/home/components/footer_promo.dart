@@ -41,7 +41,7 @@ class FooterPromo extends StatelessWidget {
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
-                  text: 'Be the',
+                  text: 'Exclusive',
                   style: GoogleFonts.montserrat(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.bold,
@@ -49,14 +49,14 @@ class FooterPromo extends StatelessWidget {
                   /*defining default style is optional */
                   children: <TextSpan>[
                     TextSpan(
-                      text: ' First 🥇\n',
+                      text: ' Merchandise \n',
                       style: GoogleFonts.montserrat(
                           fontSize: 15.sp,
                           fontWeight: FontWeight.bold,
                           color: Color(0xff7AE1FF)),
                     ),
                     TextSpan(
-                      text: 'Join the University Cricket Journey !',
+                      text: ' Stand out of Crowd',
                       style: GoogleFonts.montserrat(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w400,
@@ -67,7 +67,9 @@ class FooterPromo extends StatelessWidget {
               ),
               SizedBox(height: 10.h),
               CustomTap(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pushNamed('/shop');
+                },
                 child: Container(
                   height: 38.h,
                   width: 144.h,
@@ -78,7 +80,7 @@ class FooterPromo extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      "Join Now",
+                      "Buy Merch",
                       style: GoogleFonts.montserrat(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.bold,

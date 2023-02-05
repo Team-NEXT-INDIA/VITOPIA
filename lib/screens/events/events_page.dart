@@ -7,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 
 import '../../customs/colors.dart';
-import '../components/mytickets.dart';
 import 'backend/fetch_events.dart';
 import 'events_view.dart';
 
@@ -132,22 +131,23 @@ class _EventsPageState extends State<EventsPage> {
                 visible: !_focusNode.hasFocus,
                 child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Text(
-                            "Registered Events",
-                            style: GoogleFonts.montserrat(
-                              color: primaryText,
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    MyTickets(data2: data2),
+                    // Padding(
+                    //   padding: const EdgeInsets.all(8.0),
+                    //   child: Row(
+                    //     children: [
+                    //       Text(
+                    //         "Registered Events",
+                    //         style: GoogleFonts.montserrat(
+                    //           color: primaryText,
+                    //           fontSize: 18.sp,
+                    //           fontWeight: FontWeight.w400,
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                    // MyTickets(data2: data2),
+                    // ForYouBuild(),
                     Padding(
                       padding: EdgeInsets.all(10.0.h),
                       child: Row(

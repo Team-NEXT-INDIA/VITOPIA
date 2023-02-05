@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_corner/smooth_corner.dart';
+import 'package:vitopia/helpers/layout.dart';
 
 import '../../../customs/ontapscale.dart';
 
@@ -18,45 +19,45 @@ class ForYouBuild extends StatelessWidget {
           padding: EdgeInsets.only(left: 13.h, top: 8.h, bottom: 10.h),
           child: Row(
             children: [
-              Text(
-                "For You",
-                style: GoogleFonts.montserrat(
-                  color: Colors.white,
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 10.h),
-                width: 55.0.w,
-                height: 20.0.h,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30.0.r),
-                  border: Border.all(width: 1.0.w, color: Colors.green),
-                ),
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'New',
-                        style: GoogleFonts.montserrat(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 10.sp,
-                            color: Colors.green),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              // Text(
+              //   "Registered Events",
+              //   style: GoogleFonts.montserrat(
+              //     color: const Color(0xffFFFFFF),
+              //     fontSize: 20.sp,
+              //     fontWeight: FontWeight.w800,
+              //   ),
+              // ),
+              // Container(
+              //   margin: EdgeInsets.only(left: 10.h),
+              //   width: 55.0.w,
+              //   height: 20.0.h,
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(30.0.r),
+              //     border: Border.all(width: 1.0.w, color: Colors.green),
+              //   ),
+              //   child: Center(
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.center,
+              //       children: [
+              //         Text(
+              //           'New',
+              //           style: GoogleFonts.montserrat(
+              //               fontWeight: FontWeight.w500,
+              //               fontSize: 10.sp,
+              //               color: Colors.green),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(right: 10.h, left: 10.h, top: 02.h),
+          padding: EdgeInsets.only(right: 20.h, left: 20.h, top: 02.h),
           child: Container(
-              width: 347.h,
-              height: 347.h,
+              width: 297.h,
+              height: 317.h,
               alignment: Alignment.center,
               decoration: ShapeDecoration(
                 shape: SmoothRectangleBorder(
@@ -77,7 +78,7 @@ class ForYouBuild extends StatelessWidget {
                     RichText(
                       textAlign: TextAlign.center,
                       text: TextSpan(
-                        text: 'Confused which\n',
+                        text: 'Grab your\n',
                         style: GoogleFonts.montserrat(
                             fontSize: 24.sp,
                             fontWeight: FontWeight.bold,
@@ -85,28 +86,28 @@ class ForYouBuild extends StatelessWidget {
                         /*defining default style is optional */
                         children: <TextSpan>[
                           TextSpan(
-                            text: 'Event',
+                            text: 'Tickets',
                             style: GoogleFonts.montserrat(
                                 fontSize: 24.sp,
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xff7AE1FF)),
                           ),
                           TextSpan(
-                            text: ' to Attend?\n',
+                            text: ' to Attend\n',
                             style: GoogleFonts.montserrat(
                                 fontSize: 24.sp,
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xffE0E0E0)),
                           ),
                           TextSpan(
-                            text: 'Try our',
+                            text: 'Dont miss the',
                             style: GoogleFonts.montserrat(
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xffFFFFFF)),
                           ),
                           TextSpan(
-                            text: ' AI Event Selector',
+                            text: ' ProShow 😉',
                             style: GoogleFonts.montserrat(
                                 fontSize: 10.sp,
                                 fontWeight: FontWeight.bold,
@@ -117,9 +118,17 @@ class ForYouBuild extends StatelessWidget {
                     ),
                     SizedBox(height: 20.h),
                     CustomTap(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder: (_, __, ___) => Layout(index: 1),
+                            transitionDuration: const Duration(seconds: 5),
+                          ),
+                        );
+                      },
                       child: Container(
-                        height: 38.h,
+                        height: 45.h,
                         width: 144.h,
                         decoration: BoxDecoration(
                           boxShadow: [
@@ -135,7 +144,7 @@ class ForYouBuild extends StatelessWidget {
                         ),
                         child: Center(
                           child: Text(
-                            "Try now",
+                            "Get Tickets",
                             style: GoogleFonts.montserrat(
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.bold,

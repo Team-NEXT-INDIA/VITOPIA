@@ -33,7 +33,7 @@ class _InformationPageState extends State<InformationPage> {
   }
 
   void _fetchSpecialPersons() async {
-    final String _specials = "http://10.0.2.2:1080/special-mentions";
+    final String _specials = "http://216.48.191.15:1080/special-mentions";
     final response = await http.get(Uri.parse(_specials));
     if (response.statusCode == 200) {
       print(response.body);
@@ -410,8 +410,26 @@ class SpecialPersonCard extends StatelessWidget {
                     backgroundColor: Color(0x20c9c9c9),
                     child: IconButton(
                       onPressed: () async {
-                        launchUrl(
-                            Uri.parse(specialPerson.twitterLink.toString()));
+                        final url = specialPerson.twitterLink;
+                        if (await canLaunch(url ?? "")) {
+                          await launch(url ?? '');
+                        } else {
+                          final snackBar = SnackBar(
+                            content:
+                                Text("Can't Launch URL {Platform Exception}"),
+                            action: SnackBarAction(
+                              label: 'Dismiss',
+                              onPressed: () {
+                                ScaffoldMessenger.of(context)
+                                    .hideCurrentSnackBar();
+                              },
+                            ),
+                          );
+
+                          // Find the ScaffoldMessenger in the widget tree
+                          // and use it to show a SnackBar.
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        }
                       },
                       icon: Icon(FontAwesomeIcons.twitter),
                       color: Colors.white70,
