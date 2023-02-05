@@ -79,12 +79,15 @@ class ProfileV2 extends StatelessWidget {
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
-                                Text(
-                                  user.displayName ?? "",
-                                  style: GoogleFonts.montserrat(
-                                    color: primaryText,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w900,
+                                Hero(
+                                  tag: 'profile_name',
+                                  child: Text(
+                                    user.displayName ?? "",
+                                    style: GoogleFonts.montserrat(
+                                      color: primaryText,
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w900,
+                                    ),
                                   ),
                                 ),
                               ],
