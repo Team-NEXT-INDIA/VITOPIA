@@ -12,8 +12,47 @@ class FeaturedEvents extends StatelessWidget {
       padding: EdgeInsets.only(top: 9.h),
       child: Column(
         children: [
-          _header(),
-          // https://source.unsplash.com/random/900×700/?fruit
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Featured Events",
+                    style: GoogleFonts.montserrat(
+                      color: Color(0xffFFFFFF),
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+              CustomTap(
+                onTap: () {},
+                child: Container(
+                  width: 80.w,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Color(0xfffffff)),
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Text(
+                        "See All",
+                        style: GoogleFonts.montserrat(
+                          color: Color(0xffFFFFFF),
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          )
         ],
       ),
     );

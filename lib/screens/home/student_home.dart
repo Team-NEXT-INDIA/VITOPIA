@@ -11,13 +11,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:vitopia/customs/ontapscale.dart';
+import 'package:vitopia/screens/events/events_view.dart';
 
 import '../../customs/colors.dart';
 import '../Intro/Components/feature_cards.dart';
-import '../Intro/Components/featured_events_slider.dart';
-import 'components/CarouselSlider.dart';
 import 'components/footer_promo.dart';
 import 'components/for_you_widget.dart';
+import 'featured_viewall.dart';
 
 class StudentHome extends StatefulWidget {
   const StudentHome({Key? key}) : super(key: key);
@@ -119,23 +119,23 @@ class _StudentHomeState extends State<StudentHome> {
                     ),
                   ),
                 ),
-                Align(
-                  alignment: AlignmentDirectional(1, 1),
-                  child: Container(
-                    height: 570.h,
-                    decoration: const BoxDecoration(
-                      gradient: RadialGradient(
-                        colors: [
-                          // Color.fromARGB(255, 118, 53, 245),
-                          Color(0xFF7635F5),
-                          Colors.black
-                        ],
-                        center: Alignment(-1.0, -1.0),
-                        radius: 1.0,
-                      ),
-                    ),
-                  ),
-                ),
+                // Align(
+                //   alignment: AlignmentDirectional(1, 1),
+                //   child: Container(
+                //     height: 570.h,
+                //     decoration: const BoxDecoration(
+                //       gradient: RadialGradient(
+                //         colors: [
+                //           // Color.fromARGB(255, 118, 53, 245),
+                //           Color(0xFF7635F5),
+                //           Colors.black
+                //         ],
+                //         center: Alignment(-1.0, -1.0),
+                //         radius: 1.0,
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 Align(
                   alignment: const AlignmentDirectional(-0.91, -0.38),
                   child: Padding(
@@ -291,14 +291,75 @@ class _StudentHomeState extends State<StudentHome> {
                         SizedBox(
                           height: 10.h,
                         ),
-                        PromoSlider(),
+                        // PromoSlider(),
                         SizedBox(
                           height: 10.h,
                         ),
                         FadeIn(
                             child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 13.h),
-                          child: const FeaturedEvents(),
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 9.h),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Featured Events",
+                                          style: GoogleFonts.montserrat(
+                                            color: Color(0xffFFFFFF),
+                                            fontSize: 18.sp,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    CustomTap(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                FeatureViewAll(
+                                              featuredEvents: _featuredEvents,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      child: Container(
+                                        width: 80.w,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            color: Color(0xfffffff)),
+                                        child: Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(12),
+                                            child: Text(
+                                              "See All",
+                                              style: GoogleFonts.montserrat(
+                                                color: Color(0xffFFFFFF),
+                                                fontSize: 10.sp,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
                         )),
                         FadeIn(
                           duration: const Duration(milliseconds: 390),
@@ -346,6 +407,17 @@ class _StudentHomeState extends State<StudentHome> {
                                                   event['description'] ?? "",
                                               time: event['time'] ?? "",
                                               location: event['location'] ?? "",
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        EventsViewPage(
+                                                      event: event,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
                                             ))
                                         .toList(),
                                   ),

@@ -1,8 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 
+import '../../../customs/colors.dart';
 import '../../../customs/ontapscale.dart';
 
 class FeatureCards extends StatelessWidget {
@@ -12,23 +15,25 @@ class FeatureCards extends StatelessWidget {
   final String time;
   final String location;
   final String image;
+  final Function()? onTap;
 
-  const FeatureCards({
-    Key? key,
-    required this.image,
-    required this.title,
-    required this.subtitle,
-    required this.description,
-    required this.time,
-    required this.location,
-  }) : super(key: key);
+  const FeatureCards(
+      {Key? key,
+      required this.image,
+      required this.title,
+      required this.subtitle,
+      required this.description,
+      required this.time,
+      required this.location,
+      required this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(8.h, 8.h, 8.h, 8.h),
       child: CustomTap(
-        onTap: () {},
+        onTap: onTap,
         child: Container(
           decoration: BoxDecoration(
             boxShadow: [
@@ -55,11 +60,44 @@ class FeatureCards extends StatelessWidget {
                   child: SmoothClipRRect(
                     smoothness: 0.9,
                     borderRadius: BorderRadius.circular(25.r),
-                    child: Image.network(
-                      image,
-                      width: 100.w,
-                      height: 100.h,
-                      fit: BoxFit.cover,
+                    child: Hero(
+                      tag: image,
+                      child: CachedNetworkImage(
+                        imageUrl: image,
+                        width: 100,
+                        height: 100,
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) => Shimmer(
+                          child: Container(
+                            width: double.infinity,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        errorWidget: (context, url, error) => Container(
+                          decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(0),
+                          ),
+                          height: 140.h,
+                          width: 135.h,
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Failed To Load Image",
+                                  style: GoogleFonts.montserrat(
+                                    color: primaryText,
+                                    fontSize: 10.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),

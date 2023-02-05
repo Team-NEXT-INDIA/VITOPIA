@@ -73,7 +73,8 @@ dependencies:
   flutter_html_to_pdf: ^0.7.0
   flutter_html: ^3.0.0-alpha.3
   open_file: ^3.2.1
-
+  flutter_pdfview: ^1.2.5
+  number_to_words: ^1.0.0
 
 
 dev_dependencies:

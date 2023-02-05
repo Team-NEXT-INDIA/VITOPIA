@@ -1,7 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 
+import '../../../customs/colors.dart';
 import '../../../customs/ontapscale.dart';
 
 class TicketCard extends StatelessWidget {
@@ -51,9 +54,41 @@ class TicketCard extends StatelessWidget {
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(10.r),
                         bottomLeft: Radius.circular(10.r)),
-                    child: Image.network(
-                      image,
+                    child: CachedNetworkImage(
+                      imageUrl: image,
+                      width: 100,
+                      height: 100,
                       fit: BoxFit.cover,
+                      placeholder: (context, url) => Shimmer(
+                        child: Container(
+                          width: double.infinity,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      errorWidget: (context, url, error) => Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(0),
+                        ),
+                        height: 140.h,
+                        width: 135.h,
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Failed To Load Image",
+                                style: GoogleFonts.montserrat(
+                                  color: primaryText,
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),

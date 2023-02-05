@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html_to_pdf/flutter_html_to_pdf.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:number_to_words/number_to_words.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../../customs/pdfviewer/full_pdf_viewer_scaffold.dart';
+import 'GenerateInvoiceLogic/invoice_v2.dart';
 
 class InvoicePage extends StatefulWidget {
+  final user = FirebaseAuth.instance.currentUser!;
   final invoice;
   final product;
   InvoicePage({Key? key, required this.invoice, required this.product})
@@ -29,49 +31,111 @@ class _InvoicePageState extends State<InvoicePage> {
   }
 
   Future<void> generateExampleDocument() async {
+    final user = FirebaseAuth.instance.currentUser!;
     final htmlContent = """
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <style>
-        table, th, td {
-          border: 1px solid black;
-          border-collapse: collapse;
-        }
-        th, td, p {
-          padding: 5px;
-          text-align: left;
-        }
-        </style>
-      </head>
-      <body>
-        <h2>PDF Generated with flutter_html_to_pdf plugin</h2>
-        
-        <table style="width:100%">
-          <caption>Sample HTML Table</caption>
-          <tr>
-            <th>Month</th>
-            <th>Savings</th>
-          </tr>
-          <tr>
-            <td>January</td>
-            <td> ${widget.invoice['TXNAMOUNT']}</td>
-          </tr>
-          <tr>
-            <td>February</td>
-            <td>50</td>
-          </tr>
-        </table>
-        
-        <p>Image loaded from web</p>
-        <img src="https://i.imgur.com/wxaJsXF.png" alt="web-img">
-      </body>
-    </html>
+  <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="col-sm-8 col-md-8 col-md-offset-2" id="receiptPrint">
+      <div class="box box-solid">
+        <div class="box-header" align="center">
+          <div align="center">
+            <img border="0" class="row col-md-4" src="https://vtop2.vitap.ac.in/vtop/assets/img/New%20logo.png" width="190" height="100" style="float: none;">
+          </div>
+        </div>
+        <div class="box-body ">
+          <div style="height: 10px;"></div>
+          <table class="table noborder">
+            <tbody>
+              <tr>
+                <th style="font-weight: bold; font-size: 12px; padding: 1px !important;">Receipt Number</th>
+                <td style="font-size: 12px; padding: 1px !important;">${widget.invoice['ORDERID']}</td>
+                <th style="font-weight: bold; font-size: 12px; padding: 1px !important;">Name</th>
+                <td style="font-size: 12px; padding: 1px !important;">${user.displayName.toString()}</td>
+              </tr>
+              <tr>
+                <th style="font-weight: bold; font-size: 12px; padding: 1px !important;"> Receipt Date</th>
+                <td style="font-size: 12px; padding: 1px !important;">${widget.invoice['TXNDATE']}</td>
+                <th style="font-weight: bold; font-size: 12px; padding: 1px !important;">Registered Email</th>
+                <td style="font-size: 12px; padding: 1px !important;">${user.email.toString()}</td>
+              </tr>
+              <tr>
+                <th style="font-weight: bold; font-size: 12px; padding: 1px !important;">Campus</th>
+                <td style="font-size: 12px; padding: 1px !important;">AMARAVATI</td>
+              </tr>
+              
+              </tr> 
+            </tbody>
+          </table>
+          <hr>
+          <div style="font-weight: bold; font-size: 15px; text-decoration: underline; " class="text text-primary text-center">VITOPIA - MERCHANDISE</div>
+          <div style="font-weight: bold; font-size: 15px; " class="text text-primary text-center"></div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th style=" font-weight: bold; font-size: 12px; padding: 1px !important;">S.No</th> 
+                <th style=" font-weight: bold; font-size: 12px; padding: 1px !important;">SKU</th>
+                <th style=" font-weight: bold; font-size: 12px; padding: 1px !important;">Invoice No</th>
+                <th style=" font-weight: bold; font-size: 12px; padding: 1px !important;">Description</th>
+                <th style=" font-weight: bold; font-size: 12px; padding: 1px !important;">Invoice Remarks</th>
+                <th style=" font-weight: bold; font-size: 12px; padding: 1px !important; float: right;">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style=" font-weight: bold; font-size: 12px; padding: 1px !important;" class="col-md-1">1</td>
+                <td class="col-md-1" style=" font-size: 12px; padding: 1px !important;">${widget.product['SKU']}</td> 
+                <td class="col-md-1" style=" font-size: 12px; padding: 1px !important;">${widget.invoice['TXNID']}</td>
+                <td style=" font-size: 12px; padding: 1px !important;" class="col-md-4">${widget.product['name']}</td>
+                <td style=" font-size: 12px; padding: 1px !important;" class="col-md-4">VITOPIA2023-MARCH</td>
+                <td style=" font-size: 12px; padding: 1px !important; float: right;" class="col-md-5 text-right">${widget.invoice['TXNAMOUNT']}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div style="font-weight: bold; font-size: medium; " class="text text-primary text-right">Grand Total : ${widget.invoice['TXNAMOUNT']}</div>
+          <div style="font-weight: bold;  text-align: right;" class="text">${NumberToWord().convert('en-in', widget.invoice['TXNAMOUNT'])}</div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="text-center" colspan="4" style="font-weight: bold; font-size: 15px; text-decoration: underline;">Payment Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th style=" font-weight: bold; font-size: 12px; padding: 1px !important;">Payment Mode</th>
+                <th style=" font-weight: bold; font-size: 12px; padding: 1px !important;">Bank Name</th>
+                <th style=" font-weight: bold; font-size: 12px; padding: 1px !important;">Bank Transaction Id.</th>
+                <th style=" font-weight: bold; font-size: 12px; padding: 1px !important;" class="text-right">Amount</th>
+                <th style=" font-weight: bold; font-size: 12px; padding: 1px !important;" class="text-right">Remarks</th>
+              </tr>
+              <tr>
+                <td style=" font-size: 12px; padding: 1px !important;">${widget.product['PAYMENTMODE']}</td>
+                <td style=" font-size: 12px; padding: 1px !important;">${widget.product['BANKNAME']}</td>
+                <td style=" font-size: 12px; padding: 1px !important;">${widget.product['BANKTXNID']}</td>
+                <td style=" font-size: 12px; padding: 1px !important;" class="text-right">${widget.product['TXNAMOUNT']}</td>
+                <td style=" font-size: 12px; padding: 1px !important;" class="text-right">
+                  <div></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div></div>
+      
+           
+        </div>
+  </body>
+</html>
     """;
 
     Directory appDocDir = await getApplicationDocumentsDirectory();
     final targetPath = appDocDir.path;
-    final targetFileName = "example-pdf";
+    final targetFileName = "VITOPIA_${widget.invoice['BANKTXNID']}";
 
     final generatedPdfFile = await FlutterHtmlToPdf.convertFromHtmlContent(
         htmlContent, targetPath, targetFileName);
@@ -151,6 +215,44 @@ class _InvoicePageState extends State<InvoicePage> {
                       ),
                       Text(
                         widget.invoice['TXNDATE'],
+                        style: GoogleFonts.montserrat(
+                          fontSize: 17.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xffffffff),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      Text(
+                        "Bank Transaction Id",
+                        style: GoogleFonts.montserrat(
+                          fontSize: 17.sp,
+                          fontWeight: FontWeight.w300,
+                          color: Color(0xffBCBCBC),
+                        ),
+                      ),
+                      Text(
+                        widget.invoice['BANKTXNID'],
+                        style: GoogleFonts.montserrat(
+                          fontSize: 17.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xffffffff),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      Text(
+                        "TXN Status",
+                        style: GoogleFonts.montserrat(
+                          fontSize: 17.sp,
+                          fontWeight: FontWeight.w300,
+                          color: Color(0xffBCBCBC),
+                        ),
+                      ),
+                      Text(
+                        widget.invoice['STATUS'],
                         style: GoogleFonts.montserrat(
                           fontSize: 17.sp,
                           fontWeight: FontWeight.w500,
@@ -339,9 +441,8 @@ class _InvoicePageState extends State<InvoicePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => PDFViewerScaffold(
-                          appBar: AppBar(title: Text("Generated PDF Document")),
-                          path: generatedPdfFilePath ?? "")),
+                      builder: (context) =>
+                          PDFScreen(path: generatedPdfFilePath)),
                 );
               },
             ),
