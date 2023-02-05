@@ -99,7 +99,7 @@ class _InvoicePageState extends State<InvoicePage> {
             </tbody>
           </table>
           <div style="font-weight: bold; font-size: medium; " class="text text-primary text-right">Grand Total : ${widget.invoice['TXNAMOUNT']}</div>
-          <div style="font-weight: bold;  text-align: right;" class="text">${NumberToWord().convert('en-in', widget.invoice['TXNAMOUNT'].toString() as int)}</div>
+          <div style="font-weight: bold;  text-align: right;" class="text">${NumberToWord().convert('en-in', widget.invoice['TXNAMOUNT']())}</div>
           <table class="table">
             <thead>
               <tr>

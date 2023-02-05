@@ -4,10 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vitopia/customs/colors.dart';
-import 'package:vitopia/screens/InformationPage/information_page.dart';
 import 'package:vitopia/screens/TicketShop/ticket_shop.dart';
 import 'package:vitopia/screens/home/student_home.dart';
 
+import '../screens/InformationPage/special_mentions.dart';
 import '../screens/events/events_page.dart';
 
 class Layout extends StatefulWidget {

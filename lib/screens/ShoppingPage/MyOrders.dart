@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:shimmer_animation/shimmer_animation.dart';
@@ -83,13 +84,25 @@ class _MyOrdersState extends State<MyOrders> {
         ),
       ),
       body: _orders.isEmpty
-          ? const Center(
-              child: Text(
-                'No Orders Found',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                ),
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Opacity(
+                    opacity: 0.9,
+                    child: SvgPicture.asset(
+                      'assets/images/no-order.svg',
+                      width: 190.w,
+                    ),
+                  ),
+                  Text(
+                    'No Orders Found',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                    ),
+                  ),
+                ],
               ),
             )
           : ListView.builder(

@@ -20,9 +20,9 @@ class ProfileV2 extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
-        backgroundColor: Color(0xff010101),
+        backgroundColor: const Color(0xff010101),
         appBar: AppBar(
-          backgroundColor: Color(0xff010101),
+          backgroundColor: const Color(0xff010101),
           elevation: 0,
           centerTitle: true,
           leading: IconButton(
@@ -55,11 +55,11 @@ class ProfileV2 extends StatelessWidget {
                       height: 100.h,
                       width: double.infinity,
                       decoration: BoxDecoration(
-                          image: DecorationImage(
+                          image: const DecorationImage(
                               opacity: 0.4,
                               image: AssetImage('assets/images/pattern.png'),
                               fit: BoxFit.cover),
-                          color: Color(0x13737373),
+                          color: const Color(0x13737373),
                           borderRadius: BorderRadius.circular(18.r)),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -99,7 +99,7 @@ class ProfileV2 extends StatelessWidget {
                               tag: "PROFILE",
                               child: CircleAvatar(
                                 radius: 38.r,
-                                backgroundColor: Color(0xfffffff),
+                                backgroundColor: const Color(0xfffffff),
                                 child: CircleAvatar(
                                   radius: 30.r,
                                   child: ClipRRect(
@@ -167,7 +167,7 @@ class ProfileV2 extends StatelessWidget {
                             width: 130.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.r),
-                              color: Color(0x21737373),
+                              color: const Color(0x21737373),
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -204,7 +204,7 @@ class ProfileV2 extends StatelessWidget {
                             width: 130.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.r),
-                              color: Color(0x21737373),
+                              color: const Color(0x21737373),
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -268,11 +268,11 @@ class ProfileV2 extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    trailing: Icon(
+                    trailing: const Icon(
                       Icons.arrow_forward_ios,
                       color: Color(0xffCECECE),
                     ),
-                    leading: Padding(
+                    leading: const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Icon(
                         Icons.developer_mode,
@@ -306,11 +306,11 @@ class ProfileV2 extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    trailing: Icon(
+                    trailing: const Icon(
                       Icons.arrow_forward_ios,
                       color: Color(0xffCECECE),
                     ),
-                    leading: Padding(
+                    leading: const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Icon(
                         Icons.privacy_tip_outlined,
@@ -343,11 +343,11 @@ class ProfileV2 extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    trailing: Icon(
+                    trailing: const Icon(
                       Icons.arrow_forward_ios,
                       color: Color(0xffCECECE),
                     ),
-                    leading: Padding(
+                    leading: const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Icon(
                         Icons.privacy_tip_outlined,
@@ -373,14 +373,54 @@ class ProfileV2 extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    trailing: Icon(
+                    trailing: const Icon(
                       Icons.arrow_forward_ios,
                       color: Color(0xffCECECE),
                     ),
-                    leading: Padding(
+                    leading: const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Icon(
                         Icons.ios_share,
+                        color: Color(0xffCECECE),
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    onTap: () {
+                      showAboutDialog(
+                          context: context,
+                          applicationIcon: Image.asset(
+                            'assets/images/vitap_logo.png',
+                            width: 30.w,
+                          ),
+                          applicationLegalese: 'V1.0.0',
+                          applicationName: 'VITOPIA',
+                          applicationVersion: 'ARIZE');
+                    },
+                    title: Text(
+                      "Software License",
+                      style: GoogleFonts.montserrat(
+                        color: const Color(0xffFFFFFF),
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    subtitle: Text(
+                      "Legal Software License",
+                      style: GoogleFonts.montserrat(
+                        color: const Color(0xff727272),
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    trailing: const Icon(
+                      Icons.arrow_forward_ios,
+                      color: Color(0xffCECECE),
+                    ),
+                    leading: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(
+                        Icons.perm_device_info_outlined,
                         color: Color(0xffCECECE),
                       ),
                     ),
@@ -394,14 +434,15 @@ class ProfileV2 extends StatelessWidget {
                             builder: (context) {
                               return Container(
                                 child: AlertDialog(
-                                  title: Text("Leaving to Soon!"),
-                                  content: Text("Are sure you want to logout?"),
+                                  title: const Text("Leaving to Soon!"),
+                                  content: const Text(
+                                      "Are sure you want to logout?"),
                                   actions: [
                                     TextButton(
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
-                                        child: Text("NO")),
+                                        child: const Text("NO")),
                                     TextButton(
                                         onPressed: () {
                                           final provider =
@@ -411,7 +452,7 @@ class ProfileV2 extends StatelessWidget {
                                           provider.logout(
                                               context, Navigator.pushNamed);
                                         },
-                                        child: Text("YES")),
+                                        child: const Text("YES")),
                                   ],
                                 ),
                               );
