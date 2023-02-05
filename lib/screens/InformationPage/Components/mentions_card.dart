@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,7 +22,17 @@ class MentionsCardBuild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomTap(
-      onTap: () {},
+      onTap: () {
+        showAboutDialog(
+            context: context,
+            applicationIcon: Image.asset(
+              'assets/images/vitap_logo.png',
+              width: 30.w,
+            ),
+            applicationLegalese: 'V1.0.0',
+            applicationName: 'VITOPIA',
+            applicationVersion: 'ARIZE');
+      },
       child: SizedBox(
         height: 240.h,
         width: 135.h,

@@ -48,6 +48,9 @@ class _EventsViewPageState extends State<EventsViewPage> {
             ]),
             panelBuilder: (controller) => PanelWidget(
               controller: controller,
+              title: widget.event['title'],
+              description: widget.event['description'],
+              venue: widget.event['venue'],
             ),
           ),
           Padding(

@@ -17,6 +17,11 @@ class Loginpage extends StatefulWidget {
 }
 
 class _LoginpageState extends State<Loginpage> {
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   bool _startlogin = false;
   @override
   Widget build(BuildContext context) {
@@ -135,12 +140,14 @@ class _LoginpageState extends State<Loginpage> {
                                   provider.googleLogin(
                                       context, Navigator.pushNamed);
 
-                                  Future.delayed(const Duration(seconds: 10),
-                                      () {
-                                    setState(() {
-                                      _startlogin = false;
-                                    });
-                                  });
+                                  Future.delayed(
+                                    const Duration(seconds: 10),
+                                    () {
+                                      setState(() {
+                                        _startlogin = false;
+                                      });
+                                    },
+                                  );
                                 } catch (e, s) {
                                   print(s.toString());
 

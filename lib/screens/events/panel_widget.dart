@@ -4,10 +4,15 @@ import 'package:google_fonts/google_fonts.dart';
 
 class PanelWidget extends StatelessWidget {
   final ScrollController controller;
-
+  final String title;
+  final String description;
+  final String venue;
   const PanelWidget({
     Key? key,
     required this.controller,
+    required this.title,
+    required this.description,
+    required this.venue,
   }) : super(key: key);
 
   @override
@@ -26,7 +31,7 @@ class PanelWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              "hello",
+              title,
               style: GoogleFonts.montserrat(
                 color: const Color(0xffffffff),
                 fontSize: 20.sp,
@@ -35,18 +40,7 @@ class PanelWidget extends StatelessWidget {
             ),
             SizedBox(height: 12),
             Text(
-              "hsbcdf fjhkxnewuiyhjasdvbcnilxukqhwebyuafjdshNuxhjecvfwqayidwhbcdcnbskhujbwsdvjacebsfyuhjwcbeyhsjab gwrhevsdbuyigwqvfgdushaa"
-              "If you have defined the 'event' variable in another file, such as an EventsPage class, you will need to pass it as an argument to the EventsViewPage widget when you create it."
-              " For example, if you have an event variable in an EventsPage class, you could pass it as a named argument to the EventsViewPage constructor:"
-              "hsbcdf fjhkxnewuiyhjasdvbcnilxukqhwebyuafjdshNuxhjecvfwqayidwhbcdcnbskhujbwsdvjacebsfyuhjwcbeyhsjab gwrhevsdbuyigwqvfgdushaa"
-              "If you have defined the 'event' variable in another file, such as an EventsPage class, you will need to pass it as an argument to the EventsViewPage widget when you create it."
-              " For example, if you have an event variable in an EventsPage class, you could pass it as a named argument to the EventsViewPage constructor:"
-              "hsbcdf fjhkxnewuiyhjasdvbcnilxukqhwebyuafjdshNuxhjecvfwqayidwhbcdcnbskhujbwsdvjacebsfyuhjwcbeyhsjab gwrhevsdbuyigwqvfgdushaa"
-              "If you have defined the 'event' variable in another file, such as an EventsPage class, you will need to pass it as an argument to the EventsViewPage widget when you create it."
-              " For example, if you have an event variable in an EventsPage class, you could pass it as a named argument to the EventsViewPage constructor:"
-              "hsbcdf fjhkxnewuiyhjasdvbcnilxukqhwebyuafjdshNuxhjecvfwqayidwhbcdcnbskhujbwsdvjacebsfyuhjwcbeyhsjab gwrhevsdbuyigwqvfgdushaa"
-              "If you have defined the 'event' variable in another file, such as an EventsPage class, you will need to pass it as an argument to the EventsViewPage widget when you create it."
-              " For example, if you have an event variable in an EventsPage class, you could pass it as a named argument to the EventsViewPage constructor:",
+              description,
               style: GoogleFonts.montserrat(
                 color: const Color(0xffDBDBDB),
                 fontSize: 14.sp,
