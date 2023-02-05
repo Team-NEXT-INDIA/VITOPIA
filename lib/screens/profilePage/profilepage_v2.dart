@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:vitopia/customs/colors.dart';
 import 'package:vitopia/customs/ontapscale.dart';
+import 'package:vitopia/screens/home/webview_page.dart';
 
 import '../provider/google_sign_in.dart';
 
@@ -278,7 +279,13 @@ class ProfileV2 extends StatelessWidget {
                   ),
                   ListTile(
                     onTap: () {
-                      Navigator.of(context).pushNamed('/dataprivacyview');
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => WebViewPage(
+                                  Url:
+                                      'https://docs.google.com/document/d/1_qUQ0NI_iwSTSMDE2LgzxB6mXult6HEopVriL_5ntzg/edit?usp=sharing',
+                                  APP_BAR_NAME: 'DATA POLICY')));
                     },
                     title: Text(
                       "Data privacy",
@@ -310,10 +317,15 @@ class ProfileV2 extends StatelessWidget {
                   ),
                   ListTile(
                     onTap: () {
-                      Navigator.of(context).pushNamed('/refundpolicyview');
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => WebViewPage(
+                                  Url: 'https://www.google.com/docs/about/',
+                                  APP_BAR_NAME: 'PAYMENT POLICY')));
                     },
                     title: Text(
-                      "Refund Policy",
+                      "Payment Policy",
                       style: GoogleFonts.montserrat(
                         color: const Color(0xffFFFFFF),
                         fontSize: 14.sp,
