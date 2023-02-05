@@ -245,7 +245,9 @@ class ProfileV2 extends StatelessWidget {
                     ),
                   ),
                   ListTile(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).pushNamed('/developersview');
+                    },
                     title: Text(
                       "Developers",
                       style: GoogleFonts.montserrat(
@@ -275,9 +277,43 @@ class ProfileV2 extends StatelessWidget {
                     ),
                   ),
                   ListTile(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).pushNamed('/dataprivacyview');
+                    },
                     title: Text(
                       "Data privacy",
+                      style: GoogleFonts.montserrat(
+                        color: const Color(0xffFFFFFF),
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    subtitle: Text(
+                      "user agreement",
+                      style: GoogleFonts.montserrat(
+                        color: const Color(0xff727272),
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      color: Color(0xffCECECE),
+                    ),
+                    leading: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(
+                        Icons.privacy_tip_outlined,
+                        color: Color(0xffCECECE),
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    onTap: () {
+                      Navigator.of(context).pushNamed('/refundpolicyview');
+                    },
+                    title: Text(
+                      "Refund Policy",
                       style: GoogleFonts.montserrat(
                         color: const Color(0xffFFFFFF),
                         fontSize: 14.sp,

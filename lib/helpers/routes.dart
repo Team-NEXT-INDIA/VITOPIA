@@ -8,6 +8,9 @@ import '../screens/ShoppingPage/MyOrders.dart';
 import '../screens/ShoppingPage/product_view.dart';
 import '../screens/ShoppingPage/shopping_page.dart';
 import '../screens/StudentLoginV2/LoginpageV2.dart';
+import '../screens/profilePage/components/dataprivacy_page.dart';
+import '../screens/profilePage/components/developers_page.dart';
+import '../screens/profilePage/components/refund_policy.dart';
 import '../screens/profilePage/profile_page.dart';
 import 'layout.dart';
 
@@ -39,6 +42,15 @@ class RouteGenerator {
       case '/orders':
         return CupertinoPageRoute(
             builder: (_) => MyOrders(), settings: settings);
+      case '/developersview':
+        return CupertinoPageRoute(
+            builder: (_) => DevelopersPage(), settings: settings);
+      case '/dataprivacyview':
+        return CupertinoPageRoute(
+            builder: (_) => DataPrivacyPage(), settings: settings);
+      case '/refundpolicyview':
+        return CupertinoPageRoute(
+            builder: (_) => RefundPolicy(), settings: settings);
 
       case '/product_view':
         var product = settings.arguments as Product;
