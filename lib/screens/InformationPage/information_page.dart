@@ -181,7 +181,7 @@ class InformationPage extends StatelessWidget {
                                     'https://vitap.ac.in/wp-content/uploads/2022/02/Suresh-Jagannadham.jpg',
                               ),
                               MentionsCardBuild(
-                                name: 'Prof. Kritika',
+                                name: 'Prof. Kirtika',
                                 subtitle: 'Co Convenor (VSL)',
                                 image:
                                     'https://cdn.vectorstock.com/i/preview-1x/33/63/person-gray-photo-placeholder-woman-vector-22863363.jpg',
