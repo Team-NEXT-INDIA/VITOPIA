@@ -1,6 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'dev_card.dart';
 
 class DevelopersPage extends StatelessWidget {
   DevelopersPage({Key? key}) : super(key: key);
@@ -30,40 +31,111 @@ class DevelopersPage extends StatelessWidget {
               fontSize: 23.sp),
         ),
       ),
-      body: Row(
-        children: [
-          SizedBox(
-            height: 10.h,
-          ),
-          Container(
-            height: 4.h,
-            width: 30.h,
-            color: Color(0xff349FD4),
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            RoleTitle(
+              title: 'Full Stack Developer',
+            ),
+            GridView(
+              shrinkWrap: true,
+              physics: BouncingScrollPhysics(),
+              padding: EdgeInsets.all(10.0),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: (1.h / 1.6.h),
+                crossAxisSpacing: 5,
+                mainAxisSpacing: 5,
+              ),
+              children: [
+                DevCardBuild(
+                    name: 'Satyanand',
+                    subtitle: 'Full stack developer',
+                    image:
+                        'https://vitap.ac.in/wp-content/uploads/2020/12/Viswanthan-Sir.jpg'),
+                DevCardBuild(
+                    name: 'Samuel',
+                    subtitle: 'Full stack developer',
+                    image:
+                        'https://vitap.ac.in/wp-content/uploads/2020/12/Viswanthan-Sir.jpg'),
+                DevCardBuild(
+                    name: 'Sanyu Raj',
+                    subtitle: 'Full stack developer',
+                    image:
+                        'https://vitap.ac.in/wp-content/uploads/2020/12/Viswanthan-Sir.jpg'),
+              ],
+            ),
+            RoleTitle(
+              title: 'UI Designer',
+            ),
+            GridView(
+              shrinkWrap: true,
+              physics: BouncingScrollPhysics(),
+              padding: EdgeInsets.all(10.0),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: (1.h / 1.6.h),
+                crossAxisSpacing: 5,
+                mainAxisSpacing: 5,
+              ),
+              children: [
+                DevCardBuild(
+                    name: 'Anish',
+                    subtitle: 'Pedha Puku na koduku',
+                    image:
+                        'https://vitap.ac.in/wp-content/uploads/2020/12/Viswanthan-Sir.jpg'),
+                DevCardBuild(
+                    name: 'Hari ',
+                    subtitle: 'Full stack developer',
+                    image:
+                        'https://vitap.ac.in/wp-content/uploads/2020/12/Viswanthan-Sir.jpg'),
+                DevCardBuild(
+                    name: 'Chakri',
+                    subtitle: 'Full stack developer',
+                    image:
+                        'https://vitap.ac.in/wp-content/uploads/2020/12/Viswanthan-Sir.jpg'),
+                DevCardBuild(
+                    name: 'Serena',
+                    subtitle: 'Full stack developer',
+                    image:
+                        'https://vitap.ac.in/wp-content/uploads/2020/12/Viswanthan-Sir.jpg'),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
-class Gridb extends StatefulWidget {
-  const Gridb({Key? key}) : super(key: key);
+class RoleTitle extends StatelessWidget {
+  final String title;
 
-  @override
-  State<Gridb> createState() => _GridbState();
-}
+  RoleTitle({
+    super.key,
+    required this.title,
+  });
 
-class _GridbState extends State<Gridb> {
-  final List<Map<String, dynamic>> gridMap = [
-    {
-      "name": "Satyanand",
-      "title": "Front Developer",
-      "image":
-          "https://i.im.ge/2023/01/24/sKSaN6.jacob-nizierski-V0hohwot0oM-unsplash.jpg",
-    }
-  ];
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Row(
+      children: [
+        SizedBox(
+          height: 10.h,
+        ),
+        Container(
+          height: 4.h,
+          width: 30.h,
+          color: Color(0xff349FD4),
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 10.h),
+          child: Text(
+            title,
+            style: TextStyle(color: Color(0xffffffff)),
+          ),
+        )
+      ],
+    );
   }
 }
