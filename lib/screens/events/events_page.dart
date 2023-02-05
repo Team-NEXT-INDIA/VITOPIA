@@ -259,7 +259,7 @@ class _EventsPageState extends State<EventsPage> {
                                         child: Text(
                                           event['description'],
                                           maxLines: 2,
-                                          overflow: TextOverflow.fade,
+                                          overflow: TextOverflow.ellipsis,
                                           style: GoogleFonts.montserrat(
                                             color: secondaryText,
                                             fontSize: 13.sp,
