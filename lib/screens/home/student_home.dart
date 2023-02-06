@@ -168,12 +168,17 @@ class _StudentHomeState extends State<StudentHome> {
                                             fontWeight: FontWeight.w500,
                                           ),
                                         ),
-                                        Text(
-                                          user.displayName ?? "",
-                                          style: GoogleFonts.montserrat(
-                                            color: Colors.white,
-                                            fontSize: 20.sp,
-                                            fontWeight: FontWeight.bold,
+                                        Container(
+                                          width: 250.w,
+                                          child: Text(
+                                            user.displayName ?? "",
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: GoogleFonts.montserrat(
+                                              color: Colors.white,
+                                              fontSize: 20.sp,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                         )
                                       ],
