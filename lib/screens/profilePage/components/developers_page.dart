@@ -78,7 +78,6 @@ class DevelopersPage extends StatelessWidget {
               ),
               children: [
                 DevCardBuild(
-<<<<<<< Updated upstream
                     name: 'Anish',
                     subtitle: 'UI/UX Designer',
                     image:
@@ -89,11 +88,6 @@ class DevelopersPage extends StatelessWidget {
                     image:
                         'https://vitap.ac.in/wp-content/uploads/2020/12/Viswanthan-Sir.jpg'),
                 DevCardBuild(
-                    name: 'Chakri',
-                    subtitle: 'UI/UX Designer',
-                    image:
-                        'https://vitap.ac.in/wp-content/uploads/2020/12/Viswanthan-Sir.jpg'),
-=======
                     name: 'Hari',
                     subtitle: 'Full stack developer',
                     image: 'assets/developers/Hari.jpg'),
@@ -101,7 +95,6 @@ class DevelopersPage extends StatelessWidget {
                     name: 'Chakri',
                     subtitle: 'Full stack developer',
                     image: 'assets/developers/Chakri.heic'),
->>>>>>> Stashed changes
                 DevCardBuild(
                     name: 'Serena',
                     subtitle: 'Full Stack Developer',
