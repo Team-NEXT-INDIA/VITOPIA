@@ -492,6 +492,23 @@ class ProfileV2 extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Text(
+                    "© 2023 ARIZE X Team NExT",
+                    style: GoogleFonts.montserrat(
+                      color: const Color(0xffBDB9B9),
+                      fontSize: 9.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Text(
+                    "version 1.0.0",
+                    style: GoogleFonts.montserrat(
+                      color: const Color(0xff727272),
+                      fontSize: 9.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  SizedBox(height: 5.h),
                 ],
               ),
             )
