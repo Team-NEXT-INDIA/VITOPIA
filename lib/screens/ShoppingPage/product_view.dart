@@ -304,7 +304,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                           children: [
                             Padding(
                               padding: EdgeInsets.symmetric(
-                                  vertical: 20, horizontal: 20.h),
+                                  vertical: 20, horizontal: 10.h),
                               child: CustomTap(
                                 onTap: () {
                                   setState(() {
@@ -329,11 +329,12 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                                 child: Row(
                                   children: [
                                     Container(
-                                      height: 40.h,
-                                      width: 200.w,
+                                      height: 45.h,
+                                      width: 270.w,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10),
+                                        borderRadius:
+                                            BorderRadius.circular(7.r),
                                       ),
                                       child: Column(
                                         mainAxisAlignment:
@@ -353,7 +354,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                                       ),
                                     ),
                                     SizedBox(
-                                      width: 2.w,
+                                      width: 1.w,
                                     ),
                                   ],
                                 ),
@@ -364,17 +365,19 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                               child: Column(
                                 children: [
                                   Container(
-                                    height: 40.h,
-                                    width: 70.w,
+                                    height: 45.h,
+                                    width: 45.h,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(7.r),
                                       color: Color(0xffffffff),
                                     ),
                                     child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         SvgPicture.asset(
-                                          'assets/images/Sizechat.svg',
-                                          width: 30.w,
+                                          'assets/images/svg_chart.svg',
+                                          width: 40.w,
                                         )
                                       ],
                                     ),
