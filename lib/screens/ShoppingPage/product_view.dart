@@ -329,7 +329,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                                 child: Row(
                                   children: [
                                     Container(
-                                      height: 45.h,
+                                      height: 40.h,
                                       width: 270.w,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
@@ -361,11 +361,13 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                               ),
                             ),
                             CustomTap(
-                              onTap: () {},
+                              onTap: () {
+                                _dialogBuilder(context);
+                              },
                               child: Column(
                                 children: [
                                   Container(
-                                    height: 45.h,
+                                    height: 40.h,
                                     width: 45.h,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(7.r),
@@ -628,6 +630,38 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
     );
 
     // var verifyJson = jsonDecode(res.body);
+  }
+
+  Future<void> _dialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Color(0xffffffff),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: Icon(Icons.close)),
+                ],
+              ),
+              Image.asset(
+                'assets/images/Sizechart.jpeg',
+                fit: BoxFit.contain,
+              )
+            ],
+          ),
+        );
+      },
+    );
   }
 }
 
