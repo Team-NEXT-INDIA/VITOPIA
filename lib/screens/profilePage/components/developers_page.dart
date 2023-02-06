@@ -82,7 +82,7 @@ class DevelopersPage extends StatelessWidget {
                     image: 'assets/developers/Hari.jpg'),
                 DevCardBuild(
                     name: 'Chakri',
-                    subtitle: 'UI Designerr',
+                    subtitle: 'UI/UX Designer',
                     image: 'assets/developers/Chakri.heic'),
                 DevCardBuild(
                     name: 'Serena',
