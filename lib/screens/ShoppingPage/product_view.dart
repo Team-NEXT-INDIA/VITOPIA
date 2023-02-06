@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:paytm_allinonesdk/paytm_allinonesdk.dart';
@@ -299,52 +300,92 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                         SizedBox(
                           height: 10.h,
                         ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 20, horizontal: 20.h),
-                          child: CustomTap(
-                            onTap: () {
-                              setState(() {
-                                _starttransaction = true;
-                              });
-                              FocusScope.of(context).requestFocus(FocusNode());
-                              String amount = widget.product.price.toString();
-                              Future.delayed(const Duration(seconds: 3));
-                              if (amount.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content:
-                                        Text("Error In Payment (0XFF9709)"),
-                                  ),
-                                );
-                                return;
-                              }
-                              initiateTransaction(amount);
-                            },
-                            child: Container(
-                              height: 40.h,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  _starttransaction
-                                      ? const CupertinoActivityIndicator()
-                                      : Text(
-                                          '\₹ ${widget.product.price}',
-                                          style: GoogleFonts.montserrat(
-                                            color: Colors.black,
-                                            fontSize: 18.sp,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                ],
+                        Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 20, horizontal: 10.h),
+                              child: CustomTap(
+                                onTap: () {
+                                  setState(() {
+                                    _starttransaction = true;
+                                  });
+                                  FocusScope.of(context)
+                                      .requestFocus(FocusNode());
+                                  String amount =
+                                      widget.product.price.toString();
+                                  Future.delayed(const Duration(seconds: 3));
+                                  if (amount.isEmpty) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content:
+                                            Text("Error In Payment (0XFF9709)"),
+                                      ),
+                                    );
+                                    return;
+                                  }
+                                  initiateTransaction(amount);
+                                },
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      height: 45.h,
+                                      width: 270.w,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(7.r),
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          _starttransaction
+                                              ? const CupertinoActivityIndicator()
+                                              : Text(
+                                                  '\₹ ${widget.product.price}',
+                                                  style: GoogleFonts.montserrat(
+                                                    color: Colors.black,
+                                                    fontSize: 18.sp,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 1.w,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
+                            CustomTap(
+                              onTap: () {},
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 45.h,
+                                    width: 45.h,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(7.r),
+                                      color: Color(0xffffffff),
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        SvgPicture.asset(
+                                          'assets/images/svg_chart.svg',
+                                          width: 40.w,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
                         )
                       ],
                     ),
