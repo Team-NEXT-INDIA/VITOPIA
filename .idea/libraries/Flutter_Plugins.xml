@@ -27,6 +27,11 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_messaging_web-3.2.11" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_sign_in_web-0.10.2+1" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_messaging-14.2.1" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_macos-3.0.2" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_ios-6.0.18" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher-6.1.8" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/fluttertoast-8.1.2" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_android-6.0.23" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
