@@ -169,7 +169,7 @@ class _StudentHomeState extends State<StudentHome> {
                                           ),
                                         ),
                                         Container(
-                                          width: 250.w,
+                                          width: 200.w,
                                           child: Text(
                                             user.displayName ?? "",
                                             maxLines: 1,
