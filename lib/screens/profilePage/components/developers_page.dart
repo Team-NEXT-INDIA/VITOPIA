@@ -81,17 +81,17 @@ class DevelopersPage extends StatelessWidget {
               children: [
                 DevCardBuild(
                     name: 'Anish',
-                    subtitle: 'Pedha Puku na koduku',
+                    subtitle: 'UI/UX Designer',
                     image:
                         'https://vitap.ac.in/wp-content/uploads/2020/12/Viswanthan-Sir.jpg'),
                 DevCardBuild(
                     name: 'Hari ',
-                    subtitle: 'Full stack developer',
+                    subtitle: 'UI/UX Designer',
                     image:
                         'https://vitap.ac.in/wp-content/uploads/2020/12/Viswanthan-Sir.jpg'),
                 DevCardBuild(
                     name: 'Chakri',
-                    subtitle: 'Full stack developer',
+                    subtitle: 'UI/UX Designer',
                     image:
                         'https://vitap.ac.in/wp-content/uploads/2020/12/Viswanthan-Sir.jpg'),
                 DevCardBuild(
