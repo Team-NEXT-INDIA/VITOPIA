@@ -49,18 +49,13 @@ class DevelopersPage extends StatelessWidget {
               ),
               children: [
                 DevCardBuild(
+                    name: 'Sanyu Raj',
+                    subtitle: 'Full stack developer',
+                    image: 'assets/developers/Sanyu.jpg'),
+                DevCardBuild(
                     name: 'Samuel Philip ',
                     subtitle: 'Full stack developer',
                     image: 'assets/developers/Samuel.JPG'),
-                DevCardBuild(
-                    name: 'Sanyu Raj',
-                    subtitle: 'Full stack developer',
-                    image:
-                        'https://media.licdn.com/dms/image/D5603AQH8N11WTTL6ng/profile-displayphoto-shrink_100_100/0/1671107247847?e=1681344000&v=beta&t=LHTQW7yNwl1HsvIPIn5BKqNoZAQCgvGCMCOYvUEUHnE'),
-                DevCardBuild(
-                    name: 'Anish',
-                    subtitle: 'Full stack developer',
-                    image: 'assets/developers/Anish.jpg'),
               ],
             ),
             RoleTitle(
@@ -79,27 +74,20 @@ class DevelopersPage extends StatelessWidget {
               children: [
                 DevCardBuild(
                     name: 'Anish',
-                    subtitle: 'UI/UX Designer',
-                    image:
-                        'https://vitap.ac.in/wp-content/uploads/2020/12/Viswanthan-Sir.jpg'),
-                DevCardBuild(
-                    name: 'Hari ',
-                    subtitle: 'UI/UX Designer',
-                    image:
-                        'https://vitap.ac.in/wp-content/uploads/2020/12/Viswanthan-Sir.jpg'),
+                    subtitle: 'UI Designer',
+                    image: 'assets/developers/Anish.jpg'),
                 DevCardBuild(
                     name: 'Hari',
-                    subtitle: 'Full stack developer',
+                    subtitle: 'UI Designer',
                     image: 'assets/developers/Hari.jpg'),
                 DevCardBuild(
                     name: 'Chakri',
-                    subtitle: 'Full stack developer',
+                    subtitle: 'UI Designerr',
                     image: 'assets/developers/Chakri.heic'),
                 DevCardBuild(
                     name: 'Serena',
-                    subtitle: 'Full Stack Developer',
-                    image:
-                        'https://vitap.ac.in/wp-content/uploads/2020/12/Viswanthan-Sir.jpg'),
+                    subtitle: 'UI Designer',
+                    image: 'assets/developers/Serena.JPG'),
               ],
             ),
           ],

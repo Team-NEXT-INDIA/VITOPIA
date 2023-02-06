@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen>
         final response = await getAppStatusFromAPI();
         final decodedResponse = json.decode(response.body);
         if (decodedResponse['status'] == 'disabled') {
-          Navigator.pushReplacementNamed(context, '/disabled');
+          Navigator.pushReplacementNamed(context, '/disabledview');
         } else {
           Navigator.pushReplacementNamed(context, '/studenthome');
         }

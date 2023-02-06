@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vitopia/screens/profilePage/profilepage_v2.dart';
 
+import '../screens/Intro/Disabledpage/disabled_page.dart';
 import '../screens/Intro/splash_screen.dart';
 import '../screens/ShoppingPage/Data/product_data_class.dart';
 import '../screens/ShoppingPage/MyOrders.dart';
@@ -47,6 +48,9 @@ class RouteGenerator {
       case '/developersview':
         return CupertinoPageRoute(
             builder: (_) => DevelopersPage(), settings: settings);
+      case '/disabledview':
+        return CupertinoPageRoute(
+            builder: (_) => DisabledPage(), settings: settings);
 
       case '/product_view':
         var product = settings.arguments as Product;
