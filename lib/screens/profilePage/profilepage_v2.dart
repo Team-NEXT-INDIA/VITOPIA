@@ -12,6 +12,7 @@ import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:vitopia/customs/colors.dart';
 import 'package:vitopia/customs/ontapscale.dart';
 import 'package:vitopia/screens/home/webview_page.dart';
+import 'package:vitopia/screens/profilePage/payment_policy.dart';
 
 import '../provider/google_sign_in.dart';
 import 'data_privacy.dart';
@@ -327,10 +328,8 @@ class ProfileV2 extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => WebViewPage(
-                                  Url: 'https://www.google.com/docs/about/',
-                                  APP_BAR_NAME: 'PAYMENT POLICY')));
+                          CupertinoPageRoute(
+                              builder: (context) => PaymentPolicy()));
                     },
                     title: Text(
                       "Payment Policy",
