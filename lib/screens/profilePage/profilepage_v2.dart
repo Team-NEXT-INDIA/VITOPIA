@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttericon/entypo_icons.dart';
@@ -13,6 +14,7 @@ import 'package:vitopia/customs/ontapscale.dart';
 import 'package:vitopia/screens/home/webview_page.dart';
 
 import '../provider/google_sign_in.dart';
+import 'data_privacy.dart';
 
 class ProfileV2 extends StatelessWidget {
   const ProfileV2({Key? key}) : super(key: key);
@@ -290,11 +292,8 @@ class ProfileV2 extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => WebViewPage(
-                                  Url:
-                                      'https://docs.google.com/document/d/1_qUQ0NI_iwSTSMDE2LgzxB6mXult6HEopVriL_5ntzg/edit?usp=sharing',
-                                  APP_BAR_NAME: 'DATA POLICY')));
+                          CupertinoPageRoute(
+                              builder: (context) => DataPrivacy()));
                     },
                     title: Text(
                       "Data privacy",
