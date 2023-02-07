@@ -1,25 +1,42 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../customs/ontapscale.dart';
 
 class DevCardBuild extends StatelessWidget {
   final String name;
-  final String subtitle;
-
   final String image;
+  final String instagramlink;
+  final String linkedinlink;
 
   DevCardBuild({
     Key? key,
     required this.name,
-    required this.subtitle,
     required this.image,
+    required this.instagramlink,
+    required this.linkedinlink,
   }) : super(key: key);
+
+  _launchURLInsta() async {
+    var url = Uri.parse(instagramlink);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  _launchURLLinkedIn() async {
+    var url = Uri.parse(linkedinlink);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,16 +100,6 @@ class DevCardBuild extends StatelessWidget {
                         fontSize: 13.sp,
                         fontWeight: FontWeight.bold,
                       ),
-                    ),
-                    Text(
-                      subtitle,
-                      style: GoogleFonts.montserrat(
-                        color: Color(0xffFFFFFF),
-                        fontSize: 9.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.clip,
                     ),
                   ],
                 ),
@@ -168,7 +175,7 @@ class DevCardBuild extends StatelessWidget {
                   CircleAvatar(
                     backgroundColor: Color(0x20c9c9c9),
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: _launchURLLinkedIn,
                       icon: Icon(FontAwesomeIcons.linkedinIn),
                       color: Colors.white70,
                     ),
@@ -176,7 +183,7 @@ class DevCardBuild extends StatelessWidget {
                   CircleAvatar(
                     backgroundColor: Color(0x20c9c9c9),
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: _launchURLInsta,
                       icon: Icon(FontAwesomeIcons.instagram),
                       color: Colors.white70,
                     ),
