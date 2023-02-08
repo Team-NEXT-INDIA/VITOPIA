@@ -93,7 +93,7 @@ class _InvoicePageState extends State<InvoicePage> {
                 <td class="col-md-1" style=" font-size: 12px; padding: 1px !important;">${widget.invoice['TXNID']}</td>
                 <td style=" font-size: 12px; padding: 1px !important;" class="col-md-4">${widget.product['name']}</td>
                 <td style=" font-size: 12px; padding: 1px !important;" class="col-md-4">VITOPIA2023-MARCH</td>
-                <td style=" font-size: 12px; padding: 1px !important; float: right;" class="col-md-5 text-right"></td>
+                <td style=" font-size: 12px; padding: 1px !important; float: right;" class="col-md-5 text-right">${widget.invoice['TXNAMOUNT']}</td>
               </tr>
             </tbody>
           </table>

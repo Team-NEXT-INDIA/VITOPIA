@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:screen_protector/screen_protector.dart';
 import 'package:vitopia/helpers/routes.dart';
 import 'package:vitopia/screens/provider/google_sign_in.dart';
 
@@ -26,6 +27,15 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
+  void _PreventScreenshotOn() async =>
+      await ScreenProtector.preventScreenshotOn();
+
+  @override
+  void initState() {
+    _PreventScreenshotOn();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(

@@ -5,8 +5,8 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 class PDFScreen extends StatefulWidget {
   final String? path;
-
-  PDFScreen({Key? key, this.path}) : super(key: key);
+  final invoice;
+  PDFScreen({Key? key, this.path, this.invoice}) : super(key: key);
 
   _PDFScreenState createState() => _PDFScreenState();
 }
@@ -23,13 +23,7 @@ class _PDFScreenState extends State<PDFScreen> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Document"),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.share),
-            onPressed: () {},
-          ),
-        ],
+        title: Text("INVOICE"),
       ),
       body: Stack(
         children: <Widget>[
