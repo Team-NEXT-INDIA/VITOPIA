@@ -181,6 +181,24 @@ class SpecialPersonCard extends StatelessWidget {
 
   SpecialPersonCard({required this.specialPerson});
 
+  _launchURLInsta() async {
+    var url = Uri.parse(specialPerson.facebookLink ?? '');
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  _launchURLLinkedIn() async {
+    var url = Uri.parse(specialPerson.linkedinLink ?? '');
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomTap(
@@ -387,10 +405,7 @@ class SpecialPersonCard extends StatelessWidget {
                   CircleAvatar(
                     backgroundColor: Color(0x20c9c9c9),
                     child: IconButton(
-                      onPressed: () async {
-                        launchUrl(
-                            Uri.parse(specialPerson.linkedinLink.toString()));
-                      },
+                      onPressed: _launchURLInsta,
                       icon: Icon(FontAwesomeIcons.linkedinIn),
                       color: Colors.white70,
                     ),
@@ -409,28 +424,7 @@ class SpecialPersonCard extends StatelessWidget {
                   CircleAvatar(
                     backgroundColor: Color(0x20c9c9c9),
                     child: IconButton(
-                      onPressed: () async {
-                        final url = specialPerson.twitterLink;
-                        if (await canLaunch(url ?? "")) {
-                          await launch(url ?? '');
-                        } else {
-                          final snackBar = SnackBar(
-                            content:
-                                Text("Can't Launch URL {Platform Exception}"),
-                            action: SnackBarAction(
-                              label: 'Dismiss',
-                              onPressed: () {
-                                ScaffoldMessenger.of(context)
-                                    .hideCurrentSnackBar();
-                              },
-                            ),
-                          );
-
-                          // Find the ScaffoldMessenger in the widget tree
-                          // and use it to show a SnackBar.
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        }
-                      },
+                      onPressed: _launchURLLinkedIn,
                       icon: Icon(FontAwesomeIcons.twitter),
                       color: Colors.white70,
                     ),

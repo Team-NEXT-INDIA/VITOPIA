@@ -28,9 +28,9 @@ class SpecialPerson {
       designation: json['designation'] ?? "",
       quote: json['quote'] ?? "",
       category: json['category'] ?? "",
-      facebookLink: json['facebook_link'] ?? "",
-      twitterLink: json['twitter_link'] ?? "",
-      linkedinLink: json['linkedin_link'] ?? "",
+      facebookLink: json['facebookLink'] ?? "",
+      twitterLink: json['twitterLink'] ?? "",
+      linkedinLink: json['linkedinLink'] ?? "",
       image: json['image'] ?? "",
     );
   }

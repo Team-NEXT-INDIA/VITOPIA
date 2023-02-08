@@ -34,9 +34,6 @@ class DevelopersPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            RoleTitle(
-              title: 'Full Stack Developer',
-            ),
             GridView(
               shrinkWrap: true,
               physics: BouncingScrollPhysics(),
@@ -49,45 +46,58 @@ class DevelopersPage extends StatelessWidget {
               ),
               children: [
                 DevCardBuild(
-                    name: 'Sanyu Raj',
-                    subtitle: 'Full stack developer',
-                    image: 'assets/developers/Sanyu.jpg'),
+                  name: 'Sanyu Raj',
+                  image: 'assets/developers/Sanyu.jpg',
+                  instagramlink:
+                      'https://instagram.com/sanyuraj04?igshid=YWJhMjlhZTc=',
+                  linkedinlink:
+                      'https://www.linkedin.com/in/sanyu-raj-3b5242259',
+                ),
                 DevCardBuild(
-                    name: 'Samuel Philip ',
-                    subtitle: 'Full stack developer',
-                    image: 'assets/developers/Samuel.JPG'),
-              ],
-            ),
-            RoleTitle(
-              title: 'UI Designer',
-            ),
-            GridView(
-              shrinkWrap: true,
-              physics: BouncingScrollPhysics(),
-              padding: EdgeInsets.all(10.0),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: (1.h / 1.6.h),
-                crossAxisSpacing: 5,
-                mainAxisSpacing: 5,
-              ),
-              children: [
+                  name: 'Samuel Philip ',
+                  image: 'assets/developers/Samuel.JPG',
+                  instagramlink: 'https://instagram.com/ig_samuelsam',
+                  linkedinlink:
+                      'https://www.linkedin.com/in/samuel-philip-322a0a231',
+                ),
                 DevCardBuild(
-                    name: 'Anish',
-                    subtitle: 'UI Designer',
-                    image: 'assets/developers/Anish.jpg'),
+                  name: 'Satyanand',
+                  image: 'assets/developers/Satyanand.JPG',
+                  instagramlink:
+                      'https://instagram.com/satyanandatluri?igshid=YWJhMjlhZTc=',
+                  linkedinlink:
+                      'https://www.linkedin.com/in/satyanand-atluri-434841259',
+                ),
                 DevCardBuild(
-                    name: 'Hari',
-                    subtitle: 'UI Designer',
-                    image: 'assets/developers/Hari.jpg'),
+                  name: 'Anish',
+                  image: 'assets/developers/Anish.jpg',
+                  instagramlink: 'https://www.instagram.com/ani.__sh/',
+                  linkedinlink:
+                      'https://www.linkedin.com/in/anish-ganapathi-086049220/',
+                ),
                 DevCardBuild(
-                    name: 'Chakri',
-                    subtitle: 'UI/UX Designer',
-                    image: 'assets/developers/Chakri.heic'),
+                  name: 'Hari',
+                  image: 'assets/developers/Hari.jpg',
+                  instagramlink:
+                      'https://instagram.com/hari_hara_pidikiti?igshid=YmMyMTA2M2Y=',
+                  linkedinlink:
+                      'https://instagram.com/hari_hara_pidikiti?igshid=YmMyMTA2M2Y=',
+                ),
                 DevCardBuild(
-                    name: 'Serena',
-                    subtitle: 'UI Designer',
-                    image: 'assets/developers/Serena.JPG'),
+                  name: 'Chakri',
+                  image: 'assets/developers/Chakri.heic',
+                  instagramlink:
+                      'https://instagram.com/chakrinaidu___?igshid=YmMyMTA2M2Y=',
+                  linkedinlink:
+                      'https://www.linkedin.com/in/chakridhar-n-624792232/',
+                ),
+                DevCardBuild(
+                  name: 'Serena',
+                  image: 'assets/developers/Serena.JPG',
+                  instagramlink:
+                      'https://instagram.com/serenaaa.11?igshid=YmMyMTA2M2Y=',
+                  linkedinlink: 'https://www.linkedin.com/in/serena-mendanha/',
+                ),
               ],
             ),
           ],
