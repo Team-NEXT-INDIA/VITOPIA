@@ -527,6 +527,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
         });
         verifyTransaction(bodyJson['orderId']);
       }).catchError((onError) {
+        print(onError);
         setState(() {
           _starttransaction = false;
         });
