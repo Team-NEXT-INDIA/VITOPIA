@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:provider/provider.dart';
-import 'package:screen_protector/screen_protector.dart';
 import 'package:vitopia/helpers/routes.dart';
 import 'package:vitopia/screens/provider/google_sign_in.dart';
 
@@ -26,13 +26,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // This widget is the root of your application.
-  void _PreventScreenshotOn() async =>
-      await ScreenProtector.preventScreenshotOn();
+  Future<void> secureScreen() async {
+    await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+  }
 
   @override
   void initState() {
-    _PreventScreenshotOn();
+    FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+    secureScreen();
     super.initState();
   }
 
@@ -43,7 +44,7 @@ class _MyAppState extends State<MyApp> {
       builder: (context, child) => ChangeNotifierProvider(
         create: (context) => GoogleSignInProvider(),
         child: MaterialApp(
-          title: 'Flutter Demo',
+          title: 'VITOPIA',
           theme: ThemeData(
             useMaterial3: true,
             primarySwatch: Colors.blue,

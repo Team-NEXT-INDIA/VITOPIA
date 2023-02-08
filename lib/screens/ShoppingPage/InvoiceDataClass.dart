@@ -14,6 +14,7 @@ class Invoice {
   String? tXNAMOUNT;
   String? tXNDATE;
   String? tXNID;
+  String? oUTSTATUS;
 
   Invoice(
       {this.bANKNAME,
@@ -30,7 +31,8 @@ class Invoice {
       this.sTATUS,
       this.tXNAMOUNT,
       this.tXNDATE,
-      this.tXNID});
+      this.tXNID,
+      this.oUTSTATUS});
 
   factory Invoice.fromJson(Map<String, dynamic> json) {
     return Invoice(
@@ -49,6 +51,7 @@ class Invoice {
       tXNAMOUNT: json['TXNAMOUNT'] ?? "",
       tXNDATE: json['TXNDATE'] ?? "",
       tXNID: json['TXNID'] ?? "",
+      oUTSTATUS: json['OUT_STATUS'] ?? "",
     );
   }
 
@@ -69,6 +72,7 @@ class Invoice {
     data['TXNAMOUNT'] = this.tXNAMOUNT;
     data['TXNDATE'] = this.tXNDATE;
     data['TXNID'] = this.tXNID;
+    data['OUT_STATUS'] = this.oUTSTATUS;
     return data;
   }
 }

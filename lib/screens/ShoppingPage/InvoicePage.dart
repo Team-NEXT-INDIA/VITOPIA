@@ -1,11 +1,17 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html_to_pdf/flutter_html_to_pdf.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
+import 'package:vitopia/customs/ontapscale.dart';
+import 'package:vitopia/screens/ShoppingPage/GenerateQRLogic/generate_qr.dart';
 
 import 'GenerateInvoiceLogic/invoice_v2.dart';
 
@@ -27,6 +33,11 @@ class _InvoicePageState extends State<InvoicePage> {
   void initState() {
     super.initState();
     generateExampleDocument();
+    _getOrderStatus();
+    _timer = Timer.periodic(Duration(seconds: 9), (timer) {
+      print("Timmer Done");
+      _getOrderStatus();
+    });
   }
 
   Future<void> generateExampleDocument() async {
@@ -139,6 +150,31 @@ class _InvoicePageState extends State<InvoicePage> {
     final generatedPdfFile = await FlutterHtmlToPdf.convertFromHtmlContent(
         htmlContent, targetPath, targetFileName);
     generatedPdfFilePath = generatedPdfFile.path;
+  }
+
+  late final AnimationController _controller;
+
+  String _status = 'WAITING';
+  late Timer _timer;
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  void _getOrderStatus() async {
+    final bank_txn_id = widget.invoice['BANKTXNID'];
+    final String _generateURL = "http://10.0.2.2:1080/generate-qr";
+    final response = await http.post(Uri.parse(_generateURL),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({"BANKTXNID": bank_txn_id}));
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      setState(() {
+        _status = data['order']['OUT_STATUS'];
+      });
+    }
   }
 
   @override
@@ -261,6 +297,157 @@ class _InvoicePageState extends State<InvoicePage> {
                     ],
                   ),
                 )),
+            SizedBox(
+              height: 20.h,
+            ),
+            if (_status == 'waiting')
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Color(0xff121212),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(25.h),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          CustomTap(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => QrAcceptanceDialog(
+                                  invoice: widget.invoice,
+                                  product: widget.product,
+                                ),
+                              );
+                            },
+                            child: Container(
+                              height: 75.h,
+                              width: 75.h,
+                              child: Icon(
+                                Icons.qr_code_scanner,
+                                size: 70.sp,
+                                color: Color(0xff7636F6),
+                              ),
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      offset: Offset(3, 3),
+                                      spreadRadius: -11,
+                                      blurRadius: 50,
+                                      color: Color.fromRGBO(118, 54, 246, 1),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(12.r),
+                                  color: Color(0xff1C1C1C)),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(left: 20.w),
+                            width: 190.w,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Take-Away QR",
+                                  style: GoogleFonts.montserrat(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w300,
+                                    color: Color(0xffBCBCBC),
+                                  ),
+                                ),
+                                Text(
+                                  "Tap on the Qr to Generate the Code",
+                                  style: GoogleFonts.montserrat(
+                                    fontSize: 17.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color(0xffffffff),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              )
+            else
+              Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Color(0xff121212),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(25.h),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                height: 75.h,
+                                width: 75.h,
+                                child: Icon(
+                                  Icons.done,
+                                  size: 50.sp,
+                                  color: Color(0xff39FF65),
+                                ),
+                                decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        offset: Offset(3, 3),
+                                        spreadRadius: -19,
+                                        blurRadius: 44,
+                                        color:
+                                            Color.fromRGBO(24, 249, 76, 0.69),
+                                      )
+                                    ],
+                                    borderRadius: BorderRadius.circular(12.r),
+                                    color: Color(0xff1C1C1C)),
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(left: 20.w),
+                                width: 190.w,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Product Take-Away",
+                                      style: GoogleFonts.montserrat(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w300,
+                                        color: Color(0xffBCBCBC),
+                                      ),
+                                    ),
+                                    Text(
+                                      "You Have Picked your Product",
+                                      style: GoogleFonts.montserrat(
+                                        fontSize: 17.sp,
+                                        fontWeight: FontWeight.w900,
+                                        color: Color(0xffffffff),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             SizedBox(
               height: 20.h,
             ),
@@ -448,6 +635,103 @@ class _InvoicePageState extends State<InvoicePage> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class QrAcceptanceDialog extends StatefulWidget {
+  final user = FirebaseAuth.instance.currentUser!;
+  final invoice;
+  final product;
+  QrAcceptanceDialog({Key? key, required this.invoice, required this.product})
+      : super(key: key);
+
+  @override
+  State<QrAcceptanceDialog> createState() => _QrAcceptanceDialogState();
+}
+
+class _QrAcceptanceDialogState extends State<QrAcceptanceDialog> {
+  bool _accepted = false;
+  TextEditingController qr_instructions = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    qr_instructions.text = "test";
+  }
+
+  @override
+  void dispose() {
+    qr_instructions.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    qr_instructions.text = "Make Sure you Don't Share your QR with Anyone";
+
+    return AlertDialog(
+      title: Text(
+        'Generate QR',
+        style: GoogleFonts.montserrat(
+          color: Color(0xff151515),
+          fontWeight: FontWeight.w800,
+          fontSize: 15.sp,
+        ),
+      ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'Please accept the terms and conditions to proceed',
+            style: GoogleFonts.montserrat(
+              color: Color(0xff151515),
+              fontWeight: FontWeight.w400,
+              fontSize: 12.sp,
+            ),
+          ),
+          TextFormField(
+            enabled: false,
+
+            minLines: 1,
+            maxLines: 5, // allow user to enter 5 line in textfield
+            keyboardType: TextInputType
+                .multiline, // user keyboard will have a button to move cursor to next line
+            controller: qr_instructions,
+          ),
+          CheckboxListTile(
+            value: _accepted,
+            onChanged: (bool? value) {
+              setState(() {
+                _accepted = value!;
+              });
+            },
+            title: Text('Accept'),
+          ),
+        ],
+      ),
+      actions: [
+        ElevatedButton(
+          child: Text('Cancel'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        ElevatedButton(
+          child: Text('Proceed'),
+          onPressed: _accepted
+              ? () {
+                  Navigator.of(context, rootNavigator: true).pop('dialog');
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => GenerateQrScreen(
+                                invoice: widget.invoice,
+                                product: widget.product,
+                              )));
+                }
+              : null,
+        ),
+      ],
     );
   }
 }

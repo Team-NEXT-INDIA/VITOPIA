@@ -67,16 +67,20 @@ dependencies:
   firebase_messaging: ^14.2.1
   fluttericon: ^2.0.0
   webview_flutter: ^4.0.2
-  pdf: ^3.9.0
   flutter_html_to_pdf: ^0.7.0
   flutter_html: ^3.0.0-alpha.3
-  flutter_pdfview: ^1.2.5
   number_to_words: ^1.0.0
   share_plus: ^6.3.0
   url_launcher: ^6.1.8
   fluttertoast: ^8.1.2
   dio: ^4.0.6
   screen_protector: ^1.2.0
+  flutter_windowmanager: ^0.2.0
+  qr_flutter: ^3.2.0
+  flutter_pdfview: ^1.2.5
+  barcode: ^2.2.3
+  flutter_barcode_scanner: ^2.0.0
+  barcode_image: ^2.0.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -90,7 +94,9 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+dependency_overrides:
 
+  qr: ^3.0.1
 # The following section is specific to Flutter packages.
 flutter:
 
