@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html_to_pdf/flutter_html_to_pdf.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:number_to_words/number_to_words.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'GenerateInvoiceLogic/invoice_v2.dart';
@@ -94,12 +93,12 @@ class _InvoicePageState extends State<InvoicePage> {
                 <td class="col-md-1" style=" font-size: 12px; padding: 1px !important;">${widget.invoice['TXNID']}</td>
                 <td style=" font-size: 12px; padding: 1px !important;" class="col-md-4">${widget.product['name']}</td>
                 <td style=" font-size: 12px; padding: 1px !important;" class="col-md-4">VITOPIA2023-MARCH</td>
-                <td style=" font-size: 12px; padding: 1px !important; float: right;" class="col-md-5 text-right">${widget.invoice['TXNAMOUNT']}</td>
+                <td style=" font-size: 12px; padding: 1px !important; float: right;" class="col-md-5 text-right"></td>
               </tr>
             </tbody>
           </table>
-          <div style="font-weight: bold; font-size: medium; " class="text text-primary text-right">Grand Total : ${widget.invoice['TXNAMOUNT']}</div>
-          <div style="font-weight: bold;  text-align: right;" class="text">${NumberToWord().convert('en-in', widget.invoice['TXNAMOUNT']())}</div>
+          <div style="font-weight: bold; font-size: medium; " class="text text-primary text-right">Grand Total : </div>
+          <div style="font-weight: bold;  text-align: right;" class="text">k</div>
           <table class="table">
             <thead>
               <tr>
@@ -115,10 +114,10 @@ class _InvoicePageState extends State<InvoicePage> {
                 <th style=" font-weight: bold; font-size: 12px; padding: 1px !important;" class="text-right">Remarks</th>
               </tr>
               <tr>
-                <td style=" font-size: 12px; padding: 1px !important;">${widget.product['PAYMENTMODE']}</td>
-                <td style=" font-size: 12px; padding: 1px !important;">${widget.product['BANKNAME']}</td>
-                <td style=" font-size: 12px; padding: 1px !important;">${widget.product['BANKTXNID']}</td>
-                <td style=" font-size: 12px; padding: 1px !important;" class="text-right">${widget.product['TXNAMOUNT']}</td>
+                <td style=" font-size: 12px; padding: 1px !important;">${widget.invoice['PAYMENTMODE']}</td>
+                <td style=" font-size: 12px; padding: 1px !important;">${widget.invoice['BANKNAME']}</td>
+                <td style=" font-size: 12px; padding: 1px !important;">${widget.invoice['BANKTXNID']}</td>
+                <td style=" font-size: 12px; padding: 1px !important;" class="text-right">${widget.invoice['TXNAMOUNT']}</td>
                 <td style=" font-size: 12px; padding: 1px !important;" class="text-right">
                   <div></div>
                 </td>
@@ -135,7 +134,7 @@ class _InvoicePageState extends State<InvoicePage> {
 
     Directory appDocDir = await getApplicationDocumentsDirectory();
     final targetPath = appDocDir.path;
-    final targetFileName = "VITOPIA";
+    final targetFileName = "VITOPIA_${widget.invoice['BANKTXNID']}";
 
     final generatedPdfFile = await FlutterHtmlToPdf.convertFromHtmlContent(
         htmlContent, targetPath, targetFileName);
