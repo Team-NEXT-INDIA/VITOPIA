@@ -75,12 +75,29 @@ class DevelopersPage extends StatelessWidget {
                   linkedinlink:
                       'https://www.linkedin.com/in/anish-ganapathi-086049220/',
                 ),
-                // DevCardBuild(
-                //     name: 'Hari', image: 'assets/developers/Hari.jpg'),
-                // DevCardBuild(
-                //     name: 'Chakri', image: 'assets/developers/Chakri.heic'),
-                // DevCardBuild(
-                //     name: 'Serena', image: 'assets/developers/Serena.JPG'),
+                DevCardBuild(
+                  name: 'Hari',
+                  image: 'assets/developers/Hari.jpg',
+                  instagramlink:
+                      'https://instagram.com/hari_hara_pidikiti?igshid=YmMyMTA2M2Y=',
+                  linkedinlink:
+                      'https://instagram.com/hari_hara_pidikiti?igshid=YmMyMTA2M2Y=',
+                ),
+                DevCardBuild(
+                  name: 'Chakri',
+                  image: 'assets/developers/Chakri.heic',
+                  instagramlink:
+                      'https://instagram.com/chakrinaidu___?igshid=YmMyMTA2M2Y=',
+                  linkedinlink:
+                      'https://www.linkedin.com/in/chakridhar-n-624792232/',
+                ),
+                DevCardBuild(
+                  name: 'Serena',
+                  image: 'assets/developers/Serena.JPG',
+                  instagramlink:
+                      'https://instagram.com/serenaaa.11?igshid=YmMyMTA2M2Y=',
+                  linkedinlink: 'https://www.linkedin.com/in/serena-mendanha/',
+                ),
               ],
             ),
           ],

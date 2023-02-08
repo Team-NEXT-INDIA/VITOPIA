@@ -155,14 +155,6 @@ class DevCardBuild extends StatelessWidget {
                   color: Color(0xffffffff),
                 ),
               ),
-              Text(
-                name,
-                style: GoogleFonts.montserrat(
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xffffffff),
-                ),
-              ),
               SizedBox(
                 height: 13.h,
               ),
@@ -175,16 +167,16 @@ class DevCardBuild extends StatelessWidget {
                   CircleAvatar(
                     backgroundColor: Color(0x20c9c9c9),
                     child: IconButton(
-                      onPressed: _launchURLLinkedIn,
-                      icon: Icon(FontAwesomeIcons.linkedinIn),
+                      onPressed: _launchURLInsta,
+                      icon: Icon(FontAwesomeIcons.instagram),
                       color: Colors.white70,
                     ),
                   ),
                   CircleAvatar(
                     backgroundColor: Color(0x20c9c9c9),
                     child: IconButton(
-                      onPressed: _launchURLInsta,
-                      icon: Icon(FontAwesomeIcons.instagram),
+                      onPressed: _launchURLLinkedIn,
+                      icon: Icon(FontAwesomeIcons.linkedinIn),
                       color: Colors.white70,
                     ),
                   ),
