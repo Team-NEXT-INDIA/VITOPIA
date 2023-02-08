@@ -106,7 +106,7 @@ class ProductCard extends StatelessWidget {
                         fontSize: 13.sp,
                         fontWeight: FontWeight.bold,
                       ),
-                      maxLines: 3,
+                      maxLines: 2,
                       overflow: TextOverflow.clip,
                     ),
                     Text(
