@@ -1,48 +1,33 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class DisabledPage extends StatefulWidget {
+class DisabledPage extends StatelessWidget {
   const DisabledPage({Key? key}) : super(key: key);
-
-  @override
-  State<DisabledPage> createState() => _DisabledPageState();
-}
-
-class _DisabledPageState extends State<DisabledPage>
-    with TickerProviderStateMixin {
-  late final AnimationController _controller;
-  @override
-  void initState() {
-    super.initState();
-
-    _controller = AnimationController(vsync: this);
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xff000000),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          FadeIn(
-            child: Lottie.asset(
-              'assets/lottie/sucess.json',
-              repeat: true,
-              width: double.infinity,
-              controller: _controller,
-              onLoaded: (composition) {
-                // Configure the AnimationController with the duration of the
-                // Lottie file and start the animation.
-                _controller
-                  ..repeat(period: Duration(minutes: 2))
-                  ..duration = composition.duration
-                  ..forward();
-              },
+          Container(
+              height: 100.h,
+              width: 100.h,
+              child: Image.asset('assets/images/404.jpg')),
+          Text(
+            'Page not found',
+            style: GoogleFonts.montserrat(
+              fontSize: 17.sp,
+              fontWeight: FontWeight.w700,
+              color: Color(0xffffffff),
             ),
-          ),
+          )
         ],
       ),
     );
+    ;
   }
 }
