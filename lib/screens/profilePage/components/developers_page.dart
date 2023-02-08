@@ -62,7 +62,7 @@ class DevelopersPage extends StatelessWidget {
                 ),
                 DevCardBuild(
                   name: 'Satyanand',
-                  image: 'assets/developers/Satyanand.JPG',
+                  image: 'assets/developers/Satyanand.jpg',
                   instagramlink:
                       'https://instagram.com/satyanandatluri?igshid=YWJhMjlhZTc=',
                   linkedinlink:

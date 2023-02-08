@@ -274,7 +274,7 @@ class _Ticket_viewState extends State<Ticket_view> {
                           },
                           child: Container(
                             height: 40.h,
-                            width: 140.h,
+                            width: 130.h,
                             decoration: BoxDecoration(
                                 color: Color(0xffffffff),
                                 borderRadius: BorderRadius.circular(5.r)),
