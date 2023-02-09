@@ -200,6 +200,8 @@ class viewInvoice extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomTap(
       onTap: () {
+        Navigator.of(context, rootNavigator: true)
+            .popAndPushNamed('/studenthome');
         Navigator.pushNamed(context, '/orders');
       },
       child: Container(
@@ -235,6 +237,8 @@ class gotoshop extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomTap(
       onTap: () {
+        Navigator.of(context, rootNavigator: true)
+            .popAndPushNamed('/studenthome');
         Navigator.pushNamed(context, '/shop');
       },
       child: Container(

@@ -140,6 +140,8 @@ class _PaymentFailedState extends State<PaymentFailed>
               ),
               CustomTap(
                 onTap: () {
+                  Navigator.of(context, rootNavigator: true)
+                      .popAndPushNamed('/studenthome');
                   Navigator.pushNamed(context, '/shop');
                 },
                 child: Container(
