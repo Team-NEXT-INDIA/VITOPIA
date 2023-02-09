@@ -17,6 +17,7 @@ import 'package:vitopia/screens/home/components/our_guests.dart';
 
 import '../../customs/colors.dart';
 import '../Intro/Components/feature_cards.dart';
+import 'components/CarouselSlider.dart';
 import 'components/footer_promo.dart';
 import 'components/for_you_widget.dart';
 import 'featured_viewall.dart';
@@ -311,7 +312,7 @@ class _StudentHomeState extends State<StudentHome> {
                         SizedBox(
                           height: 10.h,
                         ),
-                        // PromoSlider(),
+                        PromoSlider(),
                         FadeIn(
                             child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 13.h),
@@ -452,9 +453,7 @@ class _StudentHomeState extends State<StudentHome> {
                         FadeIn(
                           duration: const Duration(milliseconds: 390),
                           child: SingleChildScrollView(
-                            padding: EdgeInsets.only(
-                              left: 10.h,
-                            ),
+                            padding: EdgeInsets.only(left: 10.h, bottom: 10.h),
                             physics: const BouncingScrollPhysics(),
                             clipBehavior: Clip.none,
                             scrollDirection: Axis.horizontal,
@@ -510,7 +509,39 @@ class _StudentHomeState extends State<StudentHome> {
                                   ),
                           ),
                         ),
-
+                        Column(
+                          children: [
+                            FadeIn(
+                                child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 13.h),
+                              child: Padding(
+                                padding: EdgeInsets.only(top: 9.h),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "For You",
+                                          style: GoogleFonts.montserrat(
+                                            color: Color(0xffFFFFFF),
+                                            fontSize: 18.sp,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )),
+                          ],
+                        ),
                         const ForYouBuild(),
                         SizedBox(
                           height: 50.h,

@@ -20,7 +20,6 @@ class Layout extends StatefulWidget {
 
 class _LayoutState extends State<Layout> {
   int _selectedPage = 0;
-
   List<Widget> pages = [
     StudentHome(),
     EventsPage(),

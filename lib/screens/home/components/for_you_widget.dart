@@ -122,7 +122,7 @@ class ForYouBuild extends StatelessWidget {
                         Navigator.push(
                           context,
                           PageRouteBuilder(
-                            pageBuilder: (_, __, ___) => Layout(index: 1),
+                            pageBuilder: (_, __, ___) => Layout(index: 2),
                             transitionDuration: const Duration(seconds: 5),
                           ),
                         );

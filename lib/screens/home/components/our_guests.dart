@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -70,7 +71,7 @@ class _GustAvatarState extends State<GustAvatar> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(3.h),
       child: Container(
         height: 120.h,
         width: 100.w,
@@ -80,10 +81,12 @@ class _GustAvatarState extends State<GustAvatar> {
           children: [
             CircleAvatar(
               radius: 40.r,
-              backgroundColor: Colors.grey,
+              backgroundColor: Color(0x56615980),
               child: CircleAvatar(
                 radius: 35.r,
-                backgroundImage: NetworkImage(widget.image),
+                backgroundImage: CachedNetworkImageProvider(
+                  widget.image,
+                ),
                 backgroundColor: Color(0xff000000),
               ),
             ),

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:animate_do/animate_do.dart';
@@ -30,6 +31,9 @@ class _MyOrdersState extends State<MyOrders> {
   void initState() {
     super.initState();
     _fetchOrders();
+    Timer.periodic(Duration(seconds: 5), (timer) {
+      setState(() {});
+    });
   }
 
   Future<List<dynamic>> _fetchOrders() async {
@@ -198,15 +202,26 @@ class _MyOrdersState extends State<MyOrders> {
                                         fontSize: 15.sp,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  Text(
-                                    _orders[index]['OUT_STATUS'],
-                                    overflow: TextOverflow.clip,
-                                    maxLines: 1,
-                                    style: GoogleFonts.montserrat(
-                                        color: Colors.white,
-                                        fontSize: 10.sp,
-                                        fontWeight: FontWeight.w500),
-                                  ),
+                                  if (_orders[index]['OUT_STATUS'] == 'waiting')
+                                    Text(
+                                      'Ready for Pickup',
+                                      overflow: TextOverflow.clip,
+                                      maxLines: 1,
+                                      style: GoogleFonts.montserrat(
+                                          color: Colors.white,
+                                          fontSize: 10.sp,
+                                          fontWeight: FontWeight.w500),
+                                    )
+                                  else
+                                    Text(
+                                      'Pickup Done',
+                                      overflow: TextOverflow.clip,
+                                      maxLines: 1,
+                                      style: GoogleFonts.montserrat(
+                                          color: Colors.white,
+                                          fontSize: 10.sp,
+                                          fontWeight: FontWeight.w500),
+                                    ),
                                   Text(
                                     _product[index]['price'],
                                     maxLines: 1,

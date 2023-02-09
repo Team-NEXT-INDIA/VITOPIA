@@ -9,9 +9,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:vitopia/customs/colors.dart';
 import 'package:vitopia/customs/ontapscale.dart';
-import 'package:vitopia/screens/home/webview_page.dart';
 import 'package:vitopia/screens/profilePage/payment_policy.dart';
 
 import '../provider/google_sign_in.dart';
@@ -23,6 +23,15 @@ class ProfileV2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _launchURL() async {
+      var url = Uri.parse('https://vitap.app');
+      if (await canLaunchUrl(url)) {
+        await launchUrl(url);
+      } else {
+        throw 'Could not launch $url';
+      }
+    }
+
     final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
         backgroundColor: const Color(0xff010101),
@@ -341,7 +350,7 @@ class ProfileV2 extends StatelessWidget {
                       ),
                     ),
                     subtitle: Text(
-                      "user agreement",
+                      "Refund/Payment Policies",
                       style: GoogleFonts.montserrat(
                         color: const Color(0xff727272),
                         fontSize: 10.sp,
@@ -470,6 +479,73 @@ class ProfileV2 extends StatelessWidget {
                       ),
                     ),
                   ),
+                  SizedBox(height: 5.h),
+                  CustomTap(
+                    onTap: _launchURL,
+                    child: Padding(
+                      padding: EdgeInsets.all(10.h),
+                      child: Container(
+                        height: 100.h,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                opacity: 0.9,
+                                image: AssetImage(
+                                    'assets/images/gradient-img.jpg'),
+                                fit: BoxFit.cover),
+                            color: const Color(0x13737373),
+                            borderRadius: BorderRadius.circular(10.r)),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: 10.h),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Checkout Our Other Apps',
+                                    style: GoogleFonts.montserrat(
+                                      color: primaryText,
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'From',
+                                        style: GoogleFonts.montserrat(
+                                          color: primaryText,
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                      Text(
+                                        ' Team NExT',
+                                        style: GoogleFonts.montserrat(
+                                          color: primaryText,
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w800,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                                padding: EdgeInsets.only(right: 9.h),
+                                child: Image.asset(
+                                    'assets/images/vitap-mockup.png')),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 10.h),
                     child: CustomTap(
@@ -542,7 +618,6 @@ class ProfileV2 extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                  SizedBox(height: 5.h),
                 ],
               ),
             )

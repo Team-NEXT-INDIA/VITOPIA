@@ -1,12 +1,27 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class GoogleSignInProvider extends ChangeNotifier {
   final googleSignIn = GoogleSignIn();
   GoogleSignInAccount? _user;
 
   GoogleSignInAccount get user => _user!;
+  Future<void> storeEmail(String email) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('email', email);
+  }
+
+  Future<String> getEmail() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('email') ?? '';
+  }
+
+  Future<void> removeEmail() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove('email');
+  }
 
   Future googleLogin(BuildContext context, Function navigate) async {
     try {
@@ -19,6 +34,7 @@ class GoogleSignInProvider extends ChangeNotifier {
           accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
       await FirebaseAuth.instance.signInWithCredential(credential);
       Navigator.pushReplacementNamed(context, '/studenthome');
+      await storeEmail(user.email);
       final snackBar = SnackBar(
         content: Text("Logged In Sucessful"),
         behavior: SnackBarBehavior.floating,
@@ -59,7 +75,7 @@ class GoogleSignInProvider extends ChangeNotifier {
       await googleSignIn.disconnect();
       FirebaseAuth.instance.signOut();
       Navigator.pushReplacementNamed(context, '/login');
-
+      await removeEmail();
       final snackBar = SnackBar(
         behavior: SnackBarBehavior.floating,
         content: Text("Logged Out Sucessful"),

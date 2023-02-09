@@ -48,7 +48,7 @@ class _Ticket_viewState extends State<Ticket_view> {
     String CHECKSUMHASH = successResponse['CHECKSUMHASH'] ?? "";
     String TXNAMOUNT = successResponse['TXNAMOUNT'] ?? "";
     String SKU = widget.product.sku ?? "";
-
+    String OUT_STATUS = 'waiting';
     Map<String, dynamic> body = {
       'CURRENCY': CURRENCY,
       'GATEWAYNAME': GATEWAYNAME,
@@ -65,6 +65,7 @@ class _Ticket_viewState extends State<Ticket_view> {
       'CHECKSUMHASH': CHECKSUMHASH,
       'TXNAMOUNT': TXNAMOUNT,
       'SKU': SKU,
+      'OUT_STATUS': OUT_STATUS,
     };
     final response = await http.post(
       Uri.parse(
@@ -388,7 +389,7 @@ class _Ticket_viewState extends State<Ticket_view> {
         amount, // amount
         bodyJson['txnToken'],
         "",
-        true,
+        false,
         false,
       ).then((value) {
         //  on payment completion we will verify transaction with transaction verify api

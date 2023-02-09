@@ -51,6 +51,10 @@ class _EventsViewPageState extends State<EventsViewPage> {
               title: widget.event['title'],
               description: widget.event['description'],
               venue: widget.event['venue'],
+              start: widget.event['start_time'],
+              end: widget.event['end_time'],
+              day: widget.event['day'],
+              externalurl: widget.event['btn_link'],
             ),
           ),
           Padding(

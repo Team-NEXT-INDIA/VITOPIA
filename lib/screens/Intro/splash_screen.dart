@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../provider/google_sign_in.dart';
 
@@ -20,6 +21,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   late final AnimationController _controller;
+
   @override
   void initState() {
     super.initState();
@@ -37,14 +39,34 @@ class _SplashScreenState extends State<SplashScreen>
 
     _controller = AnimationController(vsync: this);
     Timer(const Duration(seconds: 7), () async {
-      final googleSignInAccount = await provider.googleSignIn.signInSilently();
-      if (googleSignInAccount != null) {
-        final response = await getAppStatusFromAPI();
-        final decodedResponse = json.decode(response.body);
-        if (decodedResponse['status'] == 'disabled') {
-          Navigator.pushReplacementNamed(context, '/disabledview');
-        } else {
+      final prefs = await SharedPreferences.getInstance();
+      final email = prefs.getString('email');
+      print(email);
+      if (email != null) {
+        try {
+          final response = await getAppStatusFromAPI();
+          final decodedResponse = json.decode(response.body);
+          if (decodedResponse['status'] == 'disabled') {
+            Navigator.pushReplacementNamed(context, '/disabledview');
+          } else {
+            Navigator.pushReplacementNamed(context, '/studenthome');
+          }
+        } catch (error) {
           Navigator.pushReplacementNamed(context, '/studenthome');
+          final snackBar = SnackBar(
+            content: Text("No Internet Connection"),
+            behavior: SnackBarBehavior.floating,
+            action: SnackBarAction(
+              label: 'Dismiss',
+              onPressed: () {
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              },
+            ),
+          );
+
+          // Find the ScaffoldMessenger in the widget tree
+          // and use it to show a SnackBar.
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
       } else {
         Navigator.pushReplacementNamed(context, '/login');

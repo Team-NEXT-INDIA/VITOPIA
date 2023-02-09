@@ -326,15 +326,42 @@ class _TicketShopState extends State<TicketShop>
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
-                                  "End of Tickets",
-                                  style: TextStyle(
-                                    fontFamily: 'Monument Extended',
-                                    color: const Color(0xFFB4B4B4),
-                                    fontSize: 9.sp,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
+                                _products.isEmpty
+                                    ? Center(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              'Lost in Moon',
+                                              style: TextStyle(
+                                                fontFamily: 'Monument Extended',
+                                                color: Colors.white,
+                                                fontSize: 17.sp,
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                            ),
+                                            Text(
+                                              'No Tickets Found',
+                                              style: TextStyle(
+                                                fontFamily: 'Monument Extended',
+                                                color: const Color(0xFFB4B4B4),
+                                                fontSize: 9.sp,
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    : Text(
+                                        "End of Products",
+                                        style: TextStyle(
+                                          fontFamily: 'Monument Extended',
+                                          color: const Color(0xFFB4B4B4),
+                                          fontSize: 9.sp,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
                               ],
                             ),
                             SizedBox(
