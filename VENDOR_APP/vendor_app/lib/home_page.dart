@@ -54,7 +54,7 @@ class _VendorPageState extends State<VendorPage> {
       body: jsonEncode({"BANKTXNID": qrCodeResult, "OUT_STATUS": "AWAILED"}),
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       final snackBar = SnackBar(
         content: const Text('Query Sucessfull'),
         action: SnackBarAction(
@@ -90,7 +90,7 @@ class _VendorPageState extends State<VendorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Vendor Page'),
+        title: Text('Admin panel'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
