@@ -50,7 +50,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
     String CHECKSUMHASH = successResponse['CHECKSUMHASH'] ?? "";
     String TXNAMOUNT = successResponse['TXNAMOUNT'] ?? "";
     String SKU = widget.product.sku ?? "";
-    String OUT_STATUS = 'TAKEN';
+    String OUT_STATUS = 'waiting';
 
     Map<String, dynamic> body = {
       'CURRENCY': CURRENCY,
