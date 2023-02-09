@@ -31,6 +31,7 @@ class StudentHome extends StatefulWidget {
 class _StudentHomeState extends State<StudentHome> {
   final user = FirebaseAuth.instance.currentUser!;
   List _featuredEvents = [];
+  List _guestavatar = [];
   ScrollController _fabscrollController = new ScrollController();
   ScrollController _ScrollController = new ScrollController();
   bool _isScrolled = false;
@@ -42,6 +43,7 @@ class _StudentHomeState extends State<StudentHome> {
     _fabscrollController = ScrollController();
     _ScrollController = ScrollController();
     _fetchFeaturedEvents();
+    _fetchGuest();
     _fabscrollController.addListener(() {
       if (_fabscrollController.offset > 50) {
         setState(() {
@@ -67,14 +69,26 @@ class _StudentHomeState extends State<StudentHome> {
     _fabscrollController.dispose();
   }
 
-  var data2 = 'RY - ASASASDADASDADQ21';
-
+// Fetch Featured Events ---->
   void _fetchFeaturedEvents() async {
     final response =
         await http.get(Uri.parse('http://216.48.191.15:1080/featured-events'));
     if (response.statusCode == 200) {
       setState(() {
         _featuredEvents = json.decode(response.body);
+      });
+    } else {
+      throw Exception('Failed to load featured events');
+    }
+  }
+
+// Fetch Guests  ---->
+  void _fetchGuest() async {
+    final response =
+        await http.get(Uri.parse('http://216.48.191.15:1080/our-guests'));
+    if (response.statusCode == 200) {
+      setState(() {
+        _guestavatar = json.decode(response.body);
       });
     } else {
       throw Exception('Failed to load featured events');
@@ -431,7 +445,72 @@ class _StudentHomeState extends State<StudentHome> {
                         SizedBox(
                           height: 20.h,
                         ),
-                        GuestSlider(),
+                        GuestHeader(),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        FadeIn(
+                          duration: const Duration(milliseconds: 390),
+                          child: SingleChildScrollView(
+                            padding: EdgeInsets.only(
+                              left: 10.h,
+                            ),
+                            physics: const BouncingScrollPhysics(),
+                            clipBehavior: Clip.none,
+                            scrollDirection: Axis.horizontal,
+                            child: _guestavatar.isEmpty
+                                ? Padding(
+                                    padding: EdgeInsets.only(
+                                      left: 0.h,
+                                      right: 10.h,
+                                    ),
+                                    child: Center(
+                                      child: Container(
+                                        margin: EdgeInsets.all(10.h),
+                                        alignment: Alignment.center,
+                                        height: 200.h,
+                                        width: 280.h,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(12.r),
+                                            color: Color(0x13ffffff)),
+                                        child: Text(
+                                          'No Guests Found',
+                                          style: GoogleFonts.montserrat(
+                                            color: const Color(0xffFFFFFF),
+                                            fontSize: 10.sp,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: _guestavatar
+                                            .map((guest) => GustAvatar(
+                                                  image: guest['image'] ?? "",
+                                                  name: guest['name'] ?? "",
+                                                  description:
+                                                      guest['description'] ??
+                                                          "",
+                                                  comingevent:
+                                                      guest['comingevent'] ??
+                                                          "",
+                                                ))
+                                            .toList(),
+                                      ),
+                                    ],
+                                  ),
+                          ),
+                        ),
+
                         const ForYouBuild(),
                         SizedBox(
                           height: 50.h,
