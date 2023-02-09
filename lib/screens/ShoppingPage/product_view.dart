@@ -437,7 +437,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
         amount, // amount
         bodyJson['txnToken'],
         "",
-        true,
+        false,
         true,
       ).then((value) {
         //  on payment completion we will verify transaction with transaction verify api
