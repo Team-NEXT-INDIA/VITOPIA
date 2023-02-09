@@ -13,6 +13,7 @@ import 'package:http/http.dart' as http;
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:vitopia/customs/ontapscale.dart';
 import 'package:vitopia/screens/events/events_view.dart';
+import 'package:vitopia/screens/home/components/our_guests.dart';
 
 import '../../customs/colors.dart';
 import '../Intro/Components/feature_cards.dart';
@@ -430,6 +431,7 @@ class _StudentHomeState extends State<StudentHome> {
                         SizedBox(
                           height: 20.h,
                         ),
+                        GuestSlider(),
                         const ForYouBuild(),
                         SizedBox(
                           height: 50.h,
