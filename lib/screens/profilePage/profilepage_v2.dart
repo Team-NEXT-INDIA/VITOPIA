@@ -527,7 +527,7 @@ class ProfileV2 extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "© 2023 ARIZE X Team NExT",
+                    "© 2023 Team NExT",
                     style: GoogleFonts.montserrat(
                       color: const Color(0xffBDB9B9),
                       fontSize: 9.sp,
