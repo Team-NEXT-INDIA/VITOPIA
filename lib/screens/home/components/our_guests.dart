@@ -3,14 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class GuestSlider extends StatefulWidget {
-  const GuestSlider({Key? key}) : super(key: key);
+class GuestHeader extends StatefulWidget {
+  GuestHeader({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<GuestSlider> createState() => _GuestSliderState();
+  State<GuestHeader> createState() => _GuestHeaderState();
 }
 
-class _GuestSliderState extends State<GuestSlider> {
+class _GuestHeaderState extends State<GuestHeader> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -41,81 +43,67 @@ class _GuestSliderState extends State<GuestSlider> {
             ),
           ),
         )),
-        Row(
+      ],
+    );
+  }
+}
+
+class GustAvatar extends StatefulWidget {
+  final String name;
+  final String image;
+  final String description;
+  final String comingevent;
+
+  GustAvatar(
+      {Key? key,
+      required this.image,
+      required this.name,
+      required this.description,
+      required this.comingevent})
+      : super(key: key);
+
+  @override
+  State<GustAvatar> createState() => _GustAvatarState();
+}
+
+class _GustAvatarState extends State<GustAvatar> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(10),
+      child: Container(
+        height: 120.h,
+        width: 100.w,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: EdgeInsets.all(10),
-              child: Container(
-                height: 120.h,
-                width: 100.w,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 40.r,
-                      backgroundColor: Colors.grey,
-                      child: CircleAvatar(
-                        radius: 35.r,
-                        backgroundColor: Color(0xff000000),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5.h,
-                    ),
-                    Text(
-                      "Devi sri Prasad",
-                      overflow: TextOverflow.clip,
-                      textAlign: TextAlign.center,
-                      maxLines: 2,
-                      style: GoogleFonts.montserrat(
-                        color: Color(0xffffffff),
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
-                ),
+            CircleAvatar(
+              radius: 40.r,
+              backgroundColor: Colors.grey,
+              child: CircleAvatar(
+                radius: 35.r,
+                backgroundImage: NetworkImage(widget.image),
+                backgroundColor: Color(0xff000000),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.all(10),
-              child: Container(
-                height: 120.h,
-                width: 100.w,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 40.r,
-                      backgroundColor: Colors.grey,
-                      child: CircleAvatar(
-                        radius: 35.r,
-                        backgroundColor: Color(0xff000000),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5.h,
-                    ),
-                    Text(
-                      "PV Sindhu",
-                      overflow: TextOverflow.clip,
-                      textAlign: TextAlign.center,
-                      maxLines: 2,
-                      style: GoogleFonts.montserrat(
-                        color: Color(0xffffffff),
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
-                ),
+            SizedBox(
+              height: 5.h,
+            ),
+            Text(
+              widget.name,
+              overflow: TextOverflow.clip,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              style: GoogleFonts.montserrat(
+                color: Color(0xffffffff),
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w400,
               ),
-            )
+            ),
           ],
-        )
-      ],
+        ),
+      ),
     );
   }
 }

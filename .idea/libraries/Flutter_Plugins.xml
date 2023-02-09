@@ -32,6 +32,9 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher-6.1.8" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/fluttertoast-8.1.2" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_android-6.0.23" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_windowmanager-0.2.0" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_barcode_scanner-2.0.0" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/screen_protector-1.2.0" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
