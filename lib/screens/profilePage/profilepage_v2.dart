@@ -15,6 +15,7 @@ import 'package:vitopia/screens/home/webview_page.dart';
 import 'package:vitopia/screens/profilePage/payment_policy.dart';
 
 import '../provider/google_sign_in.dart';
+import 'components/contactus_page.dart';
 import 'data_privacy.dart';
 
 class ProfileV2 extends StatelessWidget {
@@ -430,6 +431,41 @@ class ProfileV2 extends StatelessWidget {
                       padding: EdgeInsets.all(8.0),
                       child: Icon(
                         Icons.perm_device_info_outlined,
+                        color: Color(0xffCECECE),
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) => ContactUs()));
+                    },
+                    title: Text(
+                      "Contact Us",
+                      style: GoogleFonts.montserrat(
+                        color: const Color(0xffFFFFFF),
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    subtitle: Text(
+                      "Help",
+                      style: GoogleFonts.montserrat(
+                        color: const Color(0xff727272),
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    trailing: const Icon(
+                      Icons.arrow_forward_ios,
+                      color: Color(0xffCECECE),
+                    ),
+                    leading: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(
+                        Icons.privacy_tip_outlined,
                         color: Color(0xffCECECE),
                       ),
                     ),
