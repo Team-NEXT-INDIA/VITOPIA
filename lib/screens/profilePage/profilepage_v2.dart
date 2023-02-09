@@ -355,7 +355,7 @@ class ProfileV2 extends StatelessWidget {
                     leading: const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Icon(
-                        Icons.privacy_tip_outlined,
+                        Icons.currency_rupee,
                         color: Color(0xffCECECE),
                       ),
                     ),
@@ -465,7 +465,7 @@ class ProfileV2 extends StatelessWidget {
                     leading: const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Icon(
-                        Icons.privacy_tip_outlined,
+                        Icons.mail_outline,
                         color: Color(0xffCECECE),
                       ),
                     ),
