@@ -7,7 +7,6 @@ class ContactUs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var widget;
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
