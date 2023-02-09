@@ -46,7 +46,7 @@ class _VendorPageState extends State<VendorPage> {
   Future<void> _updateValue(String qrCodeResult) async {
     final String _updationURL =
         "http://216.48.191.15:1080/update_takeaway_status";
-    final response = await http.patch(
+    final response = await http.post(
       Uri.parse(_updationURL),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
@@ -55,9 +55,34 @@ class _VendorPageState extends State<VendorPage> {
     );
 
     if (response.statusCode == 200) {
-      print('Value updated successfully');
+      final snackBar = SnackBar(
+        content: const Text('Query Sucessfull'),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            // Some code to undo the change.
+          },
+        ),
+      );
+
+      // Find the ScaffoldMessenger in the widget tree
+      // and use it to show a SnackBar.
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else {
       print('Failed to update value');
+      final snackBar = SnackBar(
+        content: const Text('Failed to update value'),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            // Some code to undo the change.
+          },
+        ),
+      );
+
+      // Find the ScaffoldMessenger in the widget tree
+      // and use it to show a SnackBar.
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
 

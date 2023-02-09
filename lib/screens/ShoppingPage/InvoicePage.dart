@@ -165,7 +165,7 @@ class _InvoicePageState extends State<InvoicePage> {
 
   void _getOrderStatus() async {
     final bank_txn_id = widget.invoice['BANKTXNID'];
-    final String _generateURL = "http://10.0.2.2:1080/generate-qr";
+    final String _generateURL = "http://216.48.191.15:1080/generate-qr";
     final response = await http.post(Uri.parse(_generateURL),
         headers: {'Content-Type': 'application/json'},
         body: json.encode({"BANKTXNID": bank_txn_id}));
@@ -179,6 +179,9 @@ class _InvoicePageState extends State<InvoicePage> {
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      // updating the state
+    });
     final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       backgroundColor: Colors.black,

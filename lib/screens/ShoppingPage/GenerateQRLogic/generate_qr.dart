@@ -36,7 +36,7 @@ class _GenerateQrScreenState extends State<GenerateQrScreen>
     super.initState();
     _controller = AnimationController(vsync: this);
     _getOrderStatus();
-    _timer = Timer.periodic(Duration(seconds: 9), (timer) {
+    _timer = Timer.periodic(Duration(seconds: 3), (timer) {
       print("Timmer Done");
       _getOrderStatus();
     });
@@ -103,11 +103,14 @@ class _GenerateQrScreenState extends State<GenerateQrScreen>
             if (_status == 'waiting')
               Container(
                 width: 300.w,
+                height: 200.h,
+                padding: EdgeInsets.all(20.h),
+                color: Colors.white,
                 child: BarcodeWidget(
                   data: '${widget.invoice['BANKTXNID']}',
                   drawText: false,
-                  color: Colors.white,
-                  barcode: Barcode.qrCode(),
+                  color: Colors.black,
+                  barcode: Barcode.qrCode(typeNumber: 3),
                 ),
               )
             else

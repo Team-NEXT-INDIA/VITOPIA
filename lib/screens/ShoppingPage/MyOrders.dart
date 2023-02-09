@@ -58,6 +58,13 @@ class _MyOrdersState extends State<MyOrders> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                _fetchOrders;
+              },
+              icon: Icon(CupertinoIcons.refresh))
+        ],
         backgroundColor: Colors.black,
         centerTitle: true,
         elevation: 0,
@@ -105,116 +112,120 @@ class _MyOrdersState extends State<MyOrders> {
                 ],
               ),
             )
-          : ListView.builder(
-              itemCount: _orders.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 10.h, vertical: 7.h),
-                  child: CustomTap(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                          builder: (context) => InvoicePage(
-                            invoice: _orders[index],
-                            product: _product[index],
+          : RefreshIndicator(
+              onRefresh: _fetchOrders,
+              child: ListView.builder(
+                itemCount: _orders.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 10.h, vertical: 7.h),
+                    child: CustomTap(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) => InvoicePage(
+                              invoice: _orders[index],
+                              product: _product[index],
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: const Color(0x484A4646),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Row(
-                        children: [
-                          ClipRRect(
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                bottomLeft: Radius.circular(10)),
-                            child: CachedNetworkImage(
-                              imageUrl: _product[index]['image'],
-                              height: 110.h,
-                              width: 100.h,
-                              fit: BoxFit.cover,
-                              placeholder: (context, url) => Shimmer(
-                                child: Container(
-                                  height: 140.h,
-                                  width: 135.h,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              errorWidget: (context, url, error) => Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.grey,
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
-                                child: Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "Failed To Load Image",
-                                        style: GoogleFonts.montserrat(
-                                          color: primaryText,
-                                          fontSize: 10.sp,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      )
-                                    ],
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: const Color(0x484A4646),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Row(
+                          children: [
+                            ClipRRect(
+                              borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  bottomLeft: Radius.circular(10)),
+                              child: CachedNetworkImage(
+                                imageUrl: _product[index]['image'],
+                                height: 110.h,
+                                width: 100.h,
+                                fit: BoxFit.cover,
+                                placeholder: (context, url) => Shimmer(
+                                  child: Container(
+                                    height: 140.h,
+                                    width: 135.h,
+                                    color: Colors.grey,
                                   ),
                                 ),
-                                height: 140.h,
-                                width: 135.h,
+                                errorWidget: (context, url, error) => Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey,
+                                    borderRadius: BorderRadius.circular(12.0),
+                                  ),
+                                  child: Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Failed To Load Image",
+                                          style: GoogleFonts.montserrat(
+                                            color: primaryText,
+                                            fontSize: 10.sp,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  height: 140.h,
+                                  width: 135.h,
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(width: 10.h),
-                          Container(
-                            width: 200.w,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  _product[index]['name'],
-                                  maxLines: 1,
-                                  overflow: TextOverflow.clip,
-                                  style: GoogleFonts.montserrat(
-                                      color: Colors.white,
-                                      fontSize: 15.sp,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  _product[index]['sub_category'],
-                                  overflow: TextOverflow.clip,
-                                  maxLines: 1,
-                                  style: GoogleFonts.montserrat(
-                                      color: Colors.white,
-                                      fontSize: 10.sp,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                Text(
-                                  _product[index]['price'],
-                                  maxLines: 1,
-                                  overflow: TextOverflow.clip,
-                                  style: GoogleFonts.montserrat(
-                                      color: const Color(0xff39FF65),
-                                      fontSize: 15.sp,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
+                            SizedBox(width: 10.h),
+                            Container(
+                              width: 200.w,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    _product[index]['name'],
+                                    maxLines: 1,
+                                    overflow: TextOverflow.clip,
+                                    style: GoogleFonts.montserrat(
+                                        color: Colors.white,
+                                        fontSize: 15.sp,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    _orders[index]['OUT_STATUS'],
+                                    overflow: TextOverflow.clip,
+                                    maxLines: 1,
+                                    style: GoogleFonts.montserrat(
+                                        color: Colors.white,
+                                        fontSize: 10.sp,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  Text(
+                                    _product[index]['price'],
+                                    maxLines: 1,
+                                    overflow: TextOverflow.clip,
+                                    style: GoogleFonts.montserrat(
+                                        color: const Color(0xff39FF65),
+                                        fontSize: 15.sp,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
     );
   }
