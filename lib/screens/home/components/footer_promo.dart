@@ -16,6 +16,7 @@ class FooterPromo extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         image: DecorationImage(
+          opacity: 0.2,
           image: AssetImage("assets/images/cup_bg.png"),
         ),
         color: Color(0xff141313),

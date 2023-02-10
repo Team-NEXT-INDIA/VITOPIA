@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:vitopia/helpers/routes.dart';
 import 'package:vitopia/screens/provider/google_sign_in.dart';
@@ -35,6 +36,8 @@ class _MyAppState extends State<MyApp> {
     FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
     secureScreen();
     super.initState();
+    OneSignal.shared.setLogLevel(OSLogLevel.debug, OSLogLevel.none);
+    OneSignal.shared.setAppId('7fa9a22f-66cf-4622-88ec-08c42e5b007c');
   }
 
   @override
