@@ -415,7 +415,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
     var formData = parts.join('&');
     var res = await http.post(
       Uri.https(
-        "vitap.app", // my ip address , localhost
+        "vitopia.mukham.in", // my ip address , localhost
         "/paytmphp/generate_token.php",
       ),
       headers: {
@@ -623,7 +623,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
     var formData = parts.join('&');
     var res = await http.post(
       Uri.https(
-        "vitap.app", // my ip address , localhost
+        "vitopia.mukham.in", // my ip address , localhost
         "paytmphp/verify_transaction.php", // let's check verifycation code on backend
       ),
       headers: {

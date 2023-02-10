@@ -102,6 +102,40 @@ class ContactUs extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(
+              height: 20.h,
+            ),
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Color(0xff121212),
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(25.h),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Payment Related Queries",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 17.sp,
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xffffffff),
+                      ),
+                    ),
+                    Text(
+                      "teamnextvitap@gmail.com",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 17.sp,
+                        fontWeight: FontWeight.w300,
+                        color: Color(0xffBCBCBC),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
