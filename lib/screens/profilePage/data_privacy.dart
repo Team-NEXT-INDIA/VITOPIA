@@ -103,7 +103,7 @@ class DataPrivacy extends StatelessWidget {
               Text(
                 "If you have any questions about this Privacy Policy, You can contact us :                                                                             "
                 "  By email : teamnextvitap@gmail.com"
-                "                     ARIZE x TEAM NExT",
+                "                                    - TEAM NExT",
                 style: GoogleFonts.montserrat(
                   color: Color(0xffBDB9B9),
                   fontSize: 12.sp,

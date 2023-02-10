@@ -52,7 +52,7 @@ class PaymentPolicy extends StatelessWidget {
                 ),
               ),
               Text(
-                " VITOPIA event app accepts payments made through Paytm gateway.",
+                " VITOPIA event app accepts payments made through Paytm gateway only.",
                 style: GoogleFonts.montserrat(
                   color: Color(0xffBDB9B9),
                   fontSize: 12.sp,
