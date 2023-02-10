@@ -111,9 +111,12 @@ class FeaturedCard extends StatelessWidget {
                   Row(
                     children: [
                       Icon(
-                        Icons.location_on,
+                        Icons.calendar_month_outlined,
                         size: 16.sp,
                         color: const Color(0x84ececec),
+                      ),
+                      SizedBox(
+                        width: 4.w,
                       ),
                       Text(
                         subtitle,
