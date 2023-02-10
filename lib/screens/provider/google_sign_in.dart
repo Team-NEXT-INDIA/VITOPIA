@@ -1,4 +1,3 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -45,23 +44,23 @@ class GoogleSignInProvider extends ChangeNotifier {
       final googleUser = await googleSignIn.signIn();
       if (googleUser == null) return;
       _user = googleUser;
-
-      if (!user.email.endsWith('@vitapstudent.ac.in') &&
-          !user.email.endsWith('@vitstudent.ac.in')) {
-        await removeEmail();
-        AwesomeDialog(
-          context: context,
-          dialogType: DialogType.warning,
-          animType: AnimType.bottomSlide,
-          title: 'INFORMATION',
-          desc: 'VITopia App Can Only be Accessed Using University Email',
-          btnCancelText: 'External Participant?',
-          btnOkText: 'Ok',
-          btnCancelOnPress: _launchURLLinkedIn,
-          btnOkOnPress: () {},
-        )..show();
-        return;
-      }
+      //
+      // if (!user.email.endsWith('@vitapstudent.ac.in') &&
+      //     !user.email.endsWith('@vitstudent.ac.in')) {
+      //   await removeEmail();
+      //   AwesomeDialog(
+      //     context: context,
+      //     dialogType: DialogType.warning,
+      //     animType: AnimType.bottomSlide,
+      //     title: 'INFORMATION',
+      //     desc: 'VITopia App Can Only be Accessed Using University Email',
+      //     btnCancelText: 'External Participant?',
+      //     btnOkText: 'Ok',
+      //     btnCancelOnPress: _launchURLLinkedIn,
+      //     btnOkOnPress: () {},
+      //   )..show();
+      //   return;
+      // }
 
       final googleAuth = await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
@@ -69,21 +68,8 @@ class GoogleSignInProvider extends ChangeNotifier {
       await FirebaseAuth.instance.signInWithCredential(credential);
       Navigator.pushReplacementNamed(context, '/studenthome');
       await storeEmail(user.email);
-      final snackBar = SnackBar(
-        content: Text("Logged In Sucessful"),
-        behavior: SnackBarBehavior.floating,
-        action: SnackBarAction(
-          label: 'Dismiss',
-          onPressed: () {
-            ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          },
-        ),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
       notifyListeners();
     } catch (e, s) {
-      print(e.toString());
-      print(s.toString());
       final snackBar = SnackBar(
         behavior: SnackBarBehavior.floating,
         content: Text(s.toString()),
@@ -106,7 +92,7 @@ class GoogleSignInProvider extends ChangeNotifier {
       await removeEmail();
       final snackBar = SnackBar(
         behavior: SnackBarBehavior.floating,
-        content: Text("Logged Out Sucessful"),
+        content: Text("Logged Out Successful"),
         action: SnackBarAction(
           label: 'Dismiss',
           onPressed: () {

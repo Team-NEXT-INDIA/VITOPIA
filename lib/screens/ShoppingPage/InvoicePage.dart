@@ -555,12 +555,12 @@ class _InvoicePageState extends State<InvoicePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Pickup at AB-2 office show the receipt to log the pickup',
+                              'Pickup will be Sent via Mail show the QR Code to Awail the pickup',
                               style: GoogleFonts.montserrat(
                                   color: Color(0xffffffff), fontSize: 14.sp),
                             ),
                             Text(
-                              '-Team Next Vitopia',
+                              'VITOPIA -Team NExT',
                               style: GoogleFonts.montserrat(
                                   color: Color(0xffffffff), fontSize: 12.sp),
                             ),
@@ -625,6 +625,9 @@ class _InvoicePageState extends State<InvoicePage> {
                 ),
               ),
             ),
+            SizedBox(
+              height: 10.h,
+            ),
             ElevatedButton(
               child: Text('Generate PDF'),
               onPressed: () {
@@ -635,6 +638,9 @@ class _InvoicePageState extends State<InvoicePage> {
                           PDFScreen(path: generatedPdfFilePath)),
                 );
               },
+            ),
+            SizedBox(
+              height: 10.h,
             ),
           ],
         ),

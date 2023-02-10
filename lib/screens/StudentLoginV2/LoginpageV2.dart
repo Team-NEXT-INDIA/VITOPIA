@@ -63,7 +63,7 @@ class _LoginpageState extends State<Loginpage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(right: 8.0.h, top: 20.h),
+                    padding: EdgeInsets.only(right: 16.h, top: 40.h),
                     child: Align(
                       alignment: AlignmentDirectional(1, -1),
                       child: Image.asset(

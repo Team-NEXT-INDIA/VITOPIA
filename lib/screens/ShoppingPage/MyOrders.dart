@@ -62,13 +62,6 @@ class _MyOrdersState extends State<MyOrders> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        actions: [
-          IconButton(
-              onPressed: () {
-                _fetchOrders;
-              },
-              icon: Icon(CupertinoIcons.refresh))
-        ],
         backgroundColor: Colors.black,
         centerTitle: true,
         elevation: 0,
