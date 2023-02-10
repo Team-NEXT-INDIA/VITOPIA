@@ -91,7 +91,7 @@ class _InvoicePageState extends State<InvoicePage> {
               <tr>
                 <th style=" font-weight: bold; font-size: 12px; padding: 1px !important;">S.No</th> 
                 <th style=" font-weight: bold; font-size: 12px; padding: 1px !important;">SKU</th>
-                <th style=" font-weight: bold; font-size: 12px; padding: 1px !important;">Invoice No</th>
+                <th style=" font-weight: bold; font-size: 12px; padding: 1px !important;">Bank TXN ID</th>
                 <th style=" font-weight: bold; font-size: 12px; padding: 1px !important;">Description</th>
                 <th style=" font-weight: bold; font-size: 12px; padding: 1px !important;">Invoice Remarks</th>
                 <th style=" font-weight: bold; font-size: 12px; padding: 1px !important; float: right;">Amount</th>
@@ -101,7 +101,7 @@ class _InvoicePageState extends State<InvoicePage> {
               <tr>
                 <td style=" font-weight: bold; font-size: 12px; padding: 1px !important;" class="col-md-1">1</td>
                 <td class="col-md-1" style=" font-size: 12px; padding: 1px !important;">${widget.product['SKU']}</td> 
-                <td class="col-md-1" style=" font-size: 12px; padding: 1px !important;">${widget.invoice['TXNID']}</td>
+                <td class="col-md-1" style=" font-size: 12px; padding: 1px !important;">${widget.invoice['BANKTXNID']}</td>
                 <td style=" font-size: 12px; padding: 1px !important;" class="col-md-4">${widget.product['name']}</td>
                 <td style=" font-size: 12px; padding: 1px !important;" class="col-md-4">VITOPIA2023-MARCH</td>
                 <td style=" font-size: 12px; padding: 1px !important; float: right;" class="col-md-5 text-right">${widget.invoice['TXNAMOUNT']}</td>
@@ -109,7 +109,7 @@ class _InvoicePageState extends State<InvoicePage> {
             </tbody>
           </table>
           <div style="font-weight: bold; font-size: medium; " class="text text-primary text-right">Grand Total : </div>
-          <div style="font-weight: bold;  text-align: right;" class="text">k</div>
+        
           <table class="table">
             <thead>
               <tr>
@@ -133,11 +133,12 @@ class _InvoicePageState extends State<InvoicePage> {
                   <div></div>
                 </td>
               </tr>
+              <tr>
+                <th class="text-center" colspan="4" style="font-weight: bold; font-size: 15px">This is computer generated invoice signature is not required</th>
+              </tr>
             </tbody>
           </table>
           <div></div>
-      
-           
         </div>
   </body>
 </html>
