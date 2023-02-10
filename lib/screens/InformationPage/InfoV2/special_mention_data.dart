@@ -5,9 +5,6 @@ class SpecialPerson {
   final String quote;
   final String image;
   final String category;
-  final String? facebookLink;
-  final String? twitterLink;
-  final String? linkedinLink;
 
   SpecialPerson({
     required this.image,
@@ -16,9 +13,6 @@ class SpecialPerson {
     required this.designation,
     required this.quote,
     required this.category,
-    required this.facebookLink,
-    required this.twitterLink,
-    required this.linkedinLink,
   });
 
   factory SpecialPerson.fromJson(Map<String, dynamic> json) {
@@ -28,9 +22,6 @@ class SpecialPerson {
       designation: json['designation'] ?? "",
       quote: json['quote'] ?? "",
       category: json['category'] ?? "",
-      facebookLink: json['facebookLink'] ?? "",
-      twitterLink: json['twitterLink'] ?? "",
-      linkedinLink: json['linkedinLink'] ?? "",
       image: json['image'] ?? "",
     );
   }

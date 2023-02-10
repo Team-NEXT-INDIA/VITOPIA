@@ -5,11 +5,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:shimmer_animation/shimmer_animation.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:vitopia/screens/InformationPage/mentioncolor.dart';
 
 import '../../customs/ontapscale.dart';
@@ -180,24 +178,6 @@ class SpecialPersonCard extends StatelessWidget {
   final SpecialPerson specialPerson;
 
   SpecialPersonCard({required this.specialPerson});
-
-  _launchURLInsta() async {
-    var url = Uri.parse(specialPerson.facebookLink ?? '');
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
-  _launchURLLinkedIn() async {
-    var url = Uri.parse(specialPerson.linkedinLink ?? '');
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -398,38 +378,6 @@ class SpecialPersonCard extends StatelessWidget {
               ),
               SizedBox(
                 height: 10.h,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Color(0x20c9c9c9),
-                    child: IconButton(
-                      onPressed: _launchURLInsta,
-                      icon: Icon(FontAwesomeIcons.linkedinIn),
-                      color: Colors.white70,
-                    ),
-                  ),
-                  CircleAvatar(
-                    backgroundColor: Color(0x20c9c9c9),
-                    child: IconButton(
-                      onPressed: () async {
-                        launchUrl(
-                            Uri.parse(specialPerson.facebookLink.toString()));
-                      },
-                      icon: Icon(FontAwesomeIcons.facebookF),
-                      color: Colors.white70,
-                    ),
-                  ),
-                  CircleAvatar(
-                    backgroundColor: Color(0x20c9c9c9),
-                    child: IconButton(
-                      onPressed: _launchURLLinkedIn,
-                      icon: Icon(FontAwesomeIcons.twitter),
-                      color: Colors.white70,
-                    ),
-                  ),
-                ],
               ),
               SizedBox(
                 height: 50.h,
