@@ -33,6 +33,9 @@ class RouteGenerator {
       case '/profile':
         return CupertinoPageRoute(
             builder: (_) => ProfileV2(), settings: settings);
+      // case '/eventsplan':
+      //   return CupertinoPageRoute(
+      //       builder: (_) => EventsPlanPage(), settings: settings);
       case '/profileview':
         return CupertinoPageRoute(
             builder: (_) => ProfilePage(), settings: settings);

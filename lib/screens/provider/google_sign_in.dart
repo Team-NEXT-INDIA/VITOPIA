@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class GoogleSignInProvider extends ChangeNotifier {
@@ -11,10 +12,10 @@ class GoogleSignInProvider extends ChangeNotifier {
 
   GoogleSignInAccount get user => _user!;
   Future<void> storeEmail(String email) async {
-    if (email.endsWith("@vitapstudent.ac.in") ||
-        email.endsWith("@vitap.ac.in")) {
+    if (!user.email.endsWith('@vitapstudent.ac.in') ||
+        !user.email.endsWith('@vitap.ac.in')) {
       final prefs = await SharedPreferences.getInstance();
-      prefs.setString('email', email);
+      prefs.setString('email', user.email);
     } else {
       print("Error: email does not belong to a valid domain");
     }
@@ -47,7 +48,7 @@ class GoogleSignInProvider extends ChangeNotifier {
       _user = googleUser;
 
       if (!user.email.endsWith('@vitapstudent.ac.in') &&
-          !user.email.endsWith('@vitstudent.ac.in')) {
+          !user.email.endsWith('@vitap.ac.in')) {
         await removeEmail();
         AwesomeDialog(
           context: context,
@@ -87,6 +88,98 @@ class GoogleSignInProvider extends ChangeNotifier {
     }
   }
 
+  Future<void> appleLogin(BuildContext context, Function navigate) async {
+    _launchURLLinkedIn() async {
+      var url = Uri.parse('https://vitopia.vitap.ac.in');
+      if (await canLaunchUrl(url)) {
+        await launchUrl(url);
+      } else {
+        throw 'Could not launch $url';
+      }
+    }
+
+    try {
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+        webAuthenticationOptions: WebAuthenticationOptions(
+          clientId: 'LG9D9YUJ9Z',
+          redirectUri:
+              Uri.parse('https://signin-4d5e8.firebaseapp.com/__/auth/handler'),
+        ),
+      );
+
+      final OAuthProvider oAuthProvider = OAuthProvider('apple.com');
+      final credentialFirebase = oAuthProvider.credential(
+        idToken: credential.identityToken,
+        accessToken: credential.authorizationCode,
+      );
+
+      final UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credentialFirebase);
+
+      final User? user = userCredential.user;
+      if (!(user?.email ?? '').endsWith('@vitapstudent.ac.in') &&
+          !(user?.email ?? '').endsWith('@vitap.ac.in')) {
+        print('@gmail.com valided');
+        print(user?.email);
+        await removeEmail();
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.warning,
+          animType: AnimType.bottomSlide,
+          title: 'INFORMATION',
+          desc: 'VITopia App Can Only be Accessed Using University Email',
+          btnCancelText: 'External Participant?',
+          btnOkText: 'Ok',
+          btnCancelOnPress: _launchURLLinkedIn,
+          btnOkOnPress: () {},
+        )..show();
+        return;
+      }
+      Navigator.pushReplacementNamed(context, '/studenthome');
+      await storeEmail(user?.email ?? "");
+      print(user?.displayName ?? "");
+      print(user?.email ?? "");
+
+      print(user);
+    } on SignInWithAppleAuthorizationException catch (e) {
+      print('Failed to sign in with Apple: ${e.toString()}');
+      String message = 'Failed to sign in with Apple. Please try again later.';
+      if (e.code == AuthorizationErrorCode.canceled) {
+        message = 'Sign in with Apple was canceled.';
+      }
+      final snackBar = SnackBar(
+        behavior: SnackBarBehavior.floating,
+        content: Text(message),
+        action: SnackBarAction(
+          label: 'Dismiss',
+          onPressed: () {
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          },
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } catch (e, s) {
+      print(e.toString());
+      print(s.toString());
+
+      final snackBar = SnackBar(
+        behavior: SnackBarBehavior.floating,
+        content: Text('Failed to sign in with Apple. Please try again later.'),
+        action: SnackBarAction(
+          label: 'Dismiss',
+          onPressed: () {
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          },
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
+
   Future logout(BuildContext context, Function navigate) async {
     try {
       await googleSignIn.disconnect();
@@ -95,7 +188,7 @@ class GoogleSignInProvider extends ChangeNotifier {
       await removeEmail();
       final snackBar = SnackBar(
         behavior: SnackBarBehavior.floating,
-        content: Text("Logged Out Sucessful"),
+        content: Text("Logged Out Successful"),
         action: SnackBarAction(
           label: 'Dismiss',
           onPressed: () {

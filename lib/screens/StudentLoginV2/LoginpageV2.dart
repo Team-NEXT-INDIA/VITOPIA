@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +25,7 @@ class _LoginpageState extends State<Loginpage> {
   }
 
   bool _startlogin = false;
+  bool _startloginApple = false;
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -76,13 +79,12 @@ class _LoginpageState extends State<Loginpage> {
                   Align(
                     alignment: AlignmentDirectional(0, 1),
                     child: Container(
-                      height: 230.h,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: Color(0xffffffff),
                         borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(36.r),
-                          topRight: Radius.circular(36.r),
+                          topLeft: Radius.circular(27.r),
+                          topRight: Radius.circular(27.r),
                         ),
                         // boxShadow: [
                         //   BoxShadow(
@@ -95,6 +97,7 @@ class _LoginpageState extends State<Loginpage> {
                       child: Container(
                         padding: EdgeInsets.fromLTRB(30.h, 15.h, 30.h, 0.h),
                         child: Column(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
                             Padding(
                               padding: EdgeInsets.only(bottom: 8.0.h),
@@ -118,7 +121,7 @@ class _LoginpageState extends State<Loginpage> {
                                   fontSize: 21.sp,
                                   fontWeight: FontWeight.w800,
                                 )),
-                            Text('Continue with your social account',
+                            Text('Continue with your University account',
                                 style: GoogleFonts.montserrat(
                                   color: const Color(0xFF727272),
                                   fontSize: 10.sp,
@@ -187,52 +190,122 @@ class _LoginpageState extends State<Loginpage> {
                               ),
                             ),
                             SizedBox(
-                              height: 17.h,
+                              height: 7.h,
                             ),
-                            CustomTap(
-                              onTap: () {
-                                final snackBar = SnackBar(
-                                  behavior: SnackBarBehavior.floating,
-                                  content: Text('Try Again Later'),
-                                  action: SnackBarAction(
-                                    label: 'Dismiss',
-                                    onPressed: () {
-                                      ScaffoldMessenger.of(context)
-                                          .hideCurrentSnackBar();
+                            Platform.isIOS
+                                ? CustomTap(
+                                    onTap: () {
+                                      try {
+                                        setState(() {
+                                          _startloginApple = true;
+                                        });
+                                        final provider =
+                                            Provider.of<GoogleSignInProvider>(
+                                                context,
+                                                listen: false);
+
+                                        provider.appleLogin(
+                                            context, Navigator.pushNamed);
+
+                                        Future.delayed(
+                                          const Duration(seconds: 10),
+                                          () {
+                                            setState(() {
+                                              _startloginApple = false;
+                                            });
+                                          },
+                                        );
+                                      } catch (e, s) {
+                                        print(s.toString());
+
+                                        setState(() {
+                                          _startloginApple = false;
+                                        });
+                                      }
                                     },
+                                    child: Container(
+                                      height: 40.h,
+                                      width: MediaQuery.of(context).size.width,
+                                      decoration: BoxDecoration(
+                                          color: const Color(0xFF090419),
+                                          borderRadius:
+                                              BorderRadius.circular(8.r)),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Image.asset(
+                                            'assets/images/apple-logo.png',
+                                            height: 19.h,
+                                          ),
+                                          SizedBox(
+                                            width: 10.h,
+                                          ),
+                                          _startloginApple
+                                              ? const CupertinoActivityIndicator(
+                                                  color: Colors.white,
+                                                )
+                                              : Text('Sign in with Apple',
+                                                  style: GoogleFonts.montserrat(
+                                                    color:
+                                                        const Color(0xffCECECE),
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w600,
+                                                  )),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                : SizedBox(
+                                    height: 0,
                                   ),
-                                );
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                              },
-                              child: Container(
-                                height: 40.h,
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(
-                                    color: const Color(0xFF090419),
-                                    borderRadius: BorderRadius.circular(8.r)),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      'assets/images/linkedin_logo.png',
-                                      height: 17.h,
-                                    ),
-                                    SizedBox(
-                                      width: 10.h,
-                                    ),
-                                    Text('Sign in with Linkedin',
-                                        style: GoogleFonts.montserrat(
-                                          color: const Color(0xffCECECE),
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w600,
-                                        )),
-                                  ],
-                                ),
-                              ),
-                            ),
+                            // SizedBox(
+                            //   height: 17.h,
+                            // ),
+                            // CustomTap(
+                            //   onTap: () {
+                            //     final snackBar = SnackBar(
+                            //       behavior: SnackBarBehavior.floating,
+                            //       content: Text('Try Again Later'),
+                            //       action: SnackBarAction(
+                            //         label: 'Dismiss',
+                            //         onPressed: () {
+                            //           ScaffoldMessenger.of(context)
+                            //               .hideCurrentSnackBar();
+                            //         },
+                            //       ),
+                            //     );
+                            //     ScaffoldMessenger.of(context)
+                            //         .showSnackBar(snackBar);
+                            //   },
+                            //   child: Container(
+                            //     height: 40.h,
+                            //     width: MediaQuery.of(context).size.width,
+                            //     decoration: BoxDecoration(
+                            //         color: const Color(0xFF090419),
+                            //         borderRadius: BorderRadius.circular(8.r)),
+                            //     child: Row(
+                            //       mainAxisAlignment: MainAxisAlignment.center,
+                            //       children: [
+                            //         Image.asset(
+                            //           'assets/images/linkedin_logo.png',
+                            //           height: 17.h,
+                            //         ),
+                            //         SizedBox(
+                            //           width: 10.h,
+                            //         ),
+                            //         Text('Sign in with Linkedin',
+                            //             style: GoogleFonts.montserrat(
+                            //               color: const Color(0xffCECECE),
+                            //               fontSize: 14.sp,
+                            //               fontWeight: FontWeight.w600,
+                            //             )),
+                            //       ],
+                            //     ),
+                            //   ),
+                            // ),
                             SizedBox(
-                              height: 10.h,
+                              height: 17.h,
                             ),
                             Column(
                               children: [
@@ -278,7 +351,10 @@ class _LoginpageState extends State<Loginpage> {
                                   ),
                                 ),
                               ],
-                            )
+                            ),
+                            SizedBox(
+                              height: 20.h,
+                            ),
                           ],
                         ),
                       ),

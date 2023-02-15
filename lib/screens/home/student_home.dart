@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:animate_do/animate_do.dart';
@@ -10,10 +11,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:new_version_plus/new_version_plus.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:vitopia/customs/ontapscale.dart';
 import 'package:vitopia/screens/events/events_view.dart';
 import 'package:vitopia/screens/home/components/our_guests.dart';
+import 'package:vitopia/screens/home/updatedialog.dart';
 
 import '../../customs/colors.dart';
 import '../Intro/Components/feature_cards.dart';
@@ -41,6 +44,14 @@ class _StudentHomeState extends State<StudentHome> {
   @override
   void initState() {
     super.initState();
+    final newVersion = NewVersionPlus(
+      iOSId: 'com.arize.vitopia',
+      androidId: 'com.arize.vitopia',
+    );
+
+    Timer(const Duration(milliseconds: 800), () {
+      checkNewVersion(newVersion);
+    });
     _fabscrollController = ScrollController();
     _ScrollController = ScrollController();
     _fetchFeaturedEvents();
@@ -62,6 +73,31 @@ class _StudentHomeState extends State<StudentHome> {
         });
       }
     });
+  }
+
+  void checkNewVersion(NewVersionPlus newVersion) async {
+    final status = await newVersion.getVersionStatus();
+    if (status != null) {
+      if (status.canUpdate) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return UpdateDialog(
+              allowDismissal: true,
+              description: status.releaseNotes!,
+              version: status.storeVersion,
+              appLink: status.appStoreLink,
+            );
+          },
+        );
+        // newVersion.showUpdateDialog(
+        //   context: context,
+        //   versionStatus: status,
+        //   dialogText: 'New Version is available in the store (${status.storeVersion}), update now!',
+        //   dialogTitle: 'Update is Available!',
+        // );
+      }
+    }
   }
 
   @override
@@ -187,7 +223,7 @@ class _StudentHomeState extends State<StudentHome> {
                                         Container(
                                           width: 200.w,
                                           child: Text(
-                                            user.displayName ?? "",
+                                            user.displayName ?? "User",
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             style: GoogleFonts.montserrat(
@@ -245,8 +281,8 @@ class _StudentHomeState extends State<StudentHome> {
                                                   borderRadius:
                                                       BorderRadius.circular(50),
                                                   child: CachedNetworkImage(
-                                                    imageUrl:
-                                                        user.photoURL ?? "",
+                                                    imageUrl: user.photoURL ??
+                                                        "https://vitopia.mukham.in/images/vitopiauser.jpg",
                                                     width: double.infinity,
                                                     fit: BoxFit.fill,
                                                     placeholder:

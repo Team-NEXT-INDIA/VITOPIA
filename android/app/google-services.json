@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "331520781309-1ejdk2n4vjke910c32jb3iemo28b09fg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.arize.vitopia",
+            "certificate_hash": "d992a4f65b6b75c7e0d30068abd763ef41b0b72d"
+          }
+        },
+        {
+          "client_id": "331520781309-bv7fqhld1ob1qsjrfa4u73nl99bccgs3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.arize.vitopia",
+            "certificate_hash": "5410551ee59e4a5769bf982b840894e7e3823b7f"
+          }
+        },
+        {
           "client_id": "331520781309-hg22u82mib6imunibul8ih5f9h13uhla.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -58,7 +74,8 @@
               "client_id": "331520781309-tgad1tcop9nj2e48neikic4iaoceo5p1.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.arize.vitopia"
+                "bundle_id": "com.arize.vitopia",
+                "app_store_id": "1671245463"
               }
             }
           ]

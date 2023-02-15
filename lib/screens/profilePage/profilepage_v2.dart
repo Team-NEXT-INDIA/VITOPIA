@@ -98,7 +98,7 @@ class ProfileV2 extends StatelessWidget {
                                   child: Container(
                                     width: 200.w,
                                     child: Text(
-                                      user.displayName ?? "",
+                                      user.displayName ?? "User",
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: GoogleFonts.montserrat(
@@ -124,7 +124,8 @@ class ProfileV2 extends StatelessWidget {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(100),
                                     child: CachedNetworkImage(
-                                      imageUrl: user.photoURL ?? "",
+                                      imageUrl: user.photoURL ??
+                                          "https://vitopia.mukham.in/images/vitopiauser.jpg",
                                       width: double.infinity,
                                       fit: BoxFit.fill,
                                       placeholder: (context, url) => Shimmer(

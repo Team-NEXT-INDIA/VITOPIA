@@ -16,6 +16,10 @@
                 </array>
             </dict>
         </array>
+        <key>NSCameraUsageDescription</key>
+        <string>VITOPIA Requires Your Camera Access to Function</string>
+        <key>NSLocationWhenInUseUsageDescription</key>
+        <string>Your Location is Required for Processing our Payments.</string>
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>

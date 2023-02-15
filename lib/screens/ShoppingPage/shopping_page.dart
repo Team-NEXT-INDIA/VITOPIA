@@ -118,7 +118,7 @@ class _ShoppingPageState extends State<ShoppingPage>
                         ),
                         child: CachedNetworkImage(
                           imageUrl:
-                              "https://i.im.ge/2023/01/24/sKSaN6.jacob-nizierski-V0hohwot0oM-unsplash.jpg",
+                              "https://vitopia.mukham.in/images/shopping-background.jpg",
                           width: double.infinity,
                           fit: BoxFit.cover,
                           placeholder: (context, url) => Shimmer(
@@ -404,7 +404,7 @@ class _ShoppingPageState extends State<ShoppingPage>
                                                 ),
                                               ),
                                               Text(
-                                                'No Tickets Found',
+                                                'No Products Found',
                                                 style: TextStyle(
                                                   fontFamily:
                                                       'Monument Extended',

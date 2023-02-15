@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:vitopia/helpers/routes.dart';
@@ -14,9 +13,6 @@ void main() async {
 
   await Firebase.initializeApp();
   HttpOverrides.global = MyHttpOverrides();
-  //initilization of Firebase app
-
-  // other Firebase service initialization
 
   runApp(MyApp());
 }
@@ -27,14 +23,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Future<void> secureScreen() async {
-    await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
-  }
-
   @override
   void initState() {
-    FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
-    secureScreen();
     super.initState();
     OneSignal.shared.setLogLevel(OSLogLevel.debug, OSLogLevel.none);
     OneSignal.shared.setAppId('7fa9a22f-66cf-4622-88ec-08c42e5b007c');

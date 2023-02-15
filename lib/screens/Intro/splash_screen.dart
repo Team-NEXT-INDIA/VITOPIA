@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -38,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen>
     }
 
     _controller = AnimationController(vsync: this);
-    Timer(const Duration(seconds: 7), () async {
+    Timer(const Duration(seconds: 6), () async {
       final prefs = await SharedPreferences.getInstance();
       final email = prefs.getString('email');
       print(email);
@@ -87,7 +88,8 @@ class _SplashScreenState extends State<SplashScreen>
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: SingleChildScrollView(
         child: Center(
-          child: Column(
+          child: Stack(
+            alignment: Alignment.center,
             children: [
               SizedBox(
                 height: 580.h,
@@ -103,9 +105,49 @@ class _SplashScreenState extends State<SplashScreen>
                   },
                 ),
               ),
-              CupertinoActivityIndicator(
-                color: Colors.grey,
-              )
+              FadeInUp(
+                duration: Duration(milliseconds: 1200),
+                from: 20,
+                child: Padding(
+                  padding: EdgeInsets.only(top: 90.h),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'March',
+                          style: GoogleFonts.montserrat(
+                              color: Color(0xd0ffffff),
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        Text(
+                          ' 4th',
+                          style: GoogleFonts.montserrat(
+                              color: Colors.white,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w800),
+                        ),
+                        Text(
+                          ' &',
+                          style: GoogleFonts.montserrat(
+                              color: Color(0xd0ffffff),
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        Text(
+                          ' 5th',
+                          style: GoogleFonts.montserrat(
+                              color: Colors.white,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w900),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

@@ -13,18 +13,25 @@ class DisabledPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-              height: 100.h,
-              width: 100.h,
-              child: Image.asset('assets/images/404.jpg')),
-          Text(
-            'Page not found',
-            style: GoogleFonts.montserrat(
-              fontSize: 17.sp,
-              fontWeight: FontWeight.w700,
-              color: Color(0xffffffff),
+          Center(
+            child: Text(
+              'VITopia Has Ended Successfully \n Thanks For Participating',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.montserrat(
+                fontSize: 17.sp,
+                fontWeight: FontWeight.w800,
+                color: Color(0xffffffff),
+              ),
             ),
-          )
+          ),
+          Center(
+            child: Row(
+              children: [
+                Image.asset('assets/images/arize-white.png'),
+                Image.asset('assets/images/Logo_white.png')
+              ],
+            ),
+          ),
         ],
       ),
     );
