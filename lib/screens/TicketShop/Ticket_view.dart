@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:paytm_allinonesdk/paytm_allinonesdk.dart';
+import 'package:provider/provider.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:vitopia/customs/ontapscale.dart';
 
@@ -16,6 +17,7 @@ import '../../customs/colors.dart';
 import '../ShoppingPage/Data/product_data_class.dart';
 import '../ShoppingPage/FollowPages/Failed_Payment.dart';
 import '../ShoppingPage/FollowPages/Sucess_Payment.dart';
+import '../provider/google_sign_in.dart';
 
 class Ticket_view extends StatefulWidget {
   Ticket_view({Key? key, required this.product}) : super(key: key);
@@ -166,7 +168,7 @@ class _Ticket_viewState extends State<Ticket_view> {
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.h, vertical: 20.h),
+          padding: EdgeInsets.symmetric(horizontal: 8.h, vertical: 20.h),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -263,10 +265,17 @@ class _Ticket_viewState extends State<Ticket_view> {
                             FocusScope.of(context).requestFocus(FocusNode());
                             String amount = widget.product.price.toString();
                             Future.delayed(const Duration(seconds: 3));
-                            if (amount.isEmpty) {
+                            if ((!(user.email ?? '')
+                                    .endsWith('@vitapstudent.ac.in') &&
+                                !(user.email ?? '').endsWith('@vitap.ac.in'))) {
+                              setState(() {
+                                _starttransaction = false;
+                              });
+                              _dialogBuilder(context);
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                  content: Text("Error In Payment (0XFF9709)"),
+                                  content: Text(
+                                      "User Not Authorised with VITAP Credentials"),
                                 ),
                               );
                               return;
@@ -584,6 +593,125 @@ class _Ticket_viewState extends State<Ticket_view> {
     );
 
     // var verifyJson = jsonDecode(res.body);
+  }
+
+  Future<void> _dialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Color(0xff292929),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: Icon(Icons.close))
+                ],
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Text(
+                "Not Authorised",
+                style: GoogleFonts.montserrat(
+                  fontSize: 17.sp,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xffffffff),
+                ),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Container(
+                width: 230.w,
+                child: Text(
+                  'To ensure that only VITAP University users have access to purchase Tickets, authentication with a valid VITAP University email will be required to Buy Tickets.',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.montserrat(
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xffffffff),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 13.h,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 10.h),
+                child: CustomTap(
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return Container(
+                            child: AlertDialog(
+                              title: const Text("Leaving to Soon!"),
+                              content:
+                                  const Text("Are sure you want to logout?"),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text("NO")),
+                                TextButton(
+                                    onPressed: () {
+                                      final provider =
+                                          Provider.of<GoogleSignInProvider>(
+                                              context,
+                                              listen: false);
+                                      provider.logout(
+                                          context, Navigator.pushNamed);
+                                    },
+                                    child: const Text("YES")),
+                              ],
+                            ),
+                          );
+                        });
+                  },
+                  child: Container(
+                    height: 40.h,
+                    width: 140.w,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Logout",
+                          style: GoogleFonts.montserrat(
+                            color: const Color(0xff000000),
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(6.r)),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }
 

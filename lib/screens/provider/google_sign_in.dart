@@ -1,4 +1,3 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -11,14 +10,19 @@ class GoogleSignInProvider extends ChangeNotifier {
   GoogleSignInAccount? _user;
 
   GoogleSignInAccount get user => _user!;
+  // Future<void> storeEmail(String email) async {
+  //   if (!user.email.endsWith('@vitapstudent.ac.in') ||
+  //       !user.email.endsWith('@vitap.ac.in')) {
+  //     final prefs = await SharedPreferences.getInstance();
+  //     prefs.setString('email', user.email);
+  //   } else {
+  //     print("Error: email does not belong to a valid domain");
+  //   }
+  // }
   Future<void> storeEmail(String email) async {
-    if (!user.email.endsWith('@vitapstudent.ac.in') ||
-        !user.email.endsWith('@vitap.ac.in')) {
-      final prefs = await SharedPreferences.getInstance();
-      prefs.setString('email', user.email);
-    } else {
-      print("Error: email does not belong to a valid domain");
-    }
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('email', user.email);
+    print("Saved Email");
   }
 
   Future<String> getEmail() async {
@@ -47,22 +51,22 @@ class GoogleSignInProvider extends ChangeNotifier {
       if (googleUser == null) return;
       _user = googleUser;
 
-      if (!user.email.endsWith('@vitapstudent.ac.in') &&
-          !user.email.endsWith('@vitap.ac.in')) {
-        await removeEmail();
-        AwesomeDialog(
-          context: context,
-          dialogType: DialogType.warning,
-          animType: AnimType.bottomSlide,
-          title: 'INFORMATION',
-          desc: 'VITopia App Can Only be Accessed Using University Email',
-          btnCancelText: 'External Participant?',
-          btnOkText: 'Ok',
-          btnCancelOnPress: _launchURLLinkedIn,
-          btnOkOnPress: () {},
-        )..show();
-        return;
-      }
+      // if (!user.email.endsWith('@vitapstudent.ac.in') &&
+      //     !user.email.endsWith('@vitap.ac.in')) {
+      //   await removeEmail();
+      //   AwesomeDialog(
+      //     context: context,
+      //     dialogType: DialogType.warning,
+      //     animType: AnimType.bottomSlide,
+      //     title: 'INFORMATION',
+      //     desc: 'VITopia App Can Only be Accessed Using University Email',
+      //     btnCancelText: 'External Participant?',
+      //     btnOkText: 'Ok',
+      //     btnCancelOnPress: _launchURLLinkedIn,
+      //     btnOkOnPress: () {},
+      //   )..show();
+      //   return;
+      // }
 
       final googleAuth = await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
@@ -121,24 +125,24 @@ class GoogleSignInProvider extends ChangeNotifier {
           await FirebaseAuth.instance.signInWithCredential(credentialFirebase);
 
       final User? user = userCredential.user;
-      if (!(user?.email ?? '').endsWith('@vitapstudent.ac.in') &&
-          !(user?.email ?? '').endsWith('@vitap.ac.in')) {
-        print('@gmail.com valided');
-        print(user?.email);
-        await removeEmail();
-        AwesomeDialog(
-          context: context,
-          dialogType: DialogType.warning,
-          animType: AnimType.bottomSlide,
-          title: 'INFORMATION',
-          desc: 'VITopia App Can Only be Accessed Using University Email',
-          btnCancelText: 'External Participant?',
-          btnOkText: 'Ok',
-          btnCancelOnPress: _launchURLLinkedIn,
-          btnOkOnPress: () {},
-        )..show();
-        return;
-      }
+      // if (!(user?.email ?? '').endsWith('@vitapstudent.ac.in') &&
+      //     !(user?.email ?? '').endsWith('@vitap.ac.in')) {
+      //   print('@gmail.com valided');
+      //   print(user?.email);
+      //   await removeEmail();
+      //   AwesomeDialog(
+      //     context: context,
+      //     dialogType: DialogType.warning,
+      //     animType: AnimType.bottomSlide,
+      //     title: 'INFORMATION',
+      //     desc: 'VITopia App Can Only be Accessed Using University Email',
+      //     btnCancelText: 'External Participant?',
+      //     btnOkText: 'Ok',
+      //     btnCancelOnPress: _launchURLLinkedIn,
+      //     btnOkOnPress: () {},
+      //   )..show();
+      //   return;
+      // }
       Navigator.pushReplacementNamed(context, '/studenthome');
       await storeEmail(user?.email ?? "");
       print(user?.displayName ?? "");
@@ -186,9 +190,10 @@ class GoogleSignInProvider extends ChangeNotifier {
       FirebaseAuth.instance.signOut();
       Navigator.pushReplacementNamed(context, '/login');
       await removeEmail();
+    } catch (e) {
       final snackBar = SnackBar(
         behavior: SnackBarBehavior.floating,
-        content: Text("Logged Out Successful"),
+        content: Text(e.toString()),
         action: SnackBarAction(
           label: 'Dismiss',
           onPressed: () {
@@ -200,8 +205,6 @@ class GoogleSignInProvider extends ChangeNotifier {
       // Find the ScaffoldMessenger in the widget tree
       // and use it to show a SnackBar.
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    } catch (e) {
-      // handle error here
     }
   }
 }

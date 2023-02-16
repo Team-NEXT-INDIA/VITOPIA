@@ -10,12 +10,14 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:paytm_allinonesdk/paytm_allinonesdk.dart';
+import 'package:provider/provider.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:vitopia/customs/ontapscale.dart';
 import 'package:vitopia/screens/ShoppingPage/FollowPages/Failed_Payment.dart';
 import 'package:vitopia/screens/ShoppingPage/FollowPages/Sucess_Payment.dart';
 
 import '../../customs/colors.dart';
+import '../provider/google_sign_in.dart';
 import 'Data/product_data_class.dart';
 
 class ProductDetailsView extends StatefulWidget {
@@ -50,6 +52,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
     String CHECKSUMHASH = successResponse['CHECKSUMHASH'] ?? "";
     String TXNAMOUNT = successResponse['TXNAMOUNT'] ?? "";
     String SKU = widget.product.sku ?? "";
+    String SIZE = _selectedSize ?? "";
     String OUT_STATUS = 'waiting';
 
     Map<String, dynamic> body = {
@@ -68,6 +71,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
       'CHECKSUMHASH': CHECKSUMHASH,
       'TXNAMOUNT': TXNAMOUNT,
       'SKU': SKU,
+      'SIZE': SIZE,
       'OUT_STATUS': OUT_STATUS,
     };
     final response = await http.post(
@@ -138,6 +142,8 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
     }
   }
 
+  String? _selectedSize;
+  bool _sizeSelected = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -231,29 +237,6 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 10),
-                              child: Container(
-                                width: 60,
-                                height: 5,
-                                decoration: BoxDecoration(
-                                    color: const Color(0xff1a1a1a),
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      children: [],
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
                         SizedBox(height: 10.h),
                         Padding(
                           padding: const EdgeInsets.only(left: 15, top: 10),
@@ -266,38 +249,163 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15),
-                          child: Text(
-                            widget.product.sub_category ?? "",
-                            style: GoogleFonts.montserrat(
-                              color: const Color(0xFF808080),
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w500,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 15),
+                                  child: Text(
+                                    widget.product.sub_category ?? "",
+                                    style: GoogleFonts.montserrat(
+                                      color: const Color(0xFF808080),
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  width: 230.w,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 15),
+                                    child: Text(
+                                      widget.product.description ?? "",
+                                      maxLines: 2,
+                                      style: GoogleFonts.montserrat(
+                                        color: const Color(0xFF808080),
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15),
-                          child: Text(
-                            widget.product.sku ?? "",
-                            style: GoogleFonts.montserrat(
-                              color: const Color(0xFF808080),
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w500,
+                            Padding(
+                              padding: EdgeInsets.only(right: 15.h),
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.all(3.h),
+                                  child: DropdownButton(
+                                    hint: Text("Select Size"),
+                                    borderRadius: BorderRadius.circular(18),
+                                    value: _selectedSize,
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        _selectedSize = newValue;
+                                        _sizeSelected = true;
+                                      });
+                                    },
+                                    items: [
+                                      DropdownMenuItem(
+                                        value: "Small",
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: <Widget>[
+                                            SizedBox(width: 10),
+                                            Text(
+                                              "Small",
+                                              style: TextStyle(
+                                                  fontSize: 18.0,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: "Medium",
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: <Widget>[
+                                            SizedBox(width: 10),
+                                            Text(
+                                              "Medium",
+                                              style: TextStyle(
+                                                  fontSize: 18.0,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: "Large",
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: <Widget>[
+                                            SizedBox(width: 10),
+                                            Text(
+                                              "Large",
+                                              style: TextStyle(
+                                                  fontSize: 18.0,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 'XL',
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: <Widget>[
+                                            SizedBox(width: 10),
+                                            Text(
+                                              "XL",
+                                              style: TextStyle(
+                                                  fontSize: 18.0,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 'XXL',
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: <Widget>[
+                                            SizedBox(width: 10),
+                                            Text(
+                                              "XXL",
+                                              style: TextStyle(
+                                                  fontSize: 18.0,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 'XXXL',
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: <Widget>[
+                                            SizedBox(width: 10),
+                                            Text(
+                                              "XXXL",
+                                              style: TextStyle(
+                                                  fontSize: 18.0,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15),
-                          child: Text(
-                            widget.product.description ?? "",
-                            style: GoogleFonts.montserrat(
-                              color: const Color(0xFF808080),
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
+                          ],
                         ),
                         SizedBox(
                           height: 10.h,
@@ -314,25 +422,50 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                                   });
                                   FocusScope.of(context)
                                       .requestFocus(FocusNode());
+
+                                  if (!_sizeSelected) {
+                                    setState(() {
+                                      _starttransaction = false;
+                                    });
+                                    final snackBar = SnackBar(
+                                      behavior: SnackBarBehavior.floating,
+                                      content: Text('Please Select Size'),
+                                      action: SnackBarAction(
+                                        label: 'Dismiss',
+                                        onPressed: () {
+                                          ScaffoldMessenger.of(context)
+                                              .hideCurrentSnackBar();
+                                        },
+                                      ),
+                                    );
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(snackBar);
+                                    return;
+                                  }
+
                                   String amount =
                                       widget.product.price.toString();
                                   Future.delayed(const Duration(seconds: 3));
-                                  if (amount.isEmpty) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content:
-                                            Text("Error In Payment (0XFF9709)"),
-                                      ),
-                                    );
+
+                                  if ((!(user.email ?? '')
+                                          .endsWith('@vitapstudent.ac.in') &&
+                                      !(user.email ?? '')
+                                          .endsWith('@vitap.ac.in'))) {
+                                    setState(() {
+                                      _starttransaction = false;
+                                    });
+                                    print(_selectedSize);
+                                    _authenticationdialogBuilder(context);
                                     return;
                                   }
+
                                   initiateTransaction(amount);
                                 },
                                 child: Row(
                                   children: [
                                     Container(
                                       height: 40.h,
-                                      width: 270.w,
+                                      width: 260.w,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius:
@@ -459,6 +592,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
         String CHECKSUMHASH = jsonResponse['CHECKSUMHASH'] ?? "";
         String TXNAMOUNT = jsonResponse['TXNAMOUNT'] ?? "";
         String SKU = widget.product.sku ?? "";
+        String SIZE = _selectedSize ?? "";
         Map<String, dynamic> body = {
           'CURRENCY': CURRENCY,
           'GATEWAYNAME': GATEWAYNAME,
@@ -474,6 +608,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
           'TXNDATE': TXNDATE,
           'CHECKSUMHASH': CHECKSUMHASH,
           'TXNAMOUNT': TXNAMOUNT,
+          'SIZE': SIZE,
         };
         postTransactionDetails(body);
         final snackBar = SnackBar(
@@ -660,6 +795,125 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                 'assets/images/Sizechart.jpeg',
                 fit: BoxFit.contain,
               )
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _authenticationdialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Color(0xff292929),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: Icon(Icons.close))
+                ],
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Text(
+                "Not Authorised",
+                style: GoogleFonts.montserrat(
+                  fontSize: 17.sp,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xffffffff),
+                ),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Container(
+                width: 230.w,
+                child: Text(
+                  'To ensure that only VITAP University users have access to purchase Tickets, authentication with a valid VITAP University email will be required to Buy Tickets.',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.montserrat(
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xffffffff),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 13.h,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 10.h),
+                child: CustomTap(
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return Container(
+                            child: AlertDialog(
+                              title: const Text("Leaving to Soon!"),
+                              content:
+                                  const Text("Are sure you want to logout?"),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text("NO")),
+                                TextButton(
+                                    onPressed: () {
+                                      final provider =
+                                          Provider.of<GoogleSignInProvider>(
+                                              context,
+                                              listen: false);
+                                      provider.logout(
+                                          context, Navigator.pushNamed);
+                                    },
+                                    child: const Text("YES")),
+                              ],
+                            ),
+                          );
+                        });
+                  },
+                  child: Container(
+                    height: 40.h,
+                    width: 140.w,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Logout",
+                          style: GoogleFonts.montserrat(
+                            color: const Color(0xff000000),
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(6.r)),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
             ],
           ),
         );

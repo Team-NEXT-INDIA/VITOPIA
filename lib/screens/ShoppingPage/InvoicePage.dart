@@ -283,21 +283,31 @@ class _InvoicePageState extends State<InvoicePage> {
                         height: 20.h,
                       ),
                       Text(
-                        "TXN Status",
+                        "Payment Status",
                         style: GoogleFonts.montserrat(
                           fontSize: 17.sp,
                           fontWeight: FontWeight.w300,
                           color: Color(0xffBCBCBC),
                         ),
                       ),
-                      Text(
-                        widget.invoice['STATUS'],
-                        style: GoogleFonts.montserrat(
-                          fontSize: 17.sp,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xffffffff),
+                      if (widget.invoice['STATUS'] == 'TXN_SUCCESS')
+                        Text(
+                          "Success",
+                          style: GoogleFonts.montserrat(
+                            fontSize: 17.sp,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xffffffff),
+                          ),
+                        )
+                      else
+                        Text(
+                          'Pending - Please Contact Support',
+                          style: GoogleFonts.montserrat(
+                            fontSize: 17.sp,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xffffffff),
+                          ),
                         ),
-                      ),
                     ],
                   ),
                 )),
@@ -506,12 +516,17 @@ class _InvoicePageState extends State<InvoicePage> {
                             fontSize: 15.sp,
                           ),
                         ),
-                        Text(
-                          user.email.toString(),
-                          style: GoogleFonts.montserrat(
-                            color: Color(0xffBCBCBC),
-                            fontWeight: FontWeight.w300,
-                            fontSize: 15.sp,
+                        Container(
+                          width: 190.h,
+                          child: Text(
+                            user.email.toString(),
+                            overflow: TextOverflow.clip,
+                            maxLines: 5,
+                            style: GoogleFonts.montserrat(
+                              color: Color(0xffBCBCBC),
+                              fontWeight: FontWeight.w300,
+                              fontSize: 15.sp,
+                            ),
                           ),
                         ),
                       ],
@@ -555,7 +570,7 @@ class _InvoicePageState extends State<InvoicePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Pickup will be Sent via Mail show the QR Code to Awail the pickup',
+                              'Pickup Details will be Sent via Mail show the QR Code to Avail the pickup',
                               style: GoogleFonts.montserrat(
                                   color: Color(0xffffffff), fontSize: 14.sp),
                             ),
@@ -595,12 +610,16 @@ class _InvoicePageState extends State<InvoicePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          widget.product['name'],
-                          style: GoogleFonts.montserrat(
-                            color: Color(0xffBCBCBC),
-                            fontWeight: FontWeight.w300,
-                            fontSize: 15.sp,
+                        Container(
+                          width: 180.h,
+                          child: Text(
+                            widget.product['name'],
+                            overflow: TextOverflow.clip,
+                            style: GoogleFonts.montserrat(
+                              color: Color(0xffBCBCBC),
+                              fontWeight: FontWeight.w300,
+                              fontSize: 15.sp,
+                            ),
                           ),
                         ),
                         Text(
@@ -612,6 +631,17 @@ class _InvoicePageState extends State<InvoicePage> {
                           ),
                         ),
                       ],
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Text(
+                      'Size: ${widget.invoice['SIZE']}',
+                      style: GoogleFonts.montserrat(
+                        color: Color(0xffffffff),
+                        fontWeight: FontWeight.w300,
+                        fontSize: 15.sp,
+                      ),
                     ),
                     Text(
                       widget.product['SKU'],

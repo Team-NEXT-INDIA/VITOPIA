@@ -148,6 +148,7 @@ class _StudentHomeState extends State<StudentHome> {
         slivers: [
           SliverFillRemaining(
             child: SingleChildScrollView(
+              physics: ClampingScrollPhysics(),
               controller: _fabscrollController,
               child: Stack(children: [
                 Align(
@@ -289,9 +290,14 @@ class _StudentHomeState extends State<StudentHome> {
                                                         (context, url) =>
                                                             Shimmer(
                                                       child: Container(
-                                                        height: 25.h,
-                                                        width: 25.h,
-                                                        color: Colors.grey,
+                                                        height: 30.h,
+                                                        width: 30.h,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          color: Colors.grey,
+                                                        ),
                                                       ),
                                                     ),
                                                     errorWidget:

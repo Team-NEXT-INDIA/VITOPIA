@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,6 +38,7 @@ class _ShoppingPageState extends State<ShoppingPage>
   List<Product> _products = [];
   List<Ticket> _tickets = [];
   String? _error;
+  final user = FirebaseAuth.instance.currentUser!;
   String _sortBy = 'price_asc';
   @override
   void initState() {
@@ -248,192 +250,188 @@ class _ShoppingPageState extends State<ShoppingPage>
                           }
                         },
                         child: SingleChildScrollView(
-                          physics: const BouncingScrollPhysics(),
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: 18.h,
-                                  top: 20.h,
-                                  right: 18.h,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Products",
-                                      style: TextStyle(
-                                        fontFamily: 'Monument Extended',
-                                        color: const Color(0xffFFFFFF),
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.bold,
+                            physics: const BouncingScrollPhysics(),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 18.h,
+                                    top: 20.h,
+                                    right: 18.h,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Products",
+                                        style: TextStyle(
+                                          fontFamily: 'Monument Extended',
+                                          color: const Color(0xffFFFFFF),
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
-                                    ),
-                                    IconButton(
-                                      icon: Icon(Icons.filter_list,
-                                          color: isSorted
-                                              ? Colors.blue
-                                              : Colors.grey),
-                                      onPressed: () {
-                                        buildShowModalBottomSheet(context);
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 15.h),
-                                child: AnimationLimiter(
-                                  child: StaggeredGridView.countBuilder(
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    crossAxisCount: 2,
-                                    itemCount: _products.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return _products.isEmpty
-                                          ? Center(
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Opacity(
-                                                    opacity: 0.9,
-                                                    child: SvgPicture.asset(
-                                                      'assets/images/no-order.svg',
-                                                      width: 190.w,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    'No Products Found ',
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 20,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            )
-                                          : AnimationConfiguration
-                                              .staggeredGrid(
-                                              position: index,
-                                              duration: const Duration(
-                                                  milliseconds: 375),
-                                              columnCount: _products.length,
-                                              child: ScaleAnimation(
-                                                child: FadeInAnimation(
-                                                  child: ProductCard(
-                                                    onTap: () {
-                                                      Navigator.push(
-                                                          context,
-                                                          CupertinoPageRoute(
-                                                              builder: (context) =>
-                                                                  ProductDetailsView(
-                                                                    product:
-                                                                        Product(
-                                                                      id: _products[
-                                                                              index]
-                                                                          .id,
-                                                                      name: _products[
-                                                                              index]
-                                                                          .name,
-                                                                      sub_category:
-                                                                          _products[index]
-                                                                              .sub_category,
-                                                                      description:
-                                                                          _products[index]
-                                                                              .description,
-                                                                      price: _products[
-                                                                              index]
-                                                                          .price,
-                                                                      image: _products[
-                                                                              index]
-                                                                          .image,
-                                                                      sku: _products[
-                                                                              index]
-                                                                          .sku,
-                                                                    ),
-                                                                  )));
-                                                    },
-                                                    productName:
-                                                        _products[index].name ??
-                                                            "",
-                                                    productPrice:
-                                                        _products[index]
-                                                            .price
-                                                            .toString(),
-                                                    image: _products[index]
-                                                            .image ??
-                                                        "",
-                                                    sub_category:
-                                                        _products[index]
-                                                                .sub_category ??
-                                                            "",
-                                                  ),
-                                                ),
-                                              ),
-                                            );
-                                    },
-                                    staggeredTileBuilder: (int index) =>
-                                        StaggeredTile.count(
-                                            1, index.isEven ? 1.8 : 1.9),
-                                    mainAxisSpacing: 10.0,
-                                    crossAxisSpacing: 4.0,
+                                      IconButton(
+                                        icon: Icon(Icons.filter_list,
+                                            color: isSorted
+                                                ? Colors.blue
+                                                : Colors.grey),
+                                        onPressed: () {
+                                          buildShowModalBottomSheet(context);
+                                        },
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  _products.isEmpty
-                                      ? Center(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                'Lost in Moon',
-                                                style: TextStyle(
-                                                  fontFamily:
-                                                      'Monument Extended',
-                                                  color: Colors.white,
-                                                  fontSize: 17.sp,
-                                                  fontWeight: FontWeight.normal,
+                                Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 15.h),
+                                  child: AnimationLimiter(
+                                    child: StaggeredGridView.countBuilder(
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      crossAxisCount: 2,
+                                      itemCount: _products.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return _products.isEmpty
+                                            ? Center(
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Opacity(
+                                                      opacity: 0.9,
+                                                      child: SvgPicture.asset(
+                                                        'assets/images/no-order.svg',
+                                                        width: 190.w,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      'No Products Found ',
+                                                      style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 20,
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                              ),
-                                              Text(
-                                                'No Products Found',
-                                                style: TextStyle(
-                                                  fontFamily:
-                                                      'Monument Extended',
-                                                  color:
-                                                      const Color(0xFFB4B4B4),
-                                                  fontSize: 9.sp,
-                                                  fontWeight: FontWeight.normal,
+                                              )
+                                            : AnimationConfiguration
+                                                .staggeredGrid(
+                                                position: index,
+                                                duration: const Duration(
+                                                    milliseconds: 375),
+                                                columnCount: _products.length,
+                                                child: ScaleAnimation(
+                                                  child: FadeInAnimation(
+                                                    child: ProductCard(
+                                                      onTap: () {
+                                                        Navigator.push(
+                                                            context,
+                                                            CupertinoPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        ProductDetailsView(
+                                                                          product:
+                                                                              Product(
+                                                                            id: _products[index].id,
+                                                                            name:
+                                                                                _products[index].name,
+                                                                            sub_category:
+                                                                                _products[index].sub_category,
+                                                                            description:
+                                                                                _products[index].description,
+                                                                            price:
+                                                                                _products[index].price,
+                                                                            image:
+                                                                                _products[index].image,
+                                                                            sku:
+                                                                                _products[index].sku,
+                                                                          ),
+                                                                        )));
+                                                      },
+                                                      productName:
+                                                          _products[index]
+                                                                  .name ??
+                                                              "",
+                                                      productPrice:
+                                                          _products[index]
+                                                              .price
+                                                              .toString(),
+                                                      image: _products[index]
+                                                              .image ??
+                                                          "",
+                                                      sub_category: _products[
+                                                                  index]
+                                                              .sub_category ??
+                                                          "",
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
+                                              );
+                                      },
+                                      staggeredTileBuilder: (int index) =>
+                                          StaggeredTile.count(
+                                              1, index.isEven ? 1.8 : 1.9),
+                                      mainAxisSpacing: 10.0,
+                                      crossAxisSpacing: 4.0,
+                                    ),
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    _products.isEmpty
+                                        ? Center(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  'Lost in Moon',
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        'Monument Extended',
+                                                    color: Colors.white,
+                                                    fontSize: 17.sp,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  'No Products Found',
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        'Monument Extended',
+                                                    color:
+                                                        const Color(0xFFB4B4B4),
+                                                    fontSize: 9.sp,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        : Text(
+                                            "End of Products",
+                                            style: TextStyle(
+                                              fontFamily: 'Monument Extended',
+                                              color: const Color(0xFFB4B4B4),
+                                              fontSize: 9.sp,
+                                              fontWeight: FontWeight.normal,
+                                            ),
                                           ),
-                                        )
-                                      : Text(
-                                          "End of Products",
-                                          style: TextStyle(
-                                            fontFamily: 'Monument Extended',
-                                            color: const Color(0xFFB4B4B4),
-                                            fontSize: 9.sp,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 20.h,
-                              )
-                            ],
-                          ),
-                        ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                )
+                              ],
+                            )),
                       )));
   }
 

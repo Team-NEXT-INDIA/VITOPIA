@@ -612,13 +612,16 @@ class ProfileV2 extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "version 1.0.0",
+                    "version 1.0.0+8",
                     style: GoogleFonts.montserrat(
                       color: const Color(0xff727272),
                       fontSize: 9.sp,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
+                  SizedBox(
+                    height: 17.h,
+                  )
                 ],
               ),
             )
