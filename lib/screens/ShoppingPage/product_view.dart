@@ -843,7 +843,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
               Container(
                 width: 230.w,
                 child: Text(
-                  'To ensure that only VITAP University users have access to purchase Tickets, authentication with a valid VITAP University email will be required to Buy Tickets.',
+                  'To ensure that only VITAP University users have access to purchase Merchandise, authentication with a valid VITAP University email will be required to Buy Tickets.',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.montserrat(
                     fontSize: 12.sp,

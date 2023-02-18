@@ -169,18 +169,6 @@ class GoogleSignInProvider extends ChangeNotifier {
     } catch (e, s) {
       print(e.toString());
       print(s.toString());
-
-      final snackBar = SnackBar(
-        behavior: SnackBarBehavior.floating,
-        content: Text('Failed to sign in with Apple. Please try again later.'),
-        action: SnackBarAction(
-          label: 'Dismiss',
-          onPressed: () {
-            ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          },
-        ),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
 
