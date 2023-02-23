@@ -15,6 +15,7 @@ import 'package:vitopia/customs/ontapscale.dart';
 import 'package:vitopia/screens/profilePage/payment_policy.dart';
 
 import '../provider/google_sign_in.dart';
+import 'components/accountDeletion.dart';
 import 'components/contactus_page.dart';
 import 'data_privacy.dart';
 
@@ -371,6 +372,46 @@ class ProfileV2 extends StatelessWidget {
                     ),
                   ),
                   ListTile(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AccountDeletionDialog(
+                            userEmail: user.email.toString(),
+                            deletionPeriodInDays: 7,
+                          );
+                        },
+                      );
+                    },
+                    title: Text(
+                      "Account Deletion",
+                      style: GoogleFonts.montserrat(
+                        color: const Color(0xffFFFFFF),
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    subtitle: Text(
+                      "Process to Delete your Account",
+                      style: GoogleFonts.montserrat(
+                        color: const Color(0xff727272),
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    trailing: const Icon(
+                      Icons.arrow_forward_ios,
+                      color: Color(0xffCECECE),
+                    ),
+                    leading: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(
+                        Icons.warning,
+                        color: Color(0xffCECECE),
+                      ),
+                    ),
+                  ),
+                  ListTile(
                     onTap: () async {
                       await Share.share(
                           'Hey, Now VITOPIA App is Available for Both IOS and Android Check it now and Register the PROSHOWS and Enjoy the Event. Download it now https://vitopia.vitap.ac.in'
@@ -612,7 +653,7 @@ class ProfileV2 extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "version 1.0.0+8",
+                    "version 1.0.0+9",
                     style: GoogleFonts.montserrat(
                       color: const Color(0xff727272),
                       fontSize: 9.sp,
